@@ -1,0 +1,1004 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Simulateur Basse Tension - estimation facture" activeNav="bt">
+    <section class="section">
+        <div class="container">
+            <div class="section-header" style="text-align:center">
+                <h1 class="section-title">
+                    Simulateur <span class="gradient-text">Basse Tension</span>
+                </h1>
+                <p class="section-subtitle">
+                    Estimez votre facture d'électricité pour les clients
+                    résidentiels et commerciaux
+                </p>
+            </div>
+
+            <!-- Wizard Steps -->
+            <div class="wizard-steps" id="wizardSteps">
+                <div class="wizard-step active" data-step="1">
+                    <div class="wizard-step-number">1</div>
+                    <span class="wizard-step-label">Abonnement</span>
+                </div>
+                <div class="wizard-step-connector"></div>
+                <div class="wizard-step" data-step="2">
+                    <div class="wizard-step-number">2</div>
+                    <span class="wizard-step-label">Consommation</span>
+                </div>
+                <div class="wizard-step-connector"></div>
+                <div class="wizard-step" data-step="3">
+                    <div class="wizard-step-number">3</div>
+                    <span class="wizard-step-label">Résultat</span>
+                </div>
+            </div>
+
+            <div class="wizard-container">
+                <!-- Step 1: Subscription Selection -->
+                <div class="wizard-panel active" id="step1">
+                    <div
+                        class="bill-card"
+                        style="max-width:700px;margin:0 auto"
+                    >
+                        <div style="padding:32px">
+                            <h2
+                                style="font-size:20px;font-weight:700;margin-bottom:24px"
+                            >
+                                <span style="color:var(--onee-cyan)">01.</span> Informations
+                                d'abonnement
+                            </h2>
+
+                            <div class="form-group">
+                                <label for="selectTarif">
+                                    Tarif / التعريفة
+                                    <span class="form-hint"
+                                        >L'usage tarifaire pour lequel vous avez
+                                        souscrit</span
+                                    >
+                                </label>
+                                <select class="form-select" id="selectTarif">
+                                    <option value=""
+                                        >— Choisir le tarif —</option
+                                    >
+                                    <option value="domestique"
+                                        >Domestique ou éclairage privé</option
+                                    >
+                                    <option value="patente">Patenté</option>
+                                    <option value="force_motrice_industrielle"
+                                        >Force Motrice Industrielle</option
+                                    >
+                                    <option value="force_motrice_agricole"
+                                        >Force Motrice Agricole</option
+                                    >
+                                </select>
+                            </div>
+
+                            <div
+                                class="tariff-info glass-card"
+                                id="tariffInfo"
+                                style="display:none;padding:16px;margin-bottom:20px"
+                            >
+                                <p
+                                    id="tariffDesc"
+                                    style="font-size:13px;color:var(--w-color-primary-20);line-height:1.6"
+                                >
+                                </p>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="selectCompteur">
+                                    Type de compteur / نوع العداد
+                                    <span class="form-hint"
+                                        >Le type de compteur mis à votre
+                                        disposition</span
+                                    >
+                                </label>
+                                <select class="form-select" id="selectCompteur">
+                                    <option value="">— Choisir le type —</option
+                                    >
+                                    <option value="2fils">2 Fils</option>
+                                    <option value="4fils_5_15"
+                                        >4 Fils 5-15 Ampères</option
+                                    >
+                                    <option value="4fils_20_60"
+                                        >4 Fils 20-60 Ampères ou 10-60 Ampères</option
+                                    >
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Transformateur de Courant (TC)</label>
+                                <div
+                                    style="display:flex;gap:16px;align-items:center;"
+                                >
+                                    <label
+                                        style="display:flex;align-items:center;gap:6px;cursor:pointer;font-weight:400"
+                                    >
+                                        <input
+                                            type="radio"
+                                            name="tc_radio"
+                                            value="non"
+                                            checked
+                                            id="tcNon"
+                                        /> Non
+                                    </label>
+                                    <label
+                                        style="display:flex;align-items:center;gap:6px;cursor:pointer;font-weight:400"
+                                    >
+                                        <input
+                                            type="radio"
+                                            name="tc_radio"
+                                            value="oui"
+                                            id="tcOui"
+                                        /> Oui
+                                    </label>
+                                    <input
+                                        type="number"
+                                        class="form-input"
+                                        id="tcRatio"
+                                        value="1"
+                                        min="1"
+                                        style="width:80px;display:none"
+                                    />
+                                </div>
+                            </div>
+
+                            <div
+                                style="display:flex;gap:12px;justify-content:flex-end;margin-top:32px"
+                            >
+                                <a href="/" class="btn btn-secondary">Retour</a>
+                                <button
+                                    class="btn btn-primary"
+                                    id="toStep2"
+                                    disabled
+                                >
+                                    Suivant
+                                    <svg
+                                        width="16"
+                                        height="16"
+                                        viewBox="0 0 16 16"
+                                        fill="none"
+                                        ><path
+                                            d="M3.5 8H12.5M12.5 8L8.5 4M12.5 8L8.5 12"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Consumption Input -->
+                <div class="wizard-panel" id="step2">
+                    <div
+                        class="bill-card"
+                        style="max-width:700px;margin:0 auto"
+                    >
+                        <div style="padding:32px">
+                            <h2
+                                style="font-size:20px;font-weight:700;margin-bottom:24px"
+                            >
+                                <span style="color:var(--onee-cyan)">02.</span> Consommation
+                            </h2>
+
+                            <div class="grid grid-2">
+                                <div class="form-group">
+                                    <label for="consumption">
+                                        Consommation (kWh)
+                                        <span class="form-hint"
+                                            >La consommation totale du mois</span
+                                        >
+                                    </label>
+                                    <input
+                                        type="number"
+                                        class="form-input"
+                                        id="consumption"
+                                        min="0"
+                                        placeholder="Ex: 250"
+                                    />
+                                </div>
+                                <div class="form-group">
+                                    <label for="days">
+                                        Nombre de jours
+                                        <span class="form-hint"
+                                            >Durée de la période de facturation</span
+                                        >
+                                    </label>
+                                    <input
+                                        type="number"
+                                        class="form-input"
+                                        id="days"
+                                        min="1"
+                                        max="365"
+                                        value="30"
+                                        placeholder="30"
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="quick-select" style="margin-top:12px">
+                                <span
+                                    style="font-size:13px;color:var(--w-color-primary-30);margin-right:8px"
+                                    >Exemples rapides:</span
+                                >
+                                <button class="quick-btn" data-kwh="80"
+                                    >80 kWh</button
+                                >
+                                <button class="quick-btn" data-kwh="150"
+                                    >150 kWh</button
+                                >
+                                <button class="quick-btn" data-kwh="250"
+                                    >250 kWh</button
+                                >
+                                <button class="quick-btn" data-kwh="400"
+                                    >400 kWh</button
+                                >
+                                <button class="quick-btn" data-kwh="600"
+                                    >600 kWh</button
+                                >
+                            </div>
+
+                            <div
+                                style="display:flex;gap:12px;justify-content:flex-end;margin-top:32px"
+                            >
+                                <button
+                                    class="btn btn-secondary"
+                                    id="backToStep1">Retour</button
+                                >
+                                <button
+                                    class="btn btn-primary"
+                                    id="calculateBtn"
+                                    disabled
+                                >
+                                    Calculer la facture
+                                    <svg
+                                        width="16"
+                                        height="16"
+                                        viewBox="0 0 16 16"
+                                        fill="none"
+                                        ><path
+                                            d="M3.5 8H12.5M12.5 8L8.5 4M12.5 8L8.5 12"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Results -->
+                <div class="wizard-panel" id="step3">
+                    <div
+                        class="bill-card"
+                        style="max-width:800px;margin:0 auto"
+                    >
+                        <div style="padding:32px">
+                            <!-- Header -->
+                            <div
+                                style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px"
+                            >
+                                <div>
+                                    <h2 style="font-size:20px;font-weight:700">
+                                        Facture d'électricité simulée
+                                    </h2>
+                                    <p
+                                        style="font-size:13px;color:var(--w-color-primary-30);margin-top:4px"
+                                        id="resultMeta"
+                                    >
+                                    </p>
+                                </div>
+                                <div style="text-align:right;direction:rtl">
+                                    <p
+                                        style="font-size:18px;font-weight:700;font-family:'Inter',sans-serif"
+                                    >
+                                        فاتورة الكهرباء
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Total Amount Highlight -->
+                            <div
+                                class="result-total glass-card"
+                                style="text-align:center;padding:24px;margin-bottom:28px"
+                            >
+                                <p
+                                    style="font-size:13px;color:var(--w-color-primary-30);margin-bottom:4px"
+                                >
+                                    Total à régler (DH TTC) / الواجب أداؤه
+                                </p>
+                                <div class="result-amount">
+                                    <span class="gradient-text" id="totalAmount"
+                                        >0.00</span
+                                    >
+                                    <span class="currency"> DH</span>
+                                </div>
+                                <div
+                                    style="display:flex;justify-content:center;gap:24px;margin-top:12px;font-size:13px"
+                                >
+                                    <span
+                                        >En espèce: <strong id="totalEspece"
+                                            >0.00</strong
+                                        > DH</span
+                                    >
+                                    <span
+                                        >Par chèque: <strong id="totalCheque"
+                                            >0.00</strong
+                                        > DH</span
+                                    >
+                                </div>
+                            </div>
+
+                            <!-- Consumption Breakdown -->
+                            <h3
+                                style="font-size:15px;font-weight:600;margin-bottom:12px;display:flex;justify-content:space-between"
+                            >
+                                <span>Redevances Consommations</span>
+                                <span
+                                    style="direction:rtl;color:var(--w-color-primary-20)"
+                                    >مستحقات الاستهلاكات</span
+                                >
+                            </h3>
+                            <table
+                                class="bill-table"
+                                style="margin-bottom:24px"
+                            >
+                                <thead>
+                                    <tr>
+                                        <th>Tranche</th>
+                                        <th class="amount">Quantité (kWh)</th>
+                                        <th class="amount"
+                                            >Prix unitaire (DH)</th
+                                        >
+                                        <th class="amount">Montant HT (DH)</th>
+                                        <th class="ar-text">الشطر</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="trancheRows"></tbody>
+                            </table>
+
+                            <!-- Bill Details -->
+                            <table class="bill-table">
+                                <tbody>
+                                    <tr>
+                                        <td>Redevances Consommations (RC)</td>
+                                        <td class="amount" id="rcAmount"
+                                            >0.00</td
+                                        >
+                                        <td class="ar-text"
+                                            >مستحقات الاستهلاكات</td
+                                        >
+                                    </tr>
+                                    <tr>
+                                        <td>Redevances Fixes (RF)</td>
+                                        <td class="amount" id="rfAmount"
+                                            >0.00</td
+                                        >
+                                        <td class="ar-text">مستحقات ثابتة</td>
+                                    </tr>
+                                    <tr class="subtotal-row">
+                                        <td><strong>Total HT</strong></td>
+                                        <td class="amount"
+                                            ><strong id="totalHTAmount"
+                                                >0.00</strong
+                                            >
+                                        </td>
+                                        <td class="ar-text">(المبلغ (د ض</td>
+                                    </tr>
+                                    <tr>
+                                        <td>TPPA</td>
+                                        <td class="amount" id="tppaAmount"
+                                            >0.00</td
+                                        >
+                                        <td class="ar-text"
+                                            >مكس إنعاش الفضاء السمعي البصري</td
+                                        >
+                                    </tr>
+                                    <tr>
+                                        <td>Total TVA</td>
+                                        <td class="amount" id="tvaAmount"
+                                            >0.00</td
+                                        >
+                                        <td class="ar-text">مجموع ض. ق. م</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Timbre fiscal</td>
+                                        <td class="amount" id="timbreAmount"
+                                            >0.00</td
+                                        >
+                                        <td class="ar-text"
+                                            >واجب الدمغة الجبائية</td
+                                        >
+                                    </tr>
+                                    <tr class="subtotal-row">
+                                        <td><strong>Total taxes</strong></td>
+                                        <td class="amount"
+                                            ><strong id="totalTaxesAmount"
+                                                >0.00</strong
+                                            >
+                                        </td>
+                                        <td class="ar-text">مجموع الرسوم</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr class="total-row">
+                                        <td><strong>Total TTC</strong></td>
+                                        <td class="amount"
+                                            ><strong id="totalTTCAmount"
+                                                >0.00</strong
+                                            >
+                                        </td>
+                                        <td class="ar-text"
+                                            ><strong>الواجب أداؤه</strong>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                            <!-- TVA Detail (collapsible) -->
+                            <details style="margin-top:20px">
+                                <summary
+                                    style="font-size:14px;font-weight:600;cursor:pointer;color:var(--onee-cyan);padding:8px 0"
+                                >
+                                    Détail TVA
+                                </summary>
+                                <table
+                                    class="bill-table"
+                                    style="margin-top:8px"
+                                >
+                                    <tbody>
+                                        <tr>
+                                            <td>TVA sur RC (18%)</td>
+                                            <td class="amount" id="tvaRCDetail"
+                                                >0.00</td
+                                            >
+                                        </tr>
+                                        <tr>
+                                            <td>TVA sur TPPA (20%)</td>
+                                            <td
+                                                class="amount"
+                                                id="tvaTPPADetail">0.00</td
+                                            >
+                                        </tr>
+                                        <tr>
+                                            <td>TVA sur Entretien (20%)</td>
+                                            <td
+                                                class="amount"
+                                                id="tvaEntretienDetail">0.00</td
+                                            >
+                                        </tr>
+                                        <tr>
+                                            <td>TVA sur Location (15%)</td>
+                                            <td
+                                                class="amount"
+                                                id="tvaLocationDetail">0.00</td
+                                            >
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </details>
+
+                            <!-- Disclaimer -->
+                            <div
+                                style="margin-top:24px;padding:14px;background:rgba(10,189,227,0.06);border:1px solid rgba(10,189,227,0.15);border-radius:8px;text-align:center"
+                            >
+                                <p
+                                    style="font-size:13px;color:var(--w-color-primary-20)"
+                                >
+                                    Cette simulation est donnée à titre
+                                    indicatif et n'a aucune valeur contractuelle
+                                </p>
+                            </div>
+
+                            <div
+                                style="display:flex;gap:12px;justify-content:center;margin-top:28px;flex-wrap:wrap"
+                                class="no-print"
+                            >
+                                <button
+                                    class="btn btn-secondary"
+                                    id="backToStep2">Modifier</button
+                                >
+                                <button
+                                    class="btn btn-success"
+                                    id="saveBtn"
+                                    style="background: var(--w-color-success); border: none;"
+                                >
+                                    Sauvegarder
+                                </button>
+                                <button
+                                    class="btn btn-primary"
+                                    onclick="window.print()">Imprimer</button
+                                >
+                                <button class="btn btn-secondary" id="newCalc"
+                                    >Nouveau calcul</button
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>
+
+<style>
+    .wizard-container {
+        position: relative;
+    }
+    .wizard-panel {
+        display: none;
+    }
+    .wizard-panel.active {
+        display: block;
+        animation: fadeInUp 0.5s ease forwards;
+    }
+
+    .quick-select {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .quick-btn {
+        padding: 6px 14px;
+        border: 1px solid var(--onee-card-border);
+        border-radius: 100px;
+        background: transparent;
+        color: var(--w-color-primary-20);
+        font-size: 13px;
+        font-family: "Inter", sans-serif;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .quick-btn:hover,
+    .quick-btn.active {
+        border-color: var(--onee-cyan);
+        color: var(--onee-cyan);
+        background: rgba(10, 189, 227, 0.1);
+    }
+
+    details summary {
+        list-style: none;
+    }
+    details summary::-webkit-details-marker {
+        display: none;
+    }
+    details summary::before {
+        content: "▶ ";
+        font-size: 10px;
+        margin-right: 6px;
+        transition: transform 0.2s;
+        display: inline-block;
+    }
+    details[open] summary::before {
+        transform: rotate(90deg);
+    }
+
+    .result-total {
+        background: linear-gradient(
+            135deg,
+            rgba(10, 189, 227, 0.08),
+            rgba(212, 168, 67, 0.06)
+        );
+        border: 1px solid rgba(10, 189, 227, 0.15);
+    }
+</style>
+
+<script>
+    // ============================================
+    // BT Simulator Client-Side Logic
+    // ============================================
+
+    // Tariff data (embedded for client-side)
+    const BT_TRANCHES_LOW = [
+        {
+            tranche: 1,
+            nameFr: "Tranche 1",
+            nameAr: "الشطر 1",
+            maxKwh: 100,
+            unitPrice: 0.76356,
+        },
+        {
+            tranche: 2,
+            nameFr: "Tranche 2",
+            nameAr: "الشطر 2",
+            maxKwh: 150,
+            unitPrice: 0.9095,
+        },
+    ];
+
+    const BT_TRANCHES_HIGH = [
+        {
+            tranche: 3,
+            nameFr: "Tranche 3",
+            nameAr: "الشطر 3",
+            minKwh: 151,
+            maxKwh: 210,
+            unitPrice: 0.9095,
+        },
+        {
+            tranche: 4,
+            nameFr: "Tranche 4",
+            nameAr: "الشطر 4",
+            minKwh: 211,
+            maxKwh: 310,
+            unitPrice: 0.9895,
+        },
+        {
+            tranche: 5,
+            nameFr: "Tranche 5",
+            nameAr: "الشطر 5",
+            minKwh: 311,
+            maxKwh: 510,
+            unitPrice: 1.17094,
+        },
+        {
+            tranche: 6,
+            nameFr: "Tranche 6",
+            nameAr: "الشطر 6",
+            minKwh: 511,
+            maxKwh: Infinity,
+            unitPrice: 1.35238,
+        },
+    ];
+
+    const METER_FEES: Record<
+        string,
+        { rf: number; entretien: number; location: number }
+    > = {
+        "2fils": { rf: 17.42, entretien: 7.86, location: 9.56 },
+        "4fils_5_15": { rf: 33.28, entretien: 15, location: 18.28 },
+        "4fils_20_60": { rf: 44.57, entretien: 15, location: 29.57 },
+    };
+
+    const TARIFF_DESCRIPTIONS: Record<string, string> = {
+        domestique:
+            "Ce tarif vous concerne si vous êtes un client particulier n'exerçant aucune activité soumise à la taxe professionnelle.",
+        patente:
+            "Ce tarif vous concerne si vous êtes un client exerçant une activité soumise à l'impôt de la patente (commerce, fabrication, professions libérales, hôtellerie, etc...)",
+        force_motrice_industrielle:
+            "Ce tarif vous concerne si vous êtes un client disposant de circuits permettant d'alimenter des appareils de force motrice tels que les moteurs, les fours…",
+        force_motrice_agricole:
+            "Ce tarif vous concerne si vous êtes un client disposant des appareils destinés à usage agricole tels que les appareils de pompage.",
+    };
+
+    function round2(n: number): number {
+        return Math.round((n + Number.EPSILON) * 100) / 100;
+    }
+    function floor2(n: number): number {
+        return Math.floor(n * 100) / 100;
+    }
+    function fmt(n: number): string {
+        return n.toFixed(2);
+    }
+
+    // DOM elements
+    const selectTarif = document.getElementById(
+        "selectTarif"
+    ) as unknown as HTMLSelectElement;
+    const selectCompteur = document.getElementById(
+        "selectCompteur"
+    ) as unknown as HTMLSelectElement;
+    const tariffInfo = document.getElementById("tariffInfo") as HTMLDivElement;
+    const tariffDesc = document.getElementById(
+        "tariffDesc"
+    ) as HTMLParagraphElement;
+    const tcOui = document.getElementById("tcOui") as HTMLInputElement;
+    const tcNon = document.getElementById("tcNon") as HTMLInputElement;
+    const tcRatio = document.getElementById("tcRatio") as HTMLInputElement;
+    const toStep2 = document.getElementById("toStep2") as HTMLButtonElement;
+    const backToStep1 = document.getElementById(
+        "backToStep1"
+    ) as HTMLButtonElement;
+    const backToStep2 = document.getElementById(
+        "backToStep2"
+    ) as HTMLButtonElement;
+    const calculateBtn = document.getElementById(
+        "calculateBtn"
+    ) as HTMLButtonElement;
+    const newCalc = document.getElementById("newCalc") as HTMLButtonElement;
+    const consumption = document.getElementById(
+        "consumption"
+    ) as HTMLInputElement;
+    const daysInput = document.getElementById("days") as HTMLInputElement;
+
+    // Step management
+    function goToStep(step: number): void {
+        document
+            .querySelectorAll(".wizard-panel")
+            .forEach((p) => p.classList.remove("active"));
+        document.getElementById("step" + step)!.classList.add("active");
+        document.querySelectorAll<HTMLElement>(".wizard-step").forEach((s) => {
+            const sn = parseInt(s.dataset.step || "0");
+            s.classList.remove("active", "completed");
+            if (sn < step) s.classList.add("completed");
+            if (sn === step) s.classList.add("active");
+        });
+        // Connectors
+        document
+            .querySelectorAll<HTMLElement>(".wizard-step-connector")
+            .forEach((c, i) => {
+                c.style.background =
+                    i + 1 < step
+                        ? "var(--w-color-success)"
+                        : "var(--onee-card-border)";
+            });
+    }
+
+    // Validate step 1
+    function validateStep1(): void {
+        toStep2.disabled = !(selectTarif.value && selectCompteur.value);
+    }
+
+    selectTarif.addEventListener("change", () => {
+        validateStep1();
+        if (selectTarif.value && TARIFF_DESCRIPTIONS[selectTarif.value]) {
+            tariffDesc.textContent = TARIFF_DESCRIPTIONS[selectTarif.value];
+            tariffInfo.style.display = "block";
+        } else {
+            tariffInfo.style.display = "none";
+        }
+    });
+    selectCompteur.addEventListener("change", validateStep1);
+
+    // TC toggle
+    document
+        .querySelectorAll<HTMLInputElement>('input[name="tc_radio"]')
+        .forEach((r) => {
+            r.addEventListener("change", () => {
+                tcRatio.style.display = tcOui.checked ? "block" : "none";
+                if (tcNon.checked) tcRatio.value = "1";
+            });
+        });
+
+    // Navigation
+    toStep2.addEventListener("click", () => goToStep(2));
+    backToStep1.addEventListener("click", () => goToStep(1));
+    backToStep2.addEventListener("click", () => goToStep(2));
+    newCalc.addEventListener("click", () => {
+        selectTarif.value = "";
+        selectCompteur.value = "";
+        consumption.value = "";
+        daysInput.value = "30";
+        tariffInfo.style.display = "none";
+        validateStep1();
+        goToStep(1);
+    });
+
+    // Validate step 2
+    function validateStep2(): void {
+        calculateBtn.disabled = !(
+            consumption.value && parseInt(consumption.value) > 0
+        );
+    }
+    consumption.addEventListener("input", validateStep2);
+
+    // Quick buttons
+    document
+        .querySelectorAll<HTMLButtonElement>(".quick-btn")
+        .forEach((btn) => {
+            btn.addEventListener("click", () => {
+                consumption.value = btn.dataset.kwh || "";
+                document
+                    .querySelectorAll(".quick-btn")
+                    .forEach((b) => b.classList.remove("active"));
+                btn.classList.add("active");
+                validateStep2();
+            });
+        });
+
+    // === CALCULATE ===
+    calculateBtn.addEventListener("click", () => {
+        const cons =
+            parseInt(consumption.value) * parseInt(tcRatio.value || "1");
+        const days = parseInt(daysInput.value) || 30;
+        const meter = selectCompteur.value;
+        const fees = METER_FEES[meter];
+
+        // Calculate tranches
+        const tranches: Array<{
+            nameFr: string;
+            nameAr: string;
+            unitPrice: number;
+            quantity: number;
+            amount: number;
+        }> = [];
+        const isNormal = days >= 28 && days <= 31;
+
+        if (isNormal) {
+            if (cons <= 150) {
+                if (cons <= 100) {
+                    tranches.push({
+                        ...BT_TRANCHES_LOW[0],
+                        quantity: cons,
+                        amount: round2(cons * BT_TRANCHES_LOW[0].unitPrice),
+                    });
+                } else {
+                    tranches.push({
+                        ...BT_TRANCHES_LOW[0],
+                        quantity: 100,
+                        amount: round2(100 * BT_TRANCHES_LOW[0].unitPrice),
+                    });
+                    tranches.push({
+                        ...BT_TRANCHES_LOW[1],
+                        quantity: cons - 100,
+                        amount: round2(
+                            (cons - 100) * BT_TRANCHES_LOW[1].unitPrice
+                        ),
+                    });
+                }
+            } else {
+                const t =
+                    BT_TRANCHES_HIGH.find(
+                        (t) => cons >= t.minKwh && cons <= t.maxKwh
+                    ) || BT_TRANCHES_HIGH[3];
+                tranches.push({
+                    ...t,
+                    quantity: cons,
+                    amount: round2(cons * t.unitPrice),
+                });
+            }
+        } else {
+            const tr1 = Math.ceil((100 * days) / 30);
+            const tr2 = (150 * days) / (365 / 12);
+            if (cons <= tr2) {
+                if (cons <= tr1) {
+                    tranches.push({
+                        ...BT_TRANCHES_LOW[0],
+                        quantity: Math.round(cons),
+                        amount: round2(cons * BT_TRANCHES_LOW[0].unitPrice),
+                    });
+                } else {
+                    tranches.push({
+                        ...BT_TRANCHES_LOW[0],
+                        quantity: tr1,
+                        amount: round2(tr1 * BT_TRANCHES_LOW[0].unitPrice),
+                    });
+                    tranches.push({
+                        ...BT_TRANCHES_LOW[1],
+                        quantity: Math.round(cons - tr1),
+                        amount: round2(
+                            (cons - tr1) * BT_TRANCHES_LOW[1].unitPrice
+                        ),
+                    });
+                }
+            } else {
+                const tr3sup = Math.ceil((210 * days) / 30);
+                const tr4sup = Math.ceil((310 * days) / 30);
+                const tr5sup = Math.ceil((510 * days) / 30);
+                let t;
+                if (cons <= tr3sup) t = BT_TRANCHES_HIGH[0];
+                else if (cons <= tr4sup) t = BT_TRANCHES_HIGH[1];
+                else if (cons <= tr5sup) t = BT_TRANCHES_HIGH[2];
+                else t = BT_TRANCHES_HIGH[3];
+                tranches.push({
+                    ...t,
+                    quantity: cons,
+                    amount: round2(cons * t.unitPrice),
+                });
+            }
+        }
+
+        const rc = round2(tranches.reduce((s: number, t) => s + t.amount, 0));
+        const rf = fees.rf;
+        const totalHT = round2(rc + rf);
+
+        // TPPA
+        let seuilExoneration = isNormal ? 200 : Math.ceil((200 * days) / 30);
+        let plafondTPPA = isNormal
+            ? round2(100 / 1.2)
+            : round2(((100 / 1.2) * days) / 30);
+        let tppa = 0;
+        if (cons > seuilExoneration) {
+            const ratio = isNormal ? 1 : days / 30;
+            tppa = round2(
+                100 * ratio * 0.08333 +
+                    100 * ratio * 0.125 +
+                    (cons - seuilExoneration) * 0.18667
+            );
+            if (tppa > plafondTPPA) tppa = plafondTPPA;
+        }
+
+        // TVA
+        const tvaRC = floor2(rc * 0.18);
+        const tvaTPPA = floor2(tppa * 0.2);
+        const tvaEntretien = floor2(fees.entretien * 0.2);
+        const tvaLocation = floor2(fees.location * 0.15);
+        const tva = round2(tvaRC + tvaTPPA + tvaEntretien + tvaLocation);
+
+        // Timbre fiscal
+        const timbre = round2((totalHT + tppa + tva) * 0.0025);
+
+        // Totals
+        const totalTaxes = round2(tppa + tva + timbre);
+        const totalEspece = round2(totalHT + totalTaxes);
+        const totalCheque = round2(totalEspece - timbre);
+
+        // Render results
+        const trancheRows = document.getElementById("trancheRows")!;
+        trancheRows.innerHTML = tranches
+            .map(
+                (t) => `
+            <tr>
+                <td>${t.nameFr}</td>
+                <td class="amount">${t.quantity}</td>
+                <td class="amount">${t.unitPrice.toFixed(5)}</td>
+                <td class="amount">${fmt(t.amount)}</td>
+                <td class="ar-text">${t.nameAr}</td>
+            </tr>
+        `
+            )
+            .join("");
+
+        document.getElementById("rcAmount")!.textContent = fmt(rc);
+        document.getElementById("rfAmount")!.textContent = fmt(rf);
+        document.getElementById("totalHTAmount")!.textContent = fmt(totalHT);
+        document.getElementById("tppaAmount")!.textContent = fmt(tppa);
+        document.getElementById("tvaAmount")!.textContent = fmt(tva);
+        document.getElementById("timbreAmount")!.textContent = fmt(timbre);
+        document.getElementById("totalTaxesAmount")!.textContent =
+            fmt(totalTaxes);
+        document.getElementById("totalTTCAmount")!.textContent =
+            fmt(totalEspece);
+        document.getElementById("totalAmount")!.textContent = fmt(totalEspece);
+        document.getElementById("totalEspece")!.textContent = fmt(totalEspece);
+        document.getElementById("totalCheque")!.textContent = fmt(totalCheque);
+
+        // TVA details
+        document.getElementById("tvaRCDetail")!.textContent = fmt(tvaRC);
+        document.getElementById("tvaTPPADetail")!.textContent = fmt(tvaTPPA);
+        document.getElementById("tvaEntretienDetail")!.textContent =
+            fmt(tvaEntretien);
+        document.getElementById("tvaLocationDetail")!.textContent =
+            fmt(tvaLocation);
+
+        // Meta
+        const tarifLabel = selectTarif.options[selectTarif.selectedIndex].text;
+        const compteurLabel =
+            selectCompteur.options[selectCompteur.selectedIndex].text;
+        const metaStr = `${tarifLabel} • ${compteurLabel} • ${cons} kWh • ${days} jours`;
+        document.getElementById("resultMeta")!.textContent = metaStr;
+
+        // Save logic
+        const saveBtn = document.getElementById("saveBtn")!;
+        (saveBtn as any).onclick = () => {
+            const history = JSON.parse(
+                localStorage.getItem("estimation_history") || "[]"
+            );
+            const entry = {
+                id: Date.now(),
+                type: "bt",
+                date: new Date().toISOString(),
+                label: metaStr,
+                total: totalEspece,
+                details: {
+                    tarif: selectTarif.value,
+                    compteur: selectCompteur.value,
+                    cons,
+                    days,
+                    rc,
+                    rf,
+                    totalHT,
+                    tppa,
+                    tva,
+                    timbre,
+                    totalEspece,
+                },
+            };
+            history.unshift(entry);
+            localStorage.setItem("estimation_history", JSON.stringify(history));
+            alert("Estimation sauvegardée avec succès !");
+            saveBtn.setAttribute("disabled", "true");
+            saveBtn.textContent = "Sauvegardé";
+        };
+
+        goToStep(3);
+    });
+</script>

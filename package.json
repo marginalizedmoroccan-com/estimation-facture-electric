@@ -1,0 +1,24 @@
+{
+	"name": "estimation-facture-electric",
+	"type": "module",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "astro dev",
+		"build": "astro build",
+		"preview": "astro build && wrangler dev",
+		"astro": "astro",
+		"deploy": "astro build && wrangler deploy",
+		"cf-typegen": "wrangler types"
+	},
+	"dependencies": {
+		"@astrojs/cloudflare": "^12.6.12",
+		"astro": "^5.17.1"
+	},
+	"devDependencies": {
+		"@types/node": "^25.3.3",
+		"wrangler": "^4.69.0",
+		"sass": "1.97.3",
+		"typescript": "5.9.3",
+		"webcoreui": "1.4.0"
+	}
+}

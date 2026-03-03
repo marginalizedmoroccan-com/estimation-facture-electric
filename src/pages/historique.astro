@@ -1,0 +1,173 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+    title="Historique des Estimations - estimation facture"
+    activeNav="historique"
+>
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title">
+                    Mon <span class="gradient-text">Historique</span>
+                </h1>
+                <p class="section-subtitle">
+                    Retrouvez et gérez vos simulations enregistrées localement.
+                </p>
+            </div>
+
+            <div id="historyContainer" class="animate-fade-in">
+                <div
+                    class="glass-card"
+                    style="padding: 40px; text-align: center; border-style: dashed;"
+                    id="emptyState"
+                >
+                    <div style="font-size: 48px; margin-bottom: 20px;">📂</div>
+                    <h2
+                        style="font-size: 20px; font-weight: 700; margin-bottom: 8px;"
+                    >
+                        Aucune estimation enregistrée
+                    </h2>
+                    <p
+                        style="color: var(--w-color-primary-30); margin-bottom: 24px;"
+                    >
+                        Vos simulations apparaîtront ici une fois que vous les
+                        aurez sauvegardées.
+                    </p>
+                    <a href="/simulateur-bt" class="btn btn-primary"
+                        >Nouvelle simulation</a
+                    >
+                </div>
+
+                <div id="historyList" style="display: none;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;"
+                    >
+                        <div
+                            style="font-size: 14px; color: var(--w-color-primary-30);"
+                        >
+                            <span id="itemCount">0</span> estimations trouvées
+                        </div>
+                        <button
+                            class="btn btn-secondary btn-sm"
+                            id="clearHistory"
+                            style="color: var(--w-color-danger); border-color: rgba(235, 77, 75, 0.2);"
+                        >
+                            Tout effacer
+                        </button>
+                    </div>
+
+                    <div class="grid grid-1" style="gap: 16px;" id="itemsGrid">
+                        <!-- Items injected here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>
+
+<script>
+    function renderHistory() {
+        const history = JSON.parse(
+            localStorage.getItem("estimation_history") || "[]"
+        );
+        const emptyState = document.getElementById("emptyState")!;
+        const historyList = document.getElementById("historyList")!;
+        const itemsGrid = document.getElementById("itemsGrid")!;
+        const itemCount = document.getElementById("itemCount")!;
+
+        if (history.length === 0) {
+            emptyState.style.display = "block";
+            historyList.style.display = "none";
+            return;
+        }
+
+        emptyState.style.display = "none";
+        historyList.style.display = "block";
+        itemCount.textContent = history.length.toString();
+
+        itemsGrid.innerHTML = history
+            .map((item: any) => {
+                const date = new Date(item.date).toLocaleDateString("fr-FR", {
+                    day: "2-digit",
+                    month: "short",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                });
+
+                return `
+                <div class="bill-card animate-fade-in" style="margin:0">
+                    <div style="padding: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+                        <div style="display: flex; gap: 16px; align-items: center;">
+                            <div style="background: rgba(10, 189, 227, 0.1); color: var(--onee-cyan); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                                ${item.type === "bt" ? "🏠" : "🏭"}
+                            </div>
+                            <div>
+                                <div style="font-weight: 700; color: #fff; margin-bottom: 4px;">${
+                                    item.label
+                                }</div>
+                                <div style="font-size: 12px; color: var(--w-color-primary-30);">${date} • ${item.type.toUpperCase()}</div>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 24px;">
+                            <div style="text-align: right;">
+                                <div style="font-size: 18px; font-weight: 800; color: var(--onee-cyan);">${item.total.toFixed(
+                                    2
+                                )} DH</div>
+                                <div style="font-size: 11px; color: var(--w-color-primary-40);">TTC Stimulé</div>
+                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                <button class="btn btn-secondary btn-sm" onclick="window.location.href='/reclamation?id=${
+                                    item.id
+                                }'">
+                                    Réclamation
+                                </button>
+                                <button class="btn btn-icon-only btn-sm delete-btn" data-id="${
+                                    item.id
+                                }" style="border:none; background: rgba(235, 77, 75, 0.1); color: var(--w-color-danger);">
+                                    🗑️
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            })
+            .join("");
+
+        // Attach delete listeners
+        document.querySelectorAll(".delete-btn").forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+                const id = (e.currentTarget as HTMLElement).dataset.id;
+                const newHistory = history.filter(
+                    (h: any) => h.id.toString() !== id
+                );
+                localStorage.setItem(
+                    "estimation_history",
+                    JSON.stringify(newHistory)
+                );
+                renderHistory();
+            });
+        });
+    }
+
+    document.getElementById("clearHistory")?.addEventListener("click", () => {
+        if (confirm("Êtes-vous sûr de vouloir effacer tout l'historique ?")) {
+            localStorage.removeItem("estimation_history");
+            renderHistory();
+        }
+    });
+
+    // Initial render
+    renderHistory();
+</script>
+
+<style>
+    .animate-fade-in {
+        opacity: 0;
+        transform: translateY(10px);
+        animation: fadeInUp 0.4s ease forwards;
+    }
+</style>

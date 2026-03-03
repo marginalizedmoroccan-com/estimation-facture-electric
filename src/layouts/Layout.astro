@@ -1,0 +1,142 @@
+---
+interface Props {
+    title?: string;
+    description?: string;
+    activeNav?: string;
+}
+
+const {
+    title = "Estimation Facture Électricité - Maroc",
+    description = "Estimez votre facture d'électricité au Maroc en ligne. Simulateur de facture pour tous les tarifs: domestique, patenté, force motrice, haute tension.",
+    activeNav = "",
+} = Astro.props;
+---
+
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content={description} />
+        <meta name="generator" content={Astro.generator} />
+
+        <!-- SEO Meta Tags -->
+        <meta
+            name="keywords"
+            content="facture électricité, simulation facture, ONEE, estimation facture, calcul électricité maroc, basse tension, haute tension"
+        />
+        <meta name="author" content="estimation facture" />
+        <link rel="canonical" href={Astro.url.href} />
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={Astro.url.href} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta
+            property="og:image"
+            content={new URL("/og-image.png", Astro.url).href}
+        />
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={Astro.url.href} />
+        <meta property="twitter:title" content={title} />
+        <meta property="twitter:description" content={description} />
+        <meta
+            property="twitter:image"
+            content={new URL("/og-image.png", Astro.url).href}
+        />
+
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <title>{title}</title>
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <nav class="nav">
+                    <a href="/" class="nav-logo">
+                        <img
+                            src="/logo.png"
+                            alt="logo"
+                            style="width: 32px; height: 32px; border-radius: 6px;"
+                        />
+                        <span
+                            >estimation<span class="gradient-text">
+                                facture</span
+                            >
+                        </span>
+                    </a>
+                    <ul class="nav-links">
+                        <li>
+                            <a
+                                href="/"
+                                class:list={[{ active: activeNav === "home" }]}
+                                >Accueil</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="/simulateur-bt"
+                                class:list={[{ active: activeNav === "bt" }]}
+                                >Basse Tension</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="/simulateur-general"
+                                class:list={[
+                                    { active: activeNav === "general" },
+                                ]}>Tarif Général</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="/tarifs"
+                                class:list={[
+                                    { active: activeNav === "tarifs" },
+                                ]}>Tarifs</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="/historique"
+                                class:list={[
+                                    { active: activeNav === "historique" },
+                                ]}>Historique</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="/droits"
+                                class:list={[
+                                    { active: activeNav === "droits" },
+                                ]}>Vos Droits</a
+                            >
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <slot />
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+                <p>
+                    Cette simulation est donnée à titre indicatif et n'a aucune
+                    valeur contractuelle.
+                </p>
+                <p style="margin-top: 6px; font-size: 12px; opacity: 0.6;">
+                    © {new Date().getFullYear()} estimation facture — Basé sur les
+                    tarifs officiels d'électricité
+                </p>
+            </div>
+        </footer>
+    </body>
+</html>
+
+<style is:global>
+    @import "../styles/global.scss";
+</style>

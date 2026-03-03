@@ -1,0 +1,906 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+    title="Simulateur Tarif Général - estimation facture"
+    activeNav="general"
+>
+    <section class="section">
+        <div class="container">
+            <div class="section-header" style="text-align:center">
+                <h1 class="section-title">
+                    Tarif Général <span class="gradient-text">HT / THT</span>
+                </h1>
+                <p class="section-subtitle">
+                    Estimation pour les clients haute et très haute tension —
+                    Grands Comptes
+                </p>
+            </div>
+
+            <!-- Wizard Steps -->
+            <div class="wizard-steps">
+                <div class="wizard-step active" data-step="1">
+                    <div class="wizard-step-number">1</div>
+                    <span class="wizard-step-label">Configuration</span>
+                </div>
+                <div class="wizard-step-connector"></div>
+                <div class="wizard-step" data-step="2">
+                    <div class="wizard-step-number">2</div>
+                    <span class="wizard-step-label">Consommation</span>
+                </div>
+                <div class="wizard-step-connector"></div>
+                <div class="wizard-step" data-step="3">
+                    <div class="wizard-step-number">3</div>
+                    <span class="wizard-step-label">Résultat</span>
+                </div>
+            </div>
+
+            <!-- Step 1: Configuration -->
+            <div class="wizard-panel active" id="step1">
+                <div class="bill-card" style="max-width:700px;margin:0 auto">
+                    <div style="padding:32px">
+                        <h2
+                            style="font-size:20px;font-weight:700;margin-bottom:24px"
+                        >
+                            <span style="color:var(--onee-cyan)">01.</span> Configuration
+                            tarifaire
+                        </h2>
+
+                        <div class="form-group">
+                            <label for="voltageLevel">Niveau de tension</label>
+                            <select class="form-select" id="voltageLevel">
+                                <option value="">— Choisir —</option>
+                                <option value="tht"
+                                    >Très Haute Tension (150 et 225 kV)</option
+                                >
+                                <option value="ht">Haute Tension (60 kV)</option
+                                >
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tariffOption">Option tarifaire</label>
+                            <select class="form-select" id="tariffOption">
+                                <option value="">— Choisir —</option>
+                                <option value="tlu"
+                                    >TLU — Très Longue Utilisation (&gt; 6000
+                                    h/an)</option
+                                >
+                                <option value="mu"
+                                    >MU — Moyenne Utilisation (3500 - 6000 h/an)</option
+                                >
+                                <option value="cu"
+                                    >CU — Courte Utilisation (1000 - 3500 h/an)</option
+                                >
+                                <option value="tcu"
+                                    >TCU — Très Courte Utilisation (&lt; 1000
+                                    h/an)</option
+                                >
+                            </select>
+                        </div>
+
+                        <div
+                            class="tariff-preview glass-card"
+                            id="tariffPreview"
+                            style="display:none;padding:16px;margin-bottom:20px"
+                        >
+                            <div
+                                style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px"
+                            >
+                                <span style="color:var(--w-color-primary-30)"
+                                    >Prime fixe:</span
+                                >
+                                <span id="prevPrimFixe" style="font-weight:600"
+                                    >—</span
+                                >
+                            </div>
+                            <div
+                                style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"
+                            >
+                                <span style="color:var(--w-color-primary-30)"
+                                    >Prix HP / HPL / HC:</span
+                                >
+                                <span id="prevPrices" style="font-weight:600"
+                                    >—</span
+                                >
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Mode de tarification</label>
+                            <div style="display:flex;gap:16px">
+                                <label
+                                    style="display:flex;align-items:center;gap:6px;cursor:pointer;font-weight:400"
+                                >
+                                    <input
+                                        type="radio"
+                                        name="mode"
+                                        value="general"
+                                        checked
+                                        id="modeGeneral"
+                                    /> Tarif Général
+                                </label>
+                                <label
+                                    style="display:flex;align-items:center;gap:6px;cursor:pointer;font-weight:400"
+                                >
+                                    <input
+                                        type="radio"
+                                        name="mode"
+                                        value="superpointe"
+                                        id="modeSuperPointe"
+                                    /> Super Pointe
+                                </label>
+                            </div>
+                        </div>
+
+                        <div
+                            style="display:flex;gap:12px;justify-content:flex-end;margin-top:32px"
+                        >
+                            <a href="/" class="btn btn-secondary">Retour</a>
+                            <button
+                                class="btn btn-primary"
+                                id="gtToStep2"
+                                disabled>Suivant →</button
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Consumption & Power -->
+            <div class="wizard-panel" id="step2">
+                <div class="bill-card" style="max-width:700px;margin:0 auto">
+                    <div style="padding:32px">
+                        <h2
+                            style="font-size:20px;font-weight:700;margin-bottom:24px"
+                        >
+                            <span style="color:var(--onee-cyan)">02.</span> Consommation
+                            & Puissance
+                        </h2>
+
+                        <h3
+                            style="font-size:15px;font-weight:600;margin-bottom:16px;color:var(--onee-gold)"
+                        >
+                            Consommation par poste horaire (kWh)
+                        </h3>
+
+                        <!-- Super Pointe field (hidden by default) -->
+                        <div
+                            class="form-group"
+                            id="shpGroup"
+                            style="display:none"
+                        >
+                            <label for="consSHP"
+                                >Super Heures de Pointe (SHP)</label
+                            >
+                            <input
+                                type="number"
+                                class="form-input"
+                                id="consSHP"
+                                min="0"
+                                value="0"
+                            />
+                        </div>
+
+                        <div class="grid grid-3">
+                            <div class="form-group">
+                                <label for="consHP">Heures de Pointe (HP)</label
+                                >
+                                <input
+                                    type="number"
+                                    class="form-input"
+                                    id="consHP"
+                                    min="0"
+                                    placeholder="kWh"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="consHPL">Heures Pleines (HPL)</label
+                                >
+                                <input
+                                    type="number"
+                                    class="form-input"
+                                    id="consHPL"
+                                    min="0"
+                                    placeholder="kWh"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="consHC">Heures Creuses (HC)</label>
+                                <input
+                                    type="number"
+                                    class="form-input"
+                                    id="consHC"
+                                    min="0"
+                                    placeholder="kWh"
+                                />
+                            </div>
+                        </div>
+
+                        <h3
+                            style="font-size:15px;font-weight:600;margin:24px 0 16px;color:var(--onee-gold)"
+                        >
+                            Puissance (kW)
+                        </h3>
+
+                        <!-- Super Pointe power fields -->
+                        <div id="spPowerGroup" style="display:none">
+                            <div class="grid grid-2" style="margin-bottom:16px">
+                                <div class="form-group">
+                                    <label for="psSHP"
+                                        >PS Super Pointe (kW)</label
+                                    >
+                                    <input
+                                        type="number"
+                                        class="form-input"
+                                        id="psSHP"
+                                        min="0"
+                                        value="0"
+                                    />
+                                </div>
+                                <div class="form-group">
+                                    <label for="paSHP"
+                                        >PA Super Pointe (kW)</label
+                                    >
+                                    <input
+                                        type="number"
+                                        class="form-input"
+                                        id="paSHP"
+                                        min="0"
+                                        value="0"
+                                    />
+                                </div>
+                            </div>
+                            <div class="grid grid-2" style="margin-bottom:16px">
+                                <div class="form-group">
+                                    <label for="ps1">PS Pointe (kW)</label>
+                                    <input
+                                        type="number"
+                                        class="form-input"
+                                        id="ps1"
+                                        min="0"
+                                        placeholder="PS1"
+                                    />
+                                </div>
+                                <div class="form-group">
+                                    <label for="pa1">PA Pointe (kW)</label>
+                                    <input
+                                        type="number"
+                                        class="form-input"
+                                        id="pa1"
+                                        min="0"
+                                        value="0"
+                                    />
+                                </div>
+                            </div>
+                            <div class="grid grid-2" style="margin-bottom:16px">
+                                <div class="form-group">
+                                    <label for="ps2">PS Pleines (kW)</label>
+                                    <input
+                                        type="number"
+                                        class="form-input"
+                                        id="ps2"
+                                        min="0"
+                                        placeholder="PS2"
+                                    />
+                                </div>
+                                <div class="form-group">
+                                    <label for="pa2">PA Pleines (kW)</label>
+                                    <input
+                                        type="number"
+                                        class="form-input"
+                                        id="pa2"
+                                        min="0"
+                                        value="0"
+                                    />
+                                </div>
+                            </div>
+                            <div class="grid grid-2">
+                                <div class="form-group">
+                                    <label for="ps3">PS Creuses (kW)</label>
+                                    <input
+                                        type="number"
+                                        class="form-input"
+                                        id="ps3"
+                                        min="0"
+                                        placeholder="PS3"
+                                    />
+                                </div>
+                                <div class="form-group">
+                                    <label for="pa3">PA Creuses (kW)</label>
+                                    <input
+                                        type="number"
+                                        class="form-input"
+                                        id="pa3"
+                                        min="0"
+                                        value="0"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- General power fields -->
+                        <div id="genPowerGroup">
+                            <div class="grid grid-2">
+                                <div class="form-group">
+                                    <label for="puissanceSouscrite"
+                                        >Puissance souscrite (kW)
+                                        <span class="form-hint"
+                                            >PS annuelle</span
+                                        >
+                                    </label>
+                                    <input
+                                        type="number"
+                                        class="form-input"
+                                        id="puissanceSouscrite"
+                                        min="0"
+                                        placeholder="kW"
+                                    />
+                                </div>
+                                <div class="form-group">
+                                    <label for="puissanceAppelee"
+                                        >Puissance max appelée (kW)
+                                        <span class="form-hint">PA du mois</span
+                                        >
+                                    </label>
+                                    <input
+                                        type="number"
+                                        class="form-input"
+                                        id="puissanceAppelee"
+                                        min="0"
+                                        value="0"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-2" style="margin-top:20px">
+                            <div class="form-group">
+                                <label for="cosPhi"
+                                    >Facteur de puissance (cos φ)
+                                    <span class="form-hint"
+                                        >Min contractuel: <span id="cosPhiMin"
+                                            >0.80</span
+                                        >
+                                    </span>
+                                </label>
+                                <input
+                                    type="number"
+                                    class="form-input"
+                                    id="cosPhi"
+                                    min="0"
+                                    max="1"
+                                    step="0.01"
+                                    value="0.90"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        id="firstSixMonths"
+                                        style="margin-right:6px;"
+                                    />
+                                    6 premiers mois d'abonnement
+                                    <span class="form-hint"
+                                        >RDPS non appliquée</span
+                                    >
+                                </label>
+                            </div>
+                        </div>
+
+                        <div
+                            style="display:flex;gap:12px;justify-content:flex-end;margin-top:32px"
+                        >
+                            <button class="btn btn-secondary" id="gtBackToStep1"
+                                >Retour</button
+                            >
+                            <button class="btn btn-primary" id="gtCalculateBtn"
+                                >Calculer →</button
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Results -->
+            <div class="wizard-panel" id="step3">
+                <div class="bill-card" style="max-width:800px;margin:0 auto">
+                    <div style="padding:32px">
+                        <div
+                            style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px"
+                        >
+                            <div>
+                                <h2 style="font-size:20px;font-weight:700">
+                                    Estimation Tarif Général
+                                </h2>
+                                <p
+                                    style="font-size:13px;color:var(--w-color-primary-30);margin-top:4px"
+                                    id="gtResultMeta"
+                                >
+                                </p>
+                            </div>
+                        </div>
+
+                        <div
+                            class="result-total glass-card"
+                            style="text-align:center;padding:24px;margin-bottom:28px;background:linear-gradient(135deg, rgba(212,168,67,0.08), rgba(10,189,227,0.06));border:1px solid rgba(212,168,67,0.2)"
+                        >
+                            <p
+                                style="font-size:13px;color:var(--w-color-primary-30);margin-bottom:4px"
+                            >
+                                Total HT mensuel
+                            </p>
+                            <div class="result-amount">
+                                <span class="gradient-text" id="gtTotalAmount"
+                                    >0.00</span
+                                >
+                                <span class="currency"> DH</span>
+                            </div>
+                        </div>
+
+                        <table class="bill-table">
+                            <thead>
+                                <tr>
+                                    <th>Composante</th>
+                                    <th>Détail</th>
+                                    <th class="amount">Montant (DH)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="gtResultBody"></tbody>
+                            <tfoot>
+                                <tr class="total-row">
+                                    <td colspan="2"
+                                        ><strong>Total HT</strong>
+                                    </td>
+                                    <td class="amount"
+                                        ><strong id="gtTotalHT">0.00</strong>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                        <div
+                            style="margin-top:24px;padding:14px;background:rgba(10,189,227,0.06);border:1px solid rgba(10,189,227,0.15);border-radius:8px;text-align:center"
+                        >
+                            <p
+                                style="font-size:13px;color:var(--w-color-primary-20)"
+                            >
+                                Les tarifs sont exprimés en dirhams TVA comprise
+                                (TVA est de 20%)
+                            </p>
+                        </div>
+
+                        <div
+                            style="display:flex;gap:12px;justify-content:center;margin-top:28px;flex-wrap:wrap"
+                            class="no-print"
+                        >
+                            <button class="btn btn-secondary" id="gtBackToStep2"
+                                >Modifier</button
+                            >
+                            <button
+                                class="btn btn-success"
+                                id="gtSaveBtn"
+                                style="background: var(--w-color-success); border: none;"
+                            >
+                                Sauvegarder
+                            </button>
+                            <button
+                                class="btn btn-primary"
+                                onclick="window.print()">Imprimer</button
+                            >
+                            <button class="btn btn-secondary" id="gtNewCalc"
+                                >Nouveau calcul</button
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>
+
+<style>
+    .wizard-panel {
+        display: none;
+    }
+    .wizard-panel.active {
+        display: block;
+        animation: fadeInUp 0.5s ease forwards;
+    }
+    .result-total {
+        background: linear-gradient(
+            135deg,
+            rgba(212, 168, 67, 0.08),
+            rgba(10, 189, 227, 0.06)
+        );
+        border: 1px solid rgba(212, 168, 67, 0.2);
+    }
+</style>
+
+<script>
+    // Tariff data
+    type TariffRates = { pf: number; hp: number; hpl: number; hc: number };
+    const TARIFFS: Record<string, Record<string, TariffRates>> = {
+        tht: {
+            tlu: { pf: 2128.6, hp: 0.7833, hpl: 0.6473, hc: 0.6077 },
+            mu: { pf: 852.17, hp: 1.2477, hpl: 0.7673, hc: 0.6077 },
+            cu: { pf: 426.08, hp: 1.6454, hpl: 0.8924, hc: 0.6348 },
+            tcu: { pf: 378.0, hp: 1.9088, hpl: 0.9213, hc: 0.6391 },
+        },
+        ht: {
+            tlu: { pf: 2379.13, hp: 0.8265, hpl: 0.6613, hc: 0.6263 },
+            mu: { pf: 952.76, hp: 1.3561, hpl: 0.7988, hc: 0.6263 },
+            cu: { pf: 475.46, hp: 1.8101, hpl: 0.9388, hc: 0.6567 },
+            tcu: { pf: 421.81, hp: 2.0999, hpl: 0.9692, hc: 0.6611 },
+        },
+    };
+
+    function round2(n: number): number {
+        return Math.round((n + Number.EPSILON) * 100) / 100;
+    }
+    function fmt(n: number): string {
+        return n.toFixed(2);
+    }
+
+    const voltageLevel = document.getElementById("voltageLevel") as any;
+    const tariffOption = document.getElementById("tariffOption") as any;
+    const tariffPreview = document.getElementById("tariffPreview") as any;
+    const modeGeneral = document.getElementById("modeGeneral") as any;
+    const modeSuperPointe = document.getElementById("modeSuperPointe") as any;
+
+    function goToStep(step: number): void {
+        document
+            .querySelectorAll(".wizard-panel")
+            .forEach((p) => p.classList.remove("active"));
+        document.getElementById("step" + step)!.classList.add("active");
+        document.querySelectorAll<HTMLElement>(".wizard-step").forEach((s) => {
+            const sn = parseInt(s.dataset.step || "0");
+            s.classList.remove("active", "completed");
+            if (sn < step) s.classList.add("completed");
+            if (sn === step) s.classList.add("active");
+        });
+        document
+            .querySelectorAll<HTMLElement>(".wizard-step-connector")
+            .forEach((c, i) => {
+                c.style.background =
+                    i + 1 < step
+                        ? "var(--w-color-success)"
+                        : "var(--onee-card-border)";
+            });
+    }
+
+    function validateStep1(): void {
+        const btn = document.querySelector<HTMLButtonElement>("#gtToStep2");
+        if (btn) btn.disabled = !(voltageLevel.value && tariffOption.value);
+    }
+
+    function updatePreview(): void {
+        if (voltageLevel.value && tariffOption.value) {
+            const t = TARIFFS[voltageLevel.value][tariffOption.value];
+            document.getElementById("prevPrimFixe")!.textContent =
+                t.pf + " DH kW/An";
+            document.getElementById(
+                "prevPrices"
+            )!.textContent = `${t.hp} / ${t.hpl} / ${t.hc} DH/kWh`;
+            tariffPreview.style.display = "block";
+        } else {
+            tariffPreview.style.display = "none";
+        }
+    }
+
+    voltageLevel.addEventListener("change", () => {
+        validateStep1();
+        updatePreview();
+    });
+    tariffOption.addEventListener("change", () => {
+        validateStep1();
+        updatePreview();
+    });
+
+    // Mode toggle
+    document
+        .querySelectorAll<HTMLInputElement>('input[name="mode"]')
+        .forEach((r) => {
+            r.addEventListener("change", () => {
+                const isSP = modeSuperPointe.checked;
+                (
+                    document.getElementById("shpGroup") as HTMLElement
+                ).style.display = isSP ? "block" : "none";
+                (
+                    document.getElementById("spPowerGroup") as HTMLElement
+                ).style.display = isSP ? "block" : "none";
+                (
+                    document.getElementById("genPowerGroup") as HTMLElement
+                ).style.display = isSP ? "none" : "block";
+                document.getElementById("cosPhiMin")!.textContent = isSP
+                    ? "0.90"
+                    : "0.80";
+            });
+        });
+
+    // Navigation
+    document
+        .getElementById("gtToStep2")!
+        .addEventListener("click", () => goToStep(2));
+    document
+        .getElementById("gtBackToStep1")!
+        .addEventListener("click", () => goToStep(1));
+    document
+        .getElementById("gtBackToStep2")!
+        .addEventListener("click", () => goToStep(2));
+    document.getElementById("gtNewCalc")!.addEventListener("click", () => {
+        voltageLevel.value = "";
+        tariffOption.value = "";
+        tariffPreview.style.display = "none";
+        validateStep1();
+        goToStep(1);
+    });
+
+    // Calculate
+    document.getElementById("gtCalculateBtn")!.addEventListener("click", () => {
+        const t = TARIFFS[voltageLevel.value][tariffOption.value];
+        const isSP = modeSuperPointe.checked;
+        const cosPhi =
+            parseFloat(
+                (document.getElementById("cosPhi") as HTMLInputElement).value
+            ) || 0.9;
+        const isFirst6 = (
+            document.getElementById("firstSixMonths") as HTMLInputElement
+        ).checked;
+        const cosPhiThreshold = isSP ? 0.9 : 0.8;
+
+        const consHP =
+            parseFloat(
+                (document.getElementById("consHP") as HTMLInputElement).value
+            ) || 0;
+        const consHPL =
+            parseFloat(
+                (document.getElementById("consHPL") as HTMLInputElement).value
+            ) || 0;
+        const consHC =
+            parseFloat(
+                (document.getElementById("consHC") as HTMLInputElement).value
+            ) || 0;
+
+        let rc: number,
+            rp: number,
+            rdps: number,
+            majCosPhi: number,
+            totalHT: number;
+        const rows: Array<{
+            label: string;
+            detail: string;
+            amount: number;
+            bold?: boolean;
+        }> = [];
+
+        if (isSP) {
+            // Super Pointe
+            const consSHP =
+                parseFloat(
+                    (document.getElementById("consSHP") as HTMLInputElement)
+                        .value
+                ) || 0;
+            const psSHP =
+                parseFloat(
+                    (document.getElementById("psSHP") as HTMLInputElement).value
+                ) || 0;
+            const ps1 =
+                parseFloat(
+                    (document.getElementById("ps1") as HTMLInputElement).value
+                ) || 0;
+            const ps2 =
+                parseFloat(
+                    (document.getElementById("ps2") as HTMLInputElement).value
+                ) || 0;
+            const ps3 =
+                parseFloat(
+                    (document.getElementById("ps3") as HTMLInputElement).value
+                ) || 0;
+            const paSHP =
+                parseFloat(
+                    (document.getElementById("paSHP") as HTMLInputElement).value
+                ) || 0;
+            const pa1 =
+                parseFloat(
+                    (document.getElementById("pa1") as HTMLInputElement).value
+                ) || 0;
+            const pa2 =
+                parseFloat(
+                    (document.getElementById("pa2") as HTMLInputElement).value
+                ) || 0;
+            const pa3 =
+                parseFloat(
+                    (document.getElementById("pa3") as HTMLInputElement).value
+                ) || 0;
+
+            const pSHP = round2(t.hp * 1.2);
+            const rcSHP = round2(pSHP * consSHP);
+            const rcHP = round2(t.hp * consHP);
+            const rcHPL = round2(t.hpl * consHPL);
+            const rcHC = round2(t.hc * consHC);
+            rc = round2(rcSHP + rcHP + rcHPL + rcHC);
+
+            const rpBase = t.pf / 12;
+            rp = round2(
+                rpBase *
+                    (psSHP +
+                        0.8 * (ps1 - psSHP) +
+                        0.6 * (ps2 - ps1) +
+                        0.4 * (ps3 - ps2))
+            );
+
+            rdps = 0;
+            if (!isFirst6) {
+                const d0 = Math.max(0, paSHP - psSHP);
+                const d1 = Math.max(0, pa1 - ps1);
+                const d2 = Math.max(0, pa2 - ps2);
+                const d3 = Math.max(0, pa3 - ps3);
+                if (d0 + d1 + d2 + d3 > 0) {
+                    rdps = round2(
+                        1.5 * rpBase * (d0 + 0.8 * d1 + 0.6 * d2 + 0.4 * d3)
+                    );
+                }
+            }
+
+            rows.push({
+                label: "RC Super Pointe",
+                detail: `${consSHP} kWh × ${pSHP} DH`,
+                amount: rcSHP,
+            });
+            rows.push({
+                label: "RC Heures Pointe",
+                detail: `${consHP} kWh × ${t.hp} DH`,
+                amount: rcHP,
+            });
+            rows.push({
+                label: "RC Heures Pleines",
+                detail: `${consHPL} kWh × ${t.hpl} DH`,
+                amount: rcHPL,
+            });
+            rows.push({
+                label: "RC Heures Creuses",
+                detail: `${consHC} kWh × ${t.hc} DH`,
+                amount: rcHC,
+            });
+        } else {
+            // General
+            const rcHP = round2(t.hp * consHP);
+            const rcHPL = round2(t.hpl * consHPL);
+            const rcHC = round2(t.hc * consHC);
+            rc = round2(rcHP + rcHPL + rcHC);
+
+            const ps =
+                parseFloat(
+                    (
+                        document.getElementById(
+                            "puissanceSouscrite"
+                        ) as HTMLInputElement
+                    ).value
+                ) || 0;
+            const pa =
+                parseFloat(
+                    (
+                        document.getElementById(
+                            "puissanceAppelee"
+                        ) as HTMLInputElement
+                    ).value
+                ) || 0;
+            rp = round2((t.pf / 12) * ps);
+
+            rdps = 0;
+            if (!isFirst6 && pa > ps) {
+                rdps = round2(1.5 * (t.pf / 12) * (pa - ps));
+            }
+
+            rows.push({
+                label: "RC Heures Pointe",
+                detail: `${consHP} kWh × ${t.hp} DH`,
+                amount: rcHP,
+            });
+            rows.push({
+                label: "RC Heures Pleines",
+                detail: `${consHPL} kWh × ${t.hpl} DH`,
+                amount: rcHPL,
+            });
+            rows.push({
+                label: "RC Heures Creuses",
+                detail: `${consHC} kWh × ${t.hc} DH`,
+                amount: rcHC,
+            });
+        }
+
+        rows.push({ label: "Total RC", detail: "", amount: rc, bold: true });
+        rows.push({
+            label: "Redevance de Puissance (RP)",
+            detail: `Pf=${t.pf} DH kW/An ÷ 12`,
+            amount: rp,
+        });
+
+        if (rdps > 0) {
+            rows.push({
+                label: "Dépassement Puissance (RDPS)",
+                detail: "",
+                amount: rdps,
+            });
+        }
+
+        majCosPhi = 0;
+        if (cosPhi < cosPhiThreshold) {
+            const shortfall = Math.round((cosPhiThreshold - cosPhi) * 100);
+            majCosPhi = round2((2 * shortfall * (rc + rp + rdps)) / 100);
+            rows.push({
+                label: `Maj. cos φ (${cosPhi})`,
+                detail: `seuil ${cosPhiThreshold} — ${shortfall} centièmes`,
+                amount: majCosPhi,
+            });
+        }
+
+        totalHT = round2(rc + rp + rdps + majCosPhi);
+
+        // Render
+        const tbody = document.getElementById("gtResultBody")!;
+        tbody.innerHTML = rows
+            .map(
+                (r) => `
+            <tr${r.bold ? ' class="subtotal-row"' : ""}>
+                <td>${
+                    r.bold ? "<strong>" + r.label + "</strong>" : r.label
+                }</td>
+                <td style="font-size:12px;color:var(--w-color-primary-30)">${
+                    r.detail
+                }</td>
+                <td class="amount">${
+                    r.bold
+                        ? "<strong>" + fmt(r.amount) + "</strong>"
+                        : fmt(r.amount)
+                }</td>
+            </tr>
+        `
+            )
+            .join("");
+
+        document.getElementById("gtTotalHT")!.textContent = fmt(totalHT);
+        document.getElementById("gtTotalAmount")!.textContent = fmt(totalHT);
+
+        const vlLabel = voltageLevel.options[voltageLevel.selectedIndex].text;
+        const toLabel = tariffOption.options[tariffOption.selectedIndex].text;
+        const metaStr = `${vlLabel} • ${toLabel}${
+            isSP ? " • Super Pointe" : ""
+        }`;
+        document.getElementById("gtResultMeta")!.textContent = metaStr;
+
+        // Save logic
+        const saveBtn = document.getElementById("gtSaveBtn")!;
+        (saveBtn as any).onclick = () => {
+            const history = JSON.parse(
+                localStorage.getItem("estimation_history") || "[]"
+            );
+            const entry = {
+                id: Date.now(),
+                type: "general",
+                date: new Date().toISOString(),
+                label: metaStr,
+                total: totalHT,
+                details: {
+                    voltage: voltageLevel.value,
+                    option: tariffOption.value,
+                    rc,
+                    rp,
+                    rdps,
+                    majCosPhi,
+                    totalHT,
+                },
+            };
+            history.unshift(entry);
+            localStorage.setItem("estimation_history", JSON.stringify(history));
+            alert("Estimation sauvegardée !");
+            saveBtn.setAttribute("disabled", "true");
+            saveBtn.textContent = "Sauvegardé";
+        };
+
+        goToStep(3);
+    });
+</script>

@@ -1,0 +1,238 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+    title="Générateur de Réclamation - estimation facture"
+    activeNav="historique"
+>
+    <section class="section">
+        <div class="container" style="max-width: 900px;">
+            <div class="section-header">
+                <h1 class="section-title">
+                    Générateur de <span class="gradient-text">Réclamation</span>
+                </h1>
+                <p class="section-subtitle">
+                    Générez un document formel basé sur votre estimation pour
+                    contester un montant ou demander des explications.
+                </p>
+            </div>
+
+            <div class="grid grid-2" style="gap: 32px; align-items: start;">
+                <!-- Form -->
+                <div class="bill-card" style="margin:0">
+                    <div style="padding: 32px;">
+                        <h2
+                            style="font-size: 18px; font-weight: 700; margin-bottom: 24px;"
+                        >
+                            Vos Informations
+                        </h2>
+
+                        <div class="form-group">
+                            <label>Nom complet / Raison Sociale</label>
+                            <input
+                                type="text"
+                                id="userName"
+                                class="form-input"
+                                placeholder="Ex: Ahmed El Mansouri"
+                            />
+                        </div>
+
+                        <div class="form-group">
+                            <label>N° de Contrat / Police</label>
+                            <input
+                                type="text"
+                                id="contractId"
+                                class="form-input"
+                                placeholder="Ex: 123456789"
+                            />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Objet de la réclamation</label>
+                            <select id="reason" class="form-input">
+                                <option value="overcharge"
+                                    >Montant estimé trop élevé par rapport au
+                                    réel</option
+                                >
+                                <option value="tranche"
+                                    >Erreur suspectée dans le calcul des
+                                    tranches</option
+                                >
+                                <option value="tppa"
+                                    >Application incorrecte de la taxe TPPA</option
+                                >
+                                <option value="other"
+                                    >Autre demande d'information</option
+                                >
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Détails supplémentaires</label>
+                            <textarea
+                                id="extraDetails"
+                                class="form-input"
+                                style="height: 100px; resize: none;"
+                                placeholder="Précisez votre demande..."
+                            ></textarea>
+                        </div>
+
+                        <div
+                            style="margin-top: 24px; padding: 16px; background: rgba(212,168,67,0.1); border-radius: 8px; border-left: 3px solid var(--onee-gold);"
+                        >
+                            <p
+                                style="font-size: 12px; color: var(--onee-gold);"
+                            >
+                                💡 <strong>Base Légale :</strong> Ce document invoque
+                                la <strong>Loi 55.19</strong> sur la simplification
+                                des procédures et la <strong>Loi 31.13</strong> sur
+                                le droit d'accès à l'information.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preview Area -->
+                <div
+                    class="bill-card animate-fade-in"
+                    style="margin:0; position: sticky; top: 20px;"
+                >
+                    <div style="padding: 32px;">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;"
+                        >
+                            <h2 style="font-size: 16px; font-weight: 700;">
+                                Aperçu du document
+                            </h2>
+                            <div class="no-print">
+                                <button
+                                    class="btn btn-primary btn-sm"
+                                    onclick="window.print()"
+                                    >Exporter PDF</button
+                                >
+                            </div>
+                        </div>
+
+                        <div
+                            id="documentPreview"
+                            class="glass-card"
+                            style="padding: 32px; font-family: 'Times New Roman', serif; color: #333; background: #fff; line-height: 1.5; min-height: 500px; font-size: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);"
+                        >
+                            <!-- Content injected here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const estId = urlParams.get("id");
+    const history = JSON.parse(
+        localStorage.getItem("estimation_history") || "[]"
+    );
+    const estimation = history.find((h: any) => h.id.toString() === estId);
+
+    function updatePreview() {
+        const name =
+            (document.getElementById("userName") as HTMLInputElement).value ||
+            "[Votre Nom]";
+        const contract =
+            (document.getElementById("contractId") as HTMLInputElement).value ||
+            "[N° Contrat]";
+        const reasonSelect = document.getElementById(
+            "reason"
+        ) as unknown as HTMLSelectElement;
+        const reasonText =
+            reasonSelect.options[reasonSelect.selectedIndex].text;
+        const extra = (
+            document.getElementById("extraDetails") as HTMLTextAreaElement
+        ).value;
+        const date = new Date().toLocaleDateString("fr-FR");
+
+        const estDetails = estimation
+            ? `
+            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; border: 1px solid #dee2e6;">
+                <strong>Détails de l'estimation de référence :</strong><br>
+                Config : ${estimation.label}<br>
+                Montant simulé : ${estimation.total.toFixed(2)} DH TTC
+            </div>
+        `
+            : "";
+
+        const preview = document.getElementById("documentPreview")!;
+        preview.innerHTML = `
+            <div style="display: flex; justify-content: space-between; margin-bottom: 40px;">
+                <div>
+                    <strong>${name}</strong><br>
+                    Police N° : ${contract}
+                </div>
+                <div style="text-align: right;">
+                    Fait le : ${date}
+                </div>
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <strong>À l'attention de Monsieur le Directeur Régional</strong><br>
+                Services d'Électricité (ONEE - Branche Électricité)<br>
+                Maroc
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <strong>Objet : ${reasonText}</strong>
+            </div>
+
+            <p>Monsieur le Directeur,</p>
+
+            <p>Par la présente, je tiens à porter à votre connaissance une réclamation concernant ma consommation d'électricité. Après avoir effectué une simulation basée sur les tarifs officiels en vigueur (Arrêtés ministériels fixant les tarifs de vente de l'énergie électrique), j'ai constaté une divergence que je souhaiterais clarifier.</p>
+
+            ${estDetails}
+
+            <p>${
+                extra ||
+                "Je vous prie de bien vouloir procéder à une vérification de mon compteur ou de m'apporter des précisions sur le mode de calcul appliqué à ma dernière facture."
+            }</p>
+
+            <p>Cette demande s'inscrit dans le cadre de mes droits garantis par la <strong>Loi n° 55.19</strong> relative à la simplification des procédures administratives et la <strong>Loi n° 31.13</strong> relative au droit d'accès à l'information.</p>
+
+            <p>Dans l'attente d'une réponse de votre part sous les délais réglementaires, je vous prie d'agréer, Monsieur le Directeur, l'expression de mes salutations distinguées.</p>
+
+            <div style="margin-top: 50px; text-align: right;">
+                <p>Signature : _________________</p>
+            </div>
+        `;
+    }
+
+    ["userName", "contractId", "reason", "extraDetails"].forEach((id) => {
+        document.getElementById(id)?.addEventListener("input", updatePreview);
+    });
+
+    // Initial
+    updatePreview();
+</script>
+
+<style>
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+        #documentPreview,
+        #documentPreview * {
+            visibility: visible;
+        }
+        #documentPreview {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100% !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+        }
+        .no-print {
+            display: none !important;
+        }
+    }
+</style>

@@ -1,0 +1,33 @@
+// ONEE Electricity Bill Estimator - Theme Configuration
+$breakpoints: (
+    'xs': 600px,
+    'sm': 800px,
+    'md': 1024px,
+    'lg': 1200px
+);
+
+$spacing: (
+    'none': 0,
+    'xxs': 2px,
+    'xs': 5px,
+    'sm': 10px,
+    'md': 15px,
+    'default': 20px,
+    'lg': 25px,
+    'xl': 30px,
+    '2xl': 35px,
+    '3xl': 40px,
+    '4xl': 45px,
+    '5xl': 50px
+);
+
+$fontSizes: (
+    'xs': 12px,
+    'sm': 14px,
+    'md': 16px,
+    'default': 18px,
+    'lg': 21px,
+    'xl': 24px,
+    '2xl': 28px,
+    '3xl': 32px
+);

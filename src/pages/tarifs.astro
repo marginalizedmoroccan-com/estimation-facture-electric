@@ -1,0 +1,531 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+    title="Grilles Tarifaires Électricité - estimation facture"
+    activeNav="tarifs"
+>
+    <section class="section">
+        <div class="container">
+            <div class="section-header" style="text-align:center">
+                <h1 class="section-title">
+                    Grilles <span class="gradient-text">Tarifaires</span>
+                </h1>
+                <p class="section-subtitle">
+                    Tous les tarifs en vigueur de l'ONEE — Branche Électricité
+                </p>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="tab-nav" id="tabNav">
+                <button class="tab-btn active" data-tab="bt"
+                    >Basse Tension (BT)</button
+                >
+                <button class="tab-btn" data-tab="ht"
+                    >Haute Tension (60 kV)</button
+                >
+                <button class="tab-btn" data-tab="tht"
+                    >Très Haute Tension (150-225 kV)</button
+                >
+                <button class="tab-btn" data-tab="fees"
+                    >Redevances & Taxes</button
+                >
+            </div>
+
+            <!-- BT Tab -->
+            <div class="tab-panel active" id="bt">
+                <div class="bill-card">
+                    <div style="padding:32px">
+                        <h2
+                            style="font-size:20px;font-weight:700;margin-bottom:8px"
+                        >
+                            Tarif Basse Tension — Tranches de consommation
+                        </h2>
+                        <p
+                            style="font-size:13px;color:var(--w-color-primary-30);margin-bottom:24px"
+                        >
+                            Pour les consommations ≤ 150 kWh, les tranches 1 et
+                            2 s'appliquent de façon progressive.<br />
+                            Pour les consommations &gt; 150 kWh, une seule tranche
+                            s'applique à toute la consommation.
+                        </p>
+                        <table class="bill-table">
+                            <thead>
+                                <tr>
+                                    <th>Tranche</th>
+                                    <th>الشطر</th>
+                                    <th class="amount">Seuil (kWh)</th>
+                                    <th class="amount">Prix unitaire (DH HT)</th
+                                    >
+                                    <th>Mode</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Tranche 1</td>
+                                    <td class="ar-text">الشطر 1</td>
+                                    <td class="amount">0 — 100</td>
+                                    <td
+                                        class="amount"
+                                        style="color:var(--w-color-success)"
+                                        >0.76356</td
+                                    >
+                                    <td
+                                        ><span
+                                            class="tag"
+                                            style="font-size:10px"
+                                            >Progressif</span
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Tranche 2</td>
+                                    <td class="ar-text">الشطر 2</td>
+                                    <td class="amount">101 — 150</td>
+                                    <td
+                                        class="amount"
+                                        style="color:var(--w-color-success)"
+                                        >0.90950</td
+                                    >
+                                    <td
+                                        ><span
+                                            class="tag"
+                                            style="font-size:10px"
+                                            >Progressif</span
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Tranche 3</td>
+                                    <td class="ar-text">الشطر 3</td>
+                                    <td class="amount">151 — 210</td>
+                                    <td
+                                        class="amount"
+                                        style="color:var(--w-color-info)"
+                                        >0.90950</td
+                                    >
+                                    <td
+                                        ><span
+                                            class="tag"
+                                            style="font-size:10px;border-color:var(--onee-gold);color:var(--onee-gold)"
+                                            >Unique</span
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Tranche 4</td>
+                                    <td class="ar-text">الشطر 4</td>
+                                    <td class="amount">211 — 310</td>
+                                    <td
+                                        class="amount"
+                                        style="color:var(--w-color-warning)"
+                                        >0.98950</td
+                                    >
+                                    <td
+                                        ><span
+                                            class="tag"
+                                            style="font-size:10px;border-color:var(--onee-gold);color:var(--onee-gold)"
+                                            >Unique</span
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Tranche 5</td>
+                                    <td class="ar-text">الشطر 5</td>
+                                    <td class="amount">311 — 510</td>
+                                    <td
+                                        class="amount"
+                                        style="color:var(--w-color-warning)"
+                                        >1.17094</td
+                                    >
+                                    <td
+                                        ><span
+                                            class="tag"
+                                            style="font-size:10px;border-color:var(--onee-gold);color:var(--onee-gold)"
+                                            >Unique</span
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Tranche 6</td>
+                                    <td class="ar-text">الشطر 6</td>
+                                    <td class="amount">&gt; 510</td>
+                                    <td
+                                        class="amount"
+                                        style="color:var(--w-color-alert)"
+                                        >1.35238</td
+                                    >
+                                    <td
+                                        ><span
+                                            class="tag"
+                                            style="font-size:10px;border-color:var(--onee-gold);color:var(--onee-gold)"
+                                            >Unique</span
+                                        >
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HT Tab -->
+            <div class="tab-panel" id="ht">
+                <div class="bill-card">
+                    <div style="padding:32px">
+                        <h2
+                            style="font-size:20px;font-weight:700;margin-bottom:8px"
+                        >
+                            Clients Haute Tension (60 kV)
+                        </h2>
+                        <p
+                            style="font-size:13px;color:var(--w-color-primary-30);margin-bottom:24px"
+                        >
+                            Les tarifs sont exprimés en dirhams TVA comprise
+                            (TVA est de 20%)
+                        </p>
+                        <table class="bill-table">
+                            <thead>
+                                <tr>
+                                    <th>Option tarifaire</th>
+                                    <th class="amount">Prime fixe (DH kW/An)</th
+                                    >
+                                    <th class="amount">HP (DH/kWh)</th>
+                                    <th class="amount">HPL (DH/kWh)</th>
+                                    <th class="amount">HC (DH/kWh)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td
+                                        ><strong>TLU</strong>
+                                        <span
+                                            style="font-size:12px;color:var(--w-color-primary-30)"
+                                            >Très Longue Utilisation</span
+                                        >
+                                    </td>
+                                    <td class="amount">2 379.13</td>
+                                    <td class="amount">0.8265</td>
+                                    <td class="amount">0.6613</td>
+                                    <td class="amount">0.6263</td>
+                                </tr>
+                                <tr>
+                                    <td
+                                        ><strong>MU</strong>
+                                        <span
+                                            style="font-size:12px;color:var(--w-color-primary-30)"
+                                            >Moyenne Utilisation</span
+                                        >
+                                    </td>
+                                    <td class="amount">952.76</td>
+                                    <td class="amount">1.3561</td>
+                                    <td class="amount">0.7988</td>
+                                    <td class="amount">0.6263</td>
+                                </tr>
+                                <tr>
+                                    <td
+                                        ><strong>CU</strong>
+                                        <span
+                                            style="font-size:12px;color:var(--w-color-primary-30)"
+                                            >Courte Utilisation</span
+                                        >
+                                    </td>
+                                    <td class="amount">475.46</td>
+                                    <td class="amount">1.8101</td>
+                                    <td class="amount">0.9388</td>
+                                    <td class="amount">0.6567</td>
+                                </tr>
+                                <tr>
+                                    <td
+                                        ><strong>TCU</strong>
+                                        <span
+                                            style="font-size:12px;color:var(--w-color-primary-30)"
+                                            >Très Courte Utilisation</span
+                                        >
+                                    </td>
+                                    <td class="amount">421.81</td>
+                                    <td class="amount">2.0999</td>
+                                    <td class="amount">0.9692</td>
+                                    <td class="amount">0.6611</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div
+                            style="margin-top:16px;padding:12px;border:1px solid var(--onee-card-border);border-radius:8px"
+                        >
+                            <p
+                                style="font-size:13px;color:var(--w-color-primary-20)"
+                            >
+                                <strong style="color:var(--onee-gold)"
+                                    >Coefficients de réduction de puissance:</strong
+                                >
+                                HP = 1 &nbsp;|&nbsp; HPL = 0.6 &nbsp;|&nbsp; HC =
+                                0.4
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- THT Tab -->
+            <div class="tab-panel" id="tht">
+                <div class="bill-card">
+                    <div style="padding:32px">
+                        <h2
+                            style="font-size:20px;font-weight:700;margin-bottom:8px"
+                        >
+                            Clients Très Haute Tension (150 et 225 kV)
+                        </h2>
+                        <p
+                            style="font-size:13px;color:var(--w-color-primary-30);margin-bottom:24px"
+                        >
+                            Les tarifs sont exprimés en dirhams TVA comprise
+                            (TVA est de 20%)
+                        </p>
+                        <table class="bill-table">
+                            <thead>
+                                <tr>
+                                    <th>Option tarifaire</th>
+                                    <th class="amount">Prime fixe (DH kW/An)</th
+                                    >
+                                    <th class="amount">HP (DH/kWh)</th>
+                                    <th class="amount">HPL (DH/kWh)</th>
+                                    <th class="amount">HC (DH/kWh)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td
+                                        ><strong>TLU</strong>
+                                        <span
+                                            style="font-size:12px;color:var(--w-color-primary-30)"
+                                            >Très Longue Utilisation</span
+                                        >
+                                    </td>
+                                    <td class="amount">2 128.60</td>
+                                    <td class="amount">0.7833</td>
+                                    <td class="amount">0.6473</td>
+                                    <td class="amount">0.6077</td>
+                                </tr>
+                                <tr>
+                                    <td
+                                        ><strong>MU</strong>
+                                        <span
+                                            style="font-size:12px;color:var(--w-color-primary-30)"
+                                            >Moyenne Utilisation</span
+                                        >
+                                    </td>
+                                    <td class="amount">852.17</td>
+                                    <td class="amount">1.2477</td>
+                                    <td class="amount">0.7673</td>
+                                    <td class="amount">0.6077</td>
+                                </tr>
+                                <tr>
+                                    <td
+                                        ><strong>CU</strong>
+                                        <span
+                                            style="font-size:12px;color:var(--w-color-primary-30)"
+                                            >Courte Utilisation</span
+                                        >
+                                    </td>
+                                    <td class="amount">426.08</td>
+                                    <td class="amount">1.6454</td>
+                                    <td class="amount">0.8924</td>
+                                    <td class="amount">0.6348</td>
+                                </tr>
+                                <tr>
+                                    <td
+                                        ><strong>TCU</strong>
+                                        <span
+                                            style="font-size:12px;color:var(--w-color-primary-30)"
+                                            >Très Courte Utilisation</span
+                                        >
+                                    </td>
+                                    <td class="amount">378.00</td>
+                                    <td class="amount">1.9088</td>
+                                    <td class="amount">0.9213</td>
+                                    <td class="amount">0.6391</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div
+                            style="margin-top:16px;padding:12px;border:1px solid var(--onee-card-border);border-radius:8px"
+                        >
+                            <p
+                                style="font-size:13px;color:var(--w-color-primary-20)"
+                            >
+                                <strong style="color:var(--onee-gold)"
+                                    >Coefficients de réduction de puissance:</strong
+                                >
+                                HP = 1 &nbsp;|&nbsp; HPL = 0.6 &nbsp;|&nbsp; HC =
+                                0.4
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fees Tab -->
+            <div class="tab-panel" id="fees">
+                <div class="grid grid-2">
+                    <div class="bill-card">
+                        <div style="padding:32px">
+                            <h2
+                                style="font-size:20px;font-weight:700;margin-bottom:20px"
+                            >
+                                Redevances Fixes (BT)
+                            </h2>
+                            <table class="bill-table">
+                                <thead>
+                                    <tr>
+                                        <th>Type de compteur</th>
+                                        <th class="amount">RF (DH/mois)</th>
+                                        <th class="amount">Entretien</th>
+                                        <th class="amount">Location</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2 Fils</td>
+                                        <td class="amount">17.42</td>
+                                        <td class="amount">7.86</td>
+                                        <td class="amount">9.56</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4 Fils 5-15A</td>
+                                        <td class="amount">33.28</td>
+                                        <td class="amount">15.00</td>
+                                        <td class="amount">18.28</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4 Fils 20-60A</td>
+                                        <td class="amount">44.57</td>
+                                        <td class="amount">15.00</td>
+                                        <td class="amount">29.57</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="bill-card">
+                        <div style="padding:32px">
+                            <h2
+                                style="font-size:20px;font-weight:700;margin-bottom:20px"
+                            >
+                                Taxes & TVA
+                            </h2>
+                            <table class="bill-table">
+                                <thead>
+                                    <tr>
+                                        <th>Composante</th>
+                                        <th class="amount">Taux</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr
+                                        ><td>TVA sur consommation (RC)</td><td
+                                            class="amount">18%</td
+                                        >
+                                    </tr>
+                                    <tr
+                                        ><td>TVA sur TPPA</td><td class="amount"
+                                            >20%</td
+                                        >
+                                    </tr>
+                                    <tr
+                                        ><td>TVA sur entretien</td><td
+                                            class="amount">20%</td
+                                        >
+                                    </tr>
+                                    <tr
+                                        ><td>TVA sur location compteur</td><td
+                                            class="amount">15%</td
+                                        >
+                                    </tr>
+                                    <tr
+                                        ><td>Timbre fiscal (espèces)</td><td
+                                            class="amount">0.25%</td
+                                        >
+                                    </tr>
+                                    <tr
+                                        ><td>TPPA seuil d'exonération</td><td
+                                            class="amount">200 kWh/mois</td
+                                        >
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>
+
+<style>
+    .tab-nav {
+        display: flex;
+        gap: 4px;
+        margin-bottom: 28px;
+        padding: 4px;
+        background: rgba(15, 31, 51, 0.5);
+        border-radius: var(--w-lg-radius);
+        overflow-x: auto;
+    }
+
+    .tab-btn {
+        padding: 10px 20px;
+        border: none;
+        background: transparent;
+        color: var(--w-color-primary-20);
+        font-size: 14px;
+        font-weight: 600;
+        font-family: "Inter", sans-serif;
+        cursor: pointer;
+        border-radius: var(--w-md-radius);
+        transition: all 0.2s;
+        white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+        color: var(--w-color-primary);
+    }
+
+    .tab-btn.active {
+        background: var(--onee-cyan);
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(10, 189, 227, 0.3);
+    }
+
+    .tab-panel {
+        display: none;
+        animation: fadeInUp 0.4s ease forwards;
+    }
+
+    .tab-panel.active {
+        display: block;
+    }
+</style>
+
+<script>
+    document.querySelectorAll<HTMLButtonElement>(".tab-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const tabId = btn.dataset.tab;
+            if (!tabId) return;
+
+            const targetPanel = document.getElementById(tabId);
+            if (!targetPanel) return;
+
+            document
+                .querySelectorAll(".tab-btn")
+                .forEach((b) => b.classList.remove("active"));
+            document
+                .querySelectorAll(".tab-panel")
+                .forEach((p) => p.classList.remove("active"));
+
+            btn.classList.add("active");
+            targetPanel.classList.add("active");
+        });
+    });
+</script>
