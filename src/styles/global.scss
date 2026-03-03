@@ -4,7 +4,8 @@
         includeUtilities: true,
         includeScrollbarStyles: true));
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+// SF Pro System Font Stack
+// Using system-ui and -apple-system for native feel on Apple devices
 
 :root {
     --w-color-scheme: light;
@@ -61,7 +62,7 @@ html {
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
     background: var(--onee-background);
     color: var(--w-color-primary);
     min-height: 100vh;
@@ -378,7 +379,7 @@ body {
 
     .ar-text {
         text-align: right;
-        font-family: 'Inter', sans-serif;
+        font-family: inherit;
         direction: rtl;
     }
 
