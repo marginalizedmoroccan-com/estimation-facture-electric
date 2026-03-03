@@ -14,6 +14,9 @@ importers:
       astro:
         specifier: ^5.17.1
         version: 5.18.0(@types/node@25.3.3)(rollup@4.59.0)(sass@1.97.3)(typescript@5.9.3)
+      html2pdf:
+        specifier: ^0.0.11
+        version: 0.0.11
     devDependencies:
       '@types/node':
         specifier: ^25.3.3
@@ -1573,6 +1576,9 @@ packages:
 
   html-void-elements@3.0.0:
     resolution: {integrity: sha512-bEqo66MRXsUGxWHV5IP0PUiAWwoEjba4VCzg0LjFJBpchPaTfyfCKTG6bc5F8ucKec3q5y6qOdGyYTSBEvhCrg==}
+
+  html2pdf@0.0.11:
+    resolution: {integrity: sha512-Kx3I5r7lazHZzZv5lDk59jQoTxqaEGlf2BcGNvzWGPQVu0hE8jYCk4hboksuaCvmMJPa0S0A+156ZbE71Wdo2w==}
 
   http-cache-semantics@4.2.0:
     resolution: {integrity: sha512-dTxcvPXqPvXBQpq5dUr6mEMJX4oIEFv6bwom3FDwKRDsuIjjJGANqhBuoAn9c1RQJIdAKav33ED65E2ys+87QQ==}
@@ -3655,6 +3661,8 @@ snapshots:
   html-escaper@3.0.3: {}
 
   html-void-elements@3.0.0: {}
+
+  html2pdf@0.0.11: {}
 
   http-cache-semantics@4.2.0: {}
 

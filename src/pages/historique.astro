@@ -39,7 +39,7 @@ import Layout from "../layouts/Layout.astro";
                         Vos simulations apparaîtront ici une fois que vous les
                         aurez sauvegardées depuis le simulateur.
                     </p>
-                    <a href="/simulateurs" class="btn btn-primary"
+                    <a href="/#simulateurs" class="btn btn-primary"
                         >Nouvelle simulation</a
                     >
                 </div>
@@ -130,10 +130,10 @@ import Layout from "../layouts/Layout.astro";
                                 }'" style="padding: 10px 20px; font-size: 12px; font-weight: 800;">
                                     Rédiger Audit
                                 </button>
-                                <button class="btn btn-icon-only btn-sm delete-btn" data-id="${
+                                <button class="btn btn-danger btn-icon delete-btn" data-id="${
                                     item.id
-                                }" style="border:1px solid #FEE2E2; background: #fff; color: #DC2626; width: 40px; height: 40px; border-radius: 8px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease;">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"></path></svg>
+                                }" title="Supprimer">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"></path></svg>
                                 </button>
                             </div>
                         </div>

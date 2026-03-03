@@ -16,9 +16,9 @@
 	},
 	"devDependencies": {
 		"@types/node": "^25.3.3",
-		"wrangler": "^4.69.0",
 		"sass": "1.97.3",
 		"typescript": "5.9.3",
-		"webcoreui": "1.4.0"
+		"webcoreui": "1.4.0",
+		"wrangler": "^4.69.0"
 	}
 }

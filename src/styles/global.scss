@@ -319,6 +319,25 @@ body {
         }
     }
 
+    &-danger {
+        background: #FEF2F2;
+        color: #DC2626;
+        border: 1px solid #FEE2E2;
+
+        &:hover {
+            background: #FEE2E2;
+            border-color: #FECACA;
+        }
+    }
+
+    &-icon {
+        padding: 0;
+        min-width: 40px;
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+    }
+
     &-lg {
         padding: 14px 32px;
         font-size: 16px;
