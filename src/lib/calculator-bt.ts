@@ -56,7 +56,7 @@ function calculateTPPA(consumption: number, days: number): { tppa: number; seuil
 /**
  * Calculate BT tranches for consumption
  * 
- * Logic from ONEE reference:
+ * Logic reference:
  * - If consumption <= 150 kWh: progressive (T1: 0-100, T2: 101-150)
  * - If consumption > 150 kWh: single tranche applies to entire consumption
  * - If billing period != 28-31 days: thresholds are adjusted proportionally

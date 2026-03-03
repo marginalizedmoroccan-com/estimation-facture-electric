@@ -31,17 +31,48 @@ import Layout from "../layouts/Layout.astro";
                         <div class="form-group">
                             <label>Prestataire de service</label>
                             <select id="provider" class="form-input">
-                                <option value="ONEE"
-                                    >ONEE (Branche Électricité)</option
+                                <optgroup
+                                    label="Sociétés Régionales Multi-services (SRM)"
                                 >
-                                <option value="Lydec">Lydec (Casablanca)</option
+                                    <option value="SRM Casablanca-Settat"
+                                        >SRM Casablanca-Settat</option
+                                    >
+                                    <option value="SRM Marrakech-Safi"
+                                        >SRM Marrakech-Safi</option
+                                    >
+                                    <option value="SRM Souss-Massa"
+                                        >SRM Souss-Massa</option
+                                    >
+                                    <option value="SRM Oriental"
+                                        >SRM Oriental</option
+                                    >
+                                    <option value="SRM Rabat-Salé-Kénitra"
+                                        >SRM Rabat-Salé-Kénitra</option
+                                    >
+                                    <option
+                                        value="SRM Tanger-Tétouan-Al Hoceïma"
+                                        >SRM Tanger-Tétouan-Al Hoceïma</option
+                                    >
+                                </optgroup>
+                                <optgroup
+                                    label="Opérateurs Historiques / Autres"
                                 >
-                                <option value="Redal">Redal (Rabat-Salé)</option
-                                >
-                                <option value="Amendis"
-                                    >Amendis (Tanger-Tétouan)</option
-                                >
-                                <option value="other">Autre...</option>
+                                    <option value="ONEE (Branche Électricité)"
+                                        >ONEE (Branche Électricité)</option
+                                    >
+                                    <option value="Lydec"
+                                        >Lydec (Transition SRM)</option
+                                    >
+                                    <option value="Redal"
+                                        >Redal (Transition SRM)</option
+                                    >
+                                    <option value="Amendis"
+                                        >Amendis (Transition SRM)</option
+                                    >
+                                    <option value="other"
+                                        >Autre SRM ou Régie...</option
+                                    >
+                                </optgroup>
                             </select>
                         </div>
 
@@ -226,8 +257,8 @@ import Layout from "../layouts/Layout.astro";
             </div>
 
             <div style="margin-bottom: 40px; margin-left: auto; width: fit-content; max-width: 60%; text-align: left;">
-                <strong>À l'attention de Monsieur le Directeur</strong><br>
-                Département Clientèle - ${providerName}<br>
+                <strong>À l'attention de Monsieur le Directeur Général</strong><br>
+                ${providerName}<br>
                 Royaume du Maroc
             </div>
 

@@ -1,5 +1,5 @@
 // ==============================
-// ONEE Electricity Tariff Data
+// Electricity Tariff Data
 // ==============================
 
 import type { MeterType, VoltageLevel, TariffOption } from './types';

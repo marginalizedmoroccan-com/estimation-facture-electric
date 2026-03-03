@@ -25,7 +25,7 @@ export function calculateSuperPointe(input: SuperPointeInput): SuperPointeResult
 
     // RC - using tariff prices (SHP uses HP price since it's a variant)
     // For super pointe, SHP price is typically higher than HP
-    // We'll use: SHP = HP × 1.2 as per typical ONEE super-pointe premium
+    // We'll use: SHP = HP × 1.2 as per typical super-pointe premium
     const pSHP = round2(tariff.priceHP * 1.2);
     const rcSHP = round2(pSHP * input.consSHP);
     const rcHP = round2(tariff.priceHP * input.consHP);
