@@ -189,8 +189,11 @@ import Layout from "../layouts/Layout.astro";
                             />
                         </div>
 
-                        <div class="grid grid-3" style="gap:24px">
-                            <div class="form-group">
+                        <div
+                            class="form-row-inline"
+                            style="margin-bottom: 24px;"
+                        >
+                            <div class="form-group-inline">
                                 <label for="consHP">Pointe (HP)</label>
                                 <input
                                     type="number"
@@ -200,7 +203,7 @@ import Layout from "../layouts/Layout.astro";
                                     placeholder="kWh"
                                 />
                             </div>
-                            <div class="form-group">
+                            <div class="form-group-inline">
                                 <label for="consHPL">Pleines (HPL)</label>
                                 <input
                                     type="number"
@@ -210,7 +213,7 @@ import Layout from "../layouts/Layout.astro";
                                     placeholder="kWh"
                                 />
                             </div>
-                            <div class="form-group">
+                            <div class="form-group-inline">
                                 <label for="consHC">Creuses (HC)</label>
                                 <input
                                     type="number"
@@ -474,17 +477,15 @@ import Layout from "../layouts/Layout.astro";
                             <tbody id="gtResultBody" style="font-weight:500"
                             ></tbody>
                             <tfoot>
-                                <tr
-                                    style="background:var(--onee-blue);color:#fff"
-                                >
+                                <tr>
                                     <td
                                         colspan="2"
-                                        style="font-weight:900;padding:16px"
+                                        style="font-weight:900;padding:18px"
                                         >TOTAL NET HORS TAXES</td
                                     >
                                     <td
                                         class="amount"
-                                        style="font-weight:900;padding:16px;font-size:18px"
+                                        style="font-weight:900;padding:18px;font-size:18px"
                                         id="gtTotalHT">0.00</td
                                     >
                                 </tr>

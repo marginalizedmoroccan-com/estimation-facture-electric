@@ -34,8 +34,19 @@ const {
         <meta property="og:description" content={description} />
         <meta
             property="og:image"
-            content={new URL("/og-image.png", Astro.url).href}
+            content={new URL("/og-image.png", Astro.site || Astro.url).href}
         />
+        <meta
+            property="og:image:secure_url"
+            content={new URL("/og-image.png", Astro.site || Astro.url).href}
+        />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta
+            property="og:image:alt"
+            content="estimation facture — Simulateur Électricité Maroc"
+        />
+        <meta property="og:image:type" content="image/png" />
 
         <!-- Twitter -->
         <meta property="twitter:card" content="summary_large_image" />
@@ -44,7 +55,7 @@ const {
         <meta property="twitter:description" content={description} />
         <meta
             property="twitter:image"
-            content={new URL("/og-image.png", Astro.url).href}
+            content={new URL("/og-image.png", Astro.site || Astro.url).href}
         />
 
         <link rel="icon" type="image/png" href="/favicon.png" />

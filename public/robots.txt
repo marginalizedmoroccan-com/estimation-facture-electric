@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Allow: /og-image.png
+
+Sitemap: https://estimation-facture.ma/sitemap-index.xml
