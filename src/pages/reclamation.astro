@@ -272,59 +272,90 @@ import Layout from "../layouts/Layout.astro";
     updatePreview();
 </script>
 
-<style>
+<style is:global>
     @media print {
-        @page {
-            margin: 20mm;
-            size: A4;
-        }
-        body {
-            background: #fff !important;
-            color: #000 !important;
-        }
+        /* Hide all layout and UI elements */
         header,
         footer,
         .section-header,
         .bill-card:not(:has(#documentPreview)),
-        .no-print {
+        .no-print,
+        nav,
+        .nav-logo,
+        .nav-links {
             display: none !important;
+            visibility: hidden !important;
+            height: 0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow: hidden !important;
         }
+
+        /* Ensure main container doesn't have extra spacing */
+        html,
+        body {
+            background: #fff !important;
+            color: #000 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            height: auto !important;
+        }
+
+        main {
+            padding: 0 !important;
+            margin: 0 !important;
+            display: block !important;
+        }
+
+        .section {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
         .container {
             max-width: 100% !important;
             width: 100% !important;
             padding: 0 !important;
             margin: 0 !important;
         }
-        section {
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-        #documentPreview {
-            box-shadow: none !important;
-            border: none !important;
-            padding: 0 !important;
-            min-height: auto !important;
-            width: 100% !important;
-            visibility: visible !important;
-            background: #fff !important;
-            color: #000 !important;
-            position: relative !important;
-            font-size: 11pt !important;
+
+        /* Reset grid/flex layouts for print */
+        .grid {
             display: block !important;
         }
+
+        /* Target the specific preview card */
         .bill-card:has(#documentPreview) {
             background: transparent !important;
             border: none !important;
             padding: 0 !important;
             margin: 0 !important;
             box-shadow: none !important;
-            visibility: visible !important;
             display: block !important;
-            position: relative !important;
+            width: 100% !important;
         }
-        * {
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
+
+        #documentPreview {
+            box-shadow: none !important;
+            border: none !important;
+            padding: 0 !important;
+            min-height: auto !important;
+            width: 100% !important;
+            background: #fff !important;
+            color: #000 !important;
+            font-size: 11pt !important;
+            display: block !important;
+            visibility: visible !important;
+        }
+
+        /* Specific fix for elements inside preview */
+        #documentPreview * {
+            visibility: visible !important;
+        }
+
+        @page {
+            margin: 15mm;
+            size: A4;
         }
     }
 </style>
