@@ -13,8 +13,8 @@ import Layout from "../layouts/Layout.astro";
                     Tarif Général <span class="gradient-text">HT / THT</span>
                 </h1>
                 <p class="section-subtitle">
-                    Estimation pour les clients haute et très haute tension —
-                    Grands Comptes
+                    Expertise de calcul pour les raccordements Haute et Très
+                    Haute Tension.
                 </p>
             </div>
 
@@ -41,77 +41,79 @@ import Layout from "../layouts/Layout.astro";
                 <div class="bill-card" style="max-width:700px;margin:0 auto">
                     <div style="padding:32px">
                         <h2
-                            style="font-size:20px;font-weight:700;margin-bottom:24px"
+                            style="font-size:16px;font-weight:800;margin-bottom:24px;color:var(--onee-blue);text-transform:uppercase;letter-spacing:1px"
                         >
-                            <span style="color:var(--onee-cyan)">01.</span> Configuration
-                            tarifaire
+                            <span style="color:var(--onee-blue);opacity:0.5"
+                                >01.</span
+                            > Paramètres Techniques
                         </h2>
 
                         <div class="form-group">
-                            <label for="voltageLevel">Niveau de tension</label>
+                            <label for="voltageLevel">Palier de Tension</label>
                             <select class="form-select" id="voltageLevel">
-                                <option value="">— Choisir —</option>
+                                <option value="">— Sélectionner —</option>
                                 <option value="tht"
-                                    >Très Haute Tension (150 et 225 kV)</option
+                                    >THT (150 kV - 225 kV)</option
                                 >
-                                <option value="ht">Haute Tension (60 kV)</option
-                                >
+                                <option value="ht">HT (60 kV)</option>
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <label for="tariffOption">Option tarifaire</label>
+                            <label for="tariffOption"
+                                >Option d'Utilisation</label
+                            >
                             <select class="form-select" id="tariffOption">
-                                <option value="">— Choisir —</option>
+                                <option value="">— Sélectionner —</option>
                                 <option value="tlu"
-                                    >TLU — Très Longue Utilisation (&gt; 6000
-                                    h/an)</option
+                                    >Très Longue Utilisation (&gt; 6000 h)</option
                                 >
                                 <option value="mu"
-                                    >MU — Moyenne Utilisation (3500 - 6000 h/an)</option
+                                    >Moyenne Utilisation (3500 - 6000 h)</option
                                 >
                                 <option value="cu"
-                                    >CU — Courte Utilisation (1000 - 3500 h/an)</option
+                                    >Courte Utilisation (1000 - 3500 h)</option
                                 >
                                 <option value="tcu"
-                                    >TCU — Très Courte Utilisation (&lt; 1000
-                                    h/an)</option
+                                    >Très Courte Utilisation (&lt; 1000 h)</option
                                 >
                             </select>
                         </div>
 
                         <div
-                            class="tariff-preview glass-card"
+                            class="tariff-preview"
                             id="tariffPreview"
-                            style="display:none;padding:16px;margin-bottom:20px"
+                            style="display:none;padding:16px;margin-bottom:24px;background:#F8FAFC;border-radius:6px;border-left:3px solid var(--onee-blue)"
                         >
                             <div
-                                style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px"
+                                style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px;font-weight:600"
                             >
                                 <span style="color:var(--w-color-primary-30)"
-                                    >Prime fixe:</span
+                                    >Prime Fixe Annuelle :</span
                                 >
-                                <span id="prevPrimFixe" style="font-weight:600"
-                                    >—</span
+                                <span
+                                    id="prevPrimFixe"
+                                    style="color:var(--onee-blue)">—</span
                                 >
                             </div>
                             <div
-                                style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"
+                                style="display:flex;justify-content:space-between;font-size:13px;font-weight:600"
                             >
                                 <span style="color:var(--w-color-primary-30)"
-                                    >Prix HP / HPL / HC:</span
+                                    >Grille Unitaire (HP/HPL/HC) :</span
                                 >
-                                <span id="prevPrices" style="font-weight:600"
-                                    >—</span
+                                <span
+                                    id="prevPrices"
+                                    style="color:var(--onee-blue)">—</span
                                 >
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label>Mode de tarification</label>
-                            <div style="display:flex;gap:16px">
+                            <label>Régime de Tarification</label>
+                            <div style="display:flex;gap:24px;margin-top:8px">
                                 <label
-                                    style="display:flex;align-items:center;gap:6px;cursor:pointer;font-weight:400"
+                                    style="display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:600;font-size:14px;color:var(--onee-blue)"
                                 >
                                     <input
                                         type="radio"
@@ -119,29 +121,32 @@ import Layout from "../layouts/Layout.astro";
                                         value="general"
                                         checked
                                         id="modeGeneral"
+                                        style="width:16px;height:16px"
                                     /> Tarif Général
                                 </label>
                                 <label
-                                    style="display:flex;align-items:center;gap:6px;cursor:pointer;font-weight:400"
+                                    style="display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:600;font-size:14px;color:var(--onee-blue)"
                                 >
                                     <input
                                         type="radio"
                                         name="mode"
                                         value="superpointe"
                                         id="modeSuperPointe"
-                                    /> Super Pointe
+                                        style="width:16px;height:16px"
+                                    /> Option Super Pointe
                                 </label>
                             </div>
                         </div>
 
                         <div
-                            style="display:flex;gap:12px;justify-content:flex-end;margin-top:32px"
+                            style="display:flex;gap:16px;justify-content:flex-end;margin-top:40px"
                         >
-                            <a href="/" class="btn btn-secondary">Retour</a>
+                            <a href="/" class="btn btn-secondary">Annuler</a>
                             <button
                                 class="btn btn-primary"
                                 id="gtToStep2"
-                                disabled>Suivant →</button
+                                disabled
+                                style="padding: 10px 24px">Suivant</button
                             >
                         </div>
                     </div>
@@ -150,19 +155,20 @@ import Layout from "../layouts/Layout.astro";
 
             <!-- Step 2: Consumption & Power -->
             <div class="wizard-panel" id="step2">
-                <div class="bill-card" style="max-width:700px;margin:0 auto">
+                <div class="bill-card" style="max-width:750px;margin:0 auto">
                     <div style="padding:32px">
                         <h2
-                            style="font-size:20px;font-weight:700;margin-bottom:24px"
+                            style="font-size:16px;font-weight:800;margin-bottom:24px;color:var(--onee-blue);text-transform:uppercase;letter-spacing:1px"
                         >
-                            <span style="color:var(--onee-cyan)">02.</span> Consommation
-                            & Puissance
+                            <span style="color:var(--onee-blue);opacity:0.5"
+                                >02.</span
+                            > Données d'Exploitation
                         </h2>
 
                         <h3
-                            style="font-size:15px;font-weight:600;margin-bottom:16px;color:var(--onee-gold)"
+                            style="font-size:13px;font-weight:800;margin-bottom:16px;color:var(--onee-blue);opacity:0.6;text-transform:uppercase;letter-spacing:0.5px"
                         >
-                            Consommation par poste horaire (kWh)
+                            Énergie Consommée (kWh)
                         </h3>
 
                         <!-- Super Pointe field (hidden by default) -->
@@ -183,10 +189,9 @@ import Layout from "../layouts/Layout.astro";
                             />
                         </div>
 
-                        <div class="grid grid-3">
+                        <div class="grid grid-3" style="gap:24px">
                             <div class="form-group">
-                                <label for="consHP">Heures de Pointe (HP)</label
-                                >
+                                <label for="consHP">Pointe (HP)</label>
                                 <input
                                     type="number"
                                     class="form-input"
@@ -196,8 +201,7 @@ import Layout from "../layouts/Layout.astro";
                                 />
                             </div>
                             <div class="form-group">
-                                <label for="consHPL">Heures Pleines (HPL)</label
-                                >
+                                <label for="consHPL">Pleines (HPL)</label>
                                 <input
                                     type="number"
                                     class="form-input"
@@ -207,7 +211,7 @@ import Layout from "../layouts/Layout.astro";
                                 />
                             </div>
                             <div class="form-group">
-                                <label for="consHC">Heures Creuses (HC)</label>
+                                <label for="consHC">Creuses (HC)</label>
                                 <input
                                     type="number"
                                     class="form-input"
@@ -219,18 +223,19 @@ import Layout from "../layouts/Layout.astro";
                         </div>
 
                         <h3
-                            style="font-size:15px;font-weight:600;margin:24px 0 16px;color:var(--onee-gold)"
+                            style="font-size:13px;font-weight:800;margin:32px 0 16px;color:var(--onee-blue);opacity:0.6;text-transform:uppercase;letter-spacing:0.5px"
                         >
-                            Puissance (kW)
+                            Puissances Appelées vs Souscrites (kW)
                         </h3>
 
                         <!-- Super Pointe power fields -->
                         <div id="spPowerGroup" style="display:none">
-                            <div class="grid grid-2" style="margin-bottom:16px">
+                            <div
+                                class="grid grid-2"
+                                style="margin-bottom:16px;gap:24px"
+                            >
                                 <div class="form-group">
-                                    <label for="psSHP"
-                                        >PS Super Pointe (kW)</label
-                                    >
+                                    <label for="psSHP">PS Super Pointe</label>
                                     <input
                                         type="number"
                                         class="form-input"
@@ -240,9 +245,7 @@ import Layout from "../layouts/Layout.astro";
                                     />
                                 </div>
                                 <div class="form-group">
-                                    <label for="paSHP"
-                                        >PA Super Pointe (kW)</label
-                                    >
+                                    <label for="paSHP">PA Super Pointe</label>
                                     <input
                                         type="number"
                                         class="form-input"
@@ -252,9 +255,12 @@ import Layout from "../layouts/Layout.astro";
                                     />
                                 </div>
                             </div>
-                            <div class="grid grid-2" style="margin-bottom:16px">
+                            <div
+                                class="grid grid-2"
+                                style="margin-bottom:16px;gap:24px"
+                            >
                                 <div class="form-group">
-                                    <label for="ps1">PS Pointe (kW)</label>
+                                    <label for="ps1">PS Pointe</label>
                                     <input
                                         type="number"
                                         class="form-input"
@@ -264,7 +270,7 @@ import Layout from "../layouts/Layout.astro";
                                     />
                                 </div>
                                 <div class="form-group">
-                                    <label for="pa1">PA Pointe (kW)</label>
+                                    <label for="pa1">PA Pointe</label>
                                     <input
                                         type="number"
                                         class="form-input"
@@ -274,9 +280,12 @@ import Layout from "../layouts/Layout.astro";
                                     />
                                 </div>
                             </div>
-                            <div class="grid grid-2" style="margin-bottom:16px">
+                            <div
+                                class="grid grid-2"
+                                style="margin-bottom:16px;gap:24px"
+                            >
                                 <div class="form-group">
-                                    <label for="ps2">PS Pleines (kW)</label>
+                                    <label for="ps2">PS Pleines</label>
                                     <input
                                         type="number"
                                         class="form-input"
@@ -286,7 +295,7 @@ import Layout from "../layouts/Layout.astro";
                                     />
                                 </div>
                                 <div class="form-group">
-                                    <label for="pa2">PA Pleines (kW)</label>
+                                    <label for="pa2">PA Pleines</label>
                                     <input
                                         type="number"
                                         class="form-input"
@@ -296,9 +305,9 @@ import Layout from "../layouts/Layout.astro";
                                     />
                                 </div>
                             </div>
-                            <div class="grid grid-2">
+                            <div class="grid grid-2" style="gap:24px">
                                 <div class="form-group">
-                                    <label for="ps3">PS Creuses (kW)</label>
+                                    <label for="ps3">PS Creuses</label>
                                     <input
                                         type="number"
                                         class="form-input"
@@ -308,7 +317,7 @@ import Layout from "../layouts/Layout.astro";
                                     />
                                 </div>
                                 <div class="form-group">
-                                    <label for="pa3">PA Creuses (kW)</label>
+                                    <label for="pa3">PA Creuses</label>
                                     <input
                                         type="number"
                                         class="form-input"
@@ -322,13 +331,10 @@ import Layout from "../layouts/Layout.astro";
 
                         <!-- General power fields -->
                         <div id="genPowerGroup">
-                            <div class="grid grid-2">
+                            <div class="grid grid-2" style="gap:24px">
                                 <div class="form-group">
                                     <label for="puissanceSouscrite"
-                                        >Puissance souscrite (kW)
-                                        <span class="form-hint"
-                                            >PS annuelle</span
-                                        >
+                                        >Puissance Souscrite Annuelle (PS)
                                     </label>
                                     <input
                                         type="number"
@@ -340,9 +346,7 @@ import Layout from "../layouts/Layout.astro";
                                 </div>
                                 <div class="form-group">
                                     <label for="puissanceAppelee"
-                                        >Puissance max appelée (kW)
-                                        <span class="form-hint">PA du mois</span
-                                        >
+                                        >Puissance Maximale Appelée (PA)
                                     </label>
                                     <input
                                         type="number"
@@ -355,13 +359,16 @@ import Layout from "../layouts/Layout.astro";
                             </div>
                         </div>
 
-                        <div class="grid grid-2" style="margin-top:20px">
-                            <div class="form-group">
+                        <div
+                            class="grid grid-2"
+                            style="margin-top:32px;gap:24px"
+                        >
+                            <div class="form-group" style="margin-bottom:0">
                                 <label for="cosPhi"
-                                    >Facteur de puissance (cos φ)
+                                    >Facteur de Puissance (cos φ)
                                     <span class="form-hint"
-                                        >Min contractuel: <span id="cosPhiMin"
-                                            >0.80</span
+                                        >Seuil contractuel : <span
+                                            id="cosPhiMin">0.80</span
                                         >
                                     </span>
                                 </label>
@@ -375,29 +382,33 @@ import Layout from "../layouts/Layout.astro";
                                     value="0.90"
                                 />
                             </div>
-                            <div class="form-group">
-                                <label>
+                            <div
+                                style="display:flex;align-items:center;padding-top:20px"
+                            >
+                                <label
+                                    style="display:flex;align-items:center;gap:10px;cursor:pointer;font-weight:600;font-size:14px;color:var(--onee-blue)"
+                                >
                                     <input
                                         type="checkbox"
                                         id="firstSixMonths"
-                                        style="margin-right:6px;"
+                                        style="width:18px;height:18px"
                                     />
-                                    6 premiers mois d'abonnement
-                                    <span class="form-hint"
-                                        >RDPS non appliquée</span
-                                    >
+                                    Période de mise en service (6 premiers mois)
                                 </label>
                             </div>
                         </div>
 
                         <div
-                            style="display:flex;gap:12px;justify-content:flex-end;margin-top:32px"
+                            style="display:flex;gap:16px;justify-content:flex-end;margin-top:48px"
                         >
                             <button class="btn btn-secondary" id="gtBackToStep1"
                                 >Retour</button
                             >
-                            <button class="btn btn-primary" id="gtCalculateBtn"
-                                >Calculer →</button
+                            <button
+                                class="btn btn-primary"
+                                id="gtCalculateBtn"
+                                style="padding: 10px 24px"
+                                >Générer le rapport</button
                             >
                         </div>
                     </div>
@@ -406,92 +417,116 @@ import Layout from "../layouts/Layout.astro";
 
             <!-- Step 3: Results -->
             <div class="wizard-panel" id="step3">
-                <div class="bill-card" style="max-width:800px;margin:0 auto">
-                    <div style="padding:32px">
+                <div class="bill-card" style="max-width:850px;margin:0 auto">
+                    <div style="padding:40px">
                         <div
-                            style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px"
+                            style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;border-bottom:2px solid #F1F5F9;padding-bottom:24px"
                         >
                             <div>
-                                <h2 style="font-size:20px;font-weight:700">
-                                    Estimation Tarif Général
+                                <h2
+                                    style="font-size:22px;font-weight:800;color:var(--onee-blue)"
+                                >
+                                    Rapport d'Expertise HT/THT
                                 </h2>
                                 <p
-                                    style="font-size:13px;color:var(--w-color-primary-30);margin-top:4px"
+                                    style="font-size:13px;color:var(--w-color-primary-30);margin-top:6px;font-weight:600"
                                     id="gtResultMeta"
                                 >
                                 </p>
                             </div>
+                            <div style="text-align:right">
+                                <div
+                                    style="font-size:12px;font-weight:800;color:var(--onee-blue);opacity:0.5;text-transform:uppercase;letter-spacing:1px"
+                                >
+                                    Analyse Industrielle
+                                </div>
+                            </div>
                         </div>
 
                         <div
-                            class="result-total glass-card"
-                            style="text-align:center;padding:24px;margin-bottom:28px;background:linear-gradient(135deg, rgba(212,168,67,0.08), rgba(10,189,227,0.06));border:1px solid rgba(212,168,67,0.2)"
+                            class="result-total"
+                            style="text-align:center;padding:32px;margin-bottom:40px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:12px"
                         >
                             <p
-                                style="font-size:13px;color:var(--w-color-primary-30);margin-bottom:4px"
+                                style="font-size:13px;font-weight:700;color:var(--w-color-primary-30);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px"
                             >
-                                Total HT mensuel
+                                Sous-total mensuel Hors Taxes
                             </p>
-                            <div class="result-amount">
-                                <span class="gradient-text" id="gtTotalAmount"
-                                    >0.00</span
+                            <div
+                                class="result-amount"
+                                style="font-size:48px;font-weight:900;color:var(--onee-blue)"
+                            >
+                                <span id="gtTotalAmount">0.00</span>
+                                <span style="font-size:20px;margin-left:4px"
+                                    >DH</span
                                 >
-                                <span class="currency"> DH</span>
                             </div>
                         </div>
 
                         <table class="bill-table">
                             <thead>
                                 <tr>
-                                    <th>Composante</th>
-                                    <th>Détail</th>
-                                    <th class="amount">Montant (DH)</th>
+                                    <th>Composante du Tarif</th>
+                                    <th>Description des Postes</th>
+                                    <th class="amount">Montant HT</th>
                                 </tr>
                             </thead>
-                            <tbody id="gtResultBody"></tbody>
+                            <tbody id="gtResultBody" style="font-weight:500"
+                            ></tbody>
                             <tfoot>
-                                <tr class="total-row">
-                                    <td colspan="2"
-                                        ><strong>Total HT</strong>
-                                    </td>
-                                    <td class="amount"
-                                        ><strong id="gtTotalHT">0.00</strong>
-                                    </td>
+                                <tr
+                                    style="background:var(--onee-blue);color:#fff"
+                                >
+                                    <td
+                                        colspan="2"
+                                        style="font-weight:900;padding:16px"
+                                        >TOTAL NET HORS TAXES</td
+                                    >
+                                    <td
+                                        class="amount"
+                                        style="font-weight:900;padding:16px;font-size:18px"
+                                        id="gtTotalHT">0.00</td
+                                    >
                                 </tr>
                             </tfoot>
                         </table>
 
                         <div
-                            style="margin-top:24px;padding:14px;background:rgba(10,189,227,0.06);border:1px solid rgba(10,189,227,0.15);border-radius:8px;text-align:center"
+                            style="margin-top:40px;padding:20px;background:#F1F5F9;border:1px solid #E2E8F0;border-radius:8px;text-align:center"
                         >
                             <p
-                                style="font-size:13px;color:var(--w-color-primary-20)"
+                                style="font-size:12px;color:var(--w-color-primary-20);font-weight:600"
                             >
-                                Les tarifs sont exprimés en dirhams TVA comprise
-                                (TVA est de 20%)
+                                Note : Les montants HT sont calculés selon la
+                                structure tarifaire en vigueur. La TVA de 20%
+                                ainsi que les éventuelles taxes locales ne sont
+                                pas incluses dans ce rapport d'analyse HT.
                             </p>
                         </div>
 
                         <div
-                            style="display:flex;gap:12px;justify-content:center;margin-top:28px;flex-wrap:wrap"
+                            style="display:flex;gap:16px;justify-content:center;margin-top:48px;flex-wrap:wrap"
                             class="no-print"
                         >
                             <button class="btn btn-secondary" id="gtBackToStep2"
-                                >Modifier</button
+                                >Réajuster</button
                             >
                             <button
-                                class="btn btn-success"
+                                class="btn btn-primary"
                                 id="gtSaveBtn"
-                                style="background: var(--w-color-success); border: none;"
+                                style="padding: 10px 24px"
                             >
-                                Sauvegarder
+                                Enregistrer
                             </button>
                             <button
                                 class="btn btn-primary"
-                                onclick="window.print()">Imprimer</button
+                                onclick="window.print()"
+                                style="padding: 10px 24px; background: #1E293B; border-color: #1E293B"
                             >
+                                Imprimer l'audit
+                            </button>
                             <button class="btn btn-secondary" id="gtNewCalc"
-                                >Nouveau calcul</button
+                                >Nouvelle simulation</button
                             >
                         </div>
                     </div>
@@ -507,15 +542,11 @@ import Layout from "../layouts/Layout.astro";
     }
     .wizard-panel.active {
         display: block;
-        animation: fadeInUp 0.5s ease forwards;
+        animation: fadeInUp 0.4s ease forwards;
     }
-    .result-total {
-        background: linear-gradient(
-            135deg,
-            rgba(212, 168, 67, 0.08),
-            rgba(10, 189, 227, 0.06)
-        );
-        border: 1px solid rgba(212, 168, 67, 0.2);
+    input[type="radio"],
+    input[type="checkbox"] {
+        accent-color: var(--onee-blue);
     }
 </style>
 
@@ -561,14 +592,6 @@ import Layout from "../layouts/Layout.astro";
             if (sn < step) s.classList.add("completed");
             if (sn === step) s.classList.add("active");
         });
-        document
-            .querySelectorAll<HTMLElement>(".wizard-step-connector")
-            .forEach((c, i) => {
-                c.style.background =
-                    i + 1 < step
-                        ? "var(--w-color-success)"
-                        : "var(--onee-card-border)";
-            });
     }
 
     function validateStep1(): void {
@@ -673,7 +696,6 @@ import Layout from "../layouts/Layout.astro";
             label: string;
             detail: string;
             amount: number;
-            bold?: boolean;
         }> = [];
 
         if (isSP) {
@@ -746,22 +768,22 @@ import Layout from "../layouts/Layout.astro";
             }
 
             rows.push({
-                label: "RC Super Pointe",
+                label: "Maturité Super Pointe",
                 detail: `${consSHP} kWh × ${pSHP} DH`,
                 amount: rcSHP,
             });
             rows.push({
-                label: "RC Heures Pointe",
+                label: "Maturité Heures Pointe",
                 detail: `${consHP} kWh × ${t.hp} DH`,
                 amount: rcHP,
             });
             rows.push({
-                label: "RC Heures Pleines",
+                label: "Maturité Heures Pleines",
                 detail: `${consHPL} kWh × ${t.hpl} DH`,
                 amount: rcHPL,
             });
             rows.push({
-                label: "RC Heures Creuses",
+                label: "Maturité Heures Creuses",
                 detail: `${consHC} kWh × ${t.hc} DH`,
                 amount: rcHC,
             });
@@ -796,81 +818,73 @@ import Layout from "../layouts/Layout.astro";
             }
 
             rows.push({
-                label: "RC Heures Pointe",
+                label: "Maturité Heures Pointe",
                 detail: `${consHP} kWh × ${t.hp} DH`,
                 amount: rcHP,
             });
             rows.push({
-                label: "RC Heures Pleines",
+                label: "Maturité Heures Pleines",
                 detail: `${consHPL} kWh × ${t.hpl} DH`,
                 amount: rcHPL,
             });
             rows.push({
-                label: "RC Heures Creuses",
+                label: "Maturité Heures Creuses",
                 detail: `${consHC} kWh × ${t.hc} DH`,
                 amount: rcHC,
             });
         }
 
-        rows.push({ label: "Total RC", detail: "", amount: rc, bold: true });
-        rows.push({
-            label: "Redevance de Puissance (RP)",
-            detail: `Pf=${t.pf} DH kW/An ÷ 12`,
-            amount: rp,
-        });
-
-        if (rdps > 0) {
-            rows.push({
-                label: "Dépassement Puissance (RDPS)",
-                detail: "",
-                amount: rdps,
-            });
-        }
-
         majCosPhi = 0;
         if (cosPhi < cosPhiThreshold) {
-            const shortfall = Math.round((cosPhiThreshold - cosPhi) * 100);
-            majCosPhi = round2((2 * shortfall * (rc + rp + rdps)) / 100);
-            rows.push({
-                label: `Maj. cos φ (${cosPhi})`,
-                detail: `seuil ${cosPhiThreshold} — ${shortfall} centièmes`,
-                amount: majCosPhi,
-            });
+            const ratio = (cosPhiThreshold - cosPhi) / cosPhiThreshold;
+            majCosPhi = round2((rc + rp + rdps) * ratio);
         }
 
         totalHT = round2(rc + rp + rdps + majCosPhi);
 
+        rows.push({
+            label: "Redevance de Puissance (RP)",
+            detail: "Prime fixe mensuelle",
+            amount: rp,
+        });
+        if (rdps > 0) {
+            rows.push({
+                label: "Dépassement de Puissance",
+                detail: "Pénalité RDPS",
+                amount: rdps,
+            });
+        }
+        if (majCosPhi > 0) {
+            rows.push({
+                label: "Majoration Cos φ",
+                detail: `Facteur : ${cosPhi} (Seuil : ${cosPhiThreshold})`,
+                amount: majCosPhi,
+            });
+        }
+
         // Render
-        const tbody = document.getElementById("gtResultBody")!;
-        tbody.innerHTML = rows
+        const body = document.getElementById("gtResultBody")!;
+        body.innerHTML = rows
             .map(
                 (r) => `
-            <tr${r.bold ? ' class="subtotal-row"' : ""}>
-                <td>${
-                    r.bold ? "<strong>" + r.label + "</strong>" : r.label
-                }</td>
-                <td style="font-size:12px;color:var(--w-color-primary-30)">${
-                    r.detail
-                }</td>
-                <td class="amount">${
-                    r.bold
-                        ? "<strong>" + fmt(r.amount) + "</strong>"
-                        : fmt(r.amount)
-                }</td>
+            <tr>
+                <td>${r.label}</td>
+                <td style="font-size:12px;opacity:0.7">${r.detail}</td>
+                <td class="amount">${fmt(r.amount)}</td>
             </tr>
         `
             )
             .join("");
 
-        document.getElementById("gtTotalHT")!.textContent = fmt(totalHT);
         document.getElementById("gtTotalAmount")!.textContent = fmt(totalHT);
+        document.getElementById("gtTotalHT")!.textContent = fmt(totalHT);
 
-        const vlLabel = voltageLevel.options[voltageLevel.selectedIndex].text;
-        const toLabel = tariffOption.options[tariffOption.selectedIndex].text;
-        const metaStr = `${vlLabel} • ${toLabel}${
-            isSP ? " • Super Pointe" : ""
-        }`;
-        document.getElementById("gtResultMeta")!.textContent = metaStr;
+        // Meta
+        const vLabel = voltageLevel.options[voltageLevel.selectedIndex].text;
+        const oLabel = tariffOption.options[tariffOption.selectedIndex].text;
+        document.getElementById(
+            "gtResultMeta"
+        )!.textContent = `${vLabel} • ${oLabel} • cos φ ${cosPhi}`;
 
         // Save logic
         const saveBtn = document.getElementById("gtSaveBtn")!;
@@ -882,23 +896,20 @@ import Layout from "../layouts/Layout.astro";
                 id: Date.now(),
                 type: "general",
                 date: new Date().toISOString(),
-                label: metaStr,
+                label: `Tarif HT/THT - ${vLabel}`,
                 total: totalHT,
                 details: {
                     voltage: voltageLevel.value,
                     option: tariffOption.value,
-                    rc,
-                    rp,
-                    rdps,
-                    majCosPhi,
+                    mode: isSP ? "superpointe" : "general",
                     totalHT,
                 },
             };
             history.unshift(entry);
             localStorage.setItem("estimation_history", JSON.stringify(history));
-            alert("Estimation sauvegardée !");
             saveBtn.setAttribute("disabled", "true");
-            saveBtn.textContent = "Sauvegardé";
+            saveBtn.textContent = "Enregistré";
+            saveBtn.style.opacity = "0.5";
         };
 
         goToStep(3);

@@ -453,36 +453,46 @@ import Layout from "../layouts/Layout.astro";
 	}
 
 	.stats-section {
-		padding: 60px 0;
-		background: #f8fafc;
+		padding: 80px 0;
+		background: #fff;
+		border-top: 1px solid var(--onee-card-border);
+		border-bottom: 1px solid var(--onee-card-border);
 	}
 
 	.stats-grid {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
-		gap: 32px;
+		gap: 24px;
 	}
 
 	.stat-item {
 		text-align: center;
-		padding: 32px 24px;
+		padding: 40px 24px;
 		border-radius: 12px;
-		background: #fff;
-		border: 1px solid #e2e8f0;
-		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+		background: var(--onee-background);
+		border: 1px solid var(--onee-card-border);
+		transition: all 0.3s ease;
+
+		&:hover {
+			border-color: var(--onee-blue);
+			background: #fff;
+			transform: translateY(-4px);
+			box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+		}
 	}
 
 	.stat-number {
-		font-size: 32px;
+		font-size: 40px;
 		font-weight: 900;
 		color: var(--onee-blue);
-		margin-bottom: 4px;
+		margin-bottom: 8px;
+		letter-spacing: -1px;
 	}
 
 	.stat-label {
-		font-size: 13px;
+		font-size: 14px;
 		font-weight: 700;
-		color: #64748b;
+		color: var(--w-color-primary-30);
 		text-transform: uppercase;
 		letter-spacing: 0.5px;
 	}
@@ -494,44 +504,52 @@ import Layout from "../layouts/Layout.astro";
 	}
 
 	.sim-card {
-		padding: 32px;
+		padding: 40px;
 		text-decoration: none;
 		color: inherit;
 		display: flex;
 		flex-direction: column;
-		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-		border: 1px solid #e2e8f0;
+		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		border: 1px solid var(--onee-card-border);
 		background: #fff;
+		border-radius: 16px;
 	}
 
 	.sim-card:hover {
-		transform: translateY(-8px);
+		transform: translateY(-12px);
 		border-color: var(--onee-blue);
-		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+		box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.08);
 	}
 
 	.sim-card-icon {
-		width: 52px;
-		height: 52px;
-		border-radius: 10px;
+		width: 60px;
+		height: 60px;
+		border-radius: 12px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		margin-bottom: 24px;
+		margin-bottom: 28px;
+		transition: all 0.3s ease;
+	}
+
+	.sim-card:hover .sim-card-icon {
+		background: var(--onee-blue) !important;
+		color: #fff !important;
+		transform: rotate(-5deg) scale(1.1);
 	}
 
 	.sim-card-title {
-		font-size: 18px;
+		font-size: 20px;
 		font-weight: 800;
-		margin-bottom: 12px;
+		margin-bottom: 16px;
 		color: var(--onee-blue);
 	}
 
 	.sim-card-desc {
-		font-size: 14px;
-		color: var(--w-color-primary-20);
+		font-size: 15px;
+		color: var(--w-color-primary-30);
 		line-height: 1.6;
-		margin-bottom: 20px;
+		margin-bottom: 28px;
 		flex: 1;
 	}
 
@@ -539,82 +557,95 @@ import Layout from "../layouts/Layout.astro";
 		display: flex;
 		gap: 8px;
 		flex-wrap: wrap;
-		margin-bottom: 24px;
+		margin-bottom: 32px;
 	}
 
 	.tag {
 		padding: 4px 12px;
-		background: #f1f5f9;
-		border-radius: 4px;
+		background: var(--onee-background);
+		border-radius: 6px;
 		font-size: 11px;
-		font-weight: 700;
-		color: #475569;
+		font-weight: 800;
+		color: var(--w-color-primary-30);
 		text-transform: uppercase;
+		border: 1px solid var(--onee-card-border);
 	}
 
 	.sim-card-arrow {
 		display: flex;
 		align-items: center;
-		justify-content: center;
-		width: 32px;
-		height: 32px;
-		border-radius: 6px;
-		background: #f1f5f9;
+		padding-top: 20px;
+		border-top: 1px solid var(--onee-background);
+		gap: 12px;
 		color: var(--onee-blue);
-		transition: all 0.3s;
+		font-weight: 800;
+		font-size: 14px;
+		text-transform: uppercase;
+		letter-spacing: 1px;
 	}
 
-	.sim-card:hover .sim-card-arrow {
-		background: var(--onee-blue);
-		color: #fff;
+	.sim-card-arrow svg {
+		transition: transform 0.3s ease;
+	}
+
+	.sim-card:hover .sim-card-arrow svg {
+		transform: translateX(6px);
 	}
 
 	.steps-grid {
 		display: flex;
 		align-items: flex-start;
 		justify-content: center;
-		margin-top: 40px;
+		margin: 60px 0;
 	}
 
 	.step-item {
 		text-align: center;
 		padding: 0 40px;
-		max-width: 300px;
+		flex: 1;
+		max-width: 320px;
 	}
 
 	.step-number {
-		width: 44px;
-		height: 44px;
+		width: 56px;
+		height: 56px;
 		background: var(--onee-blue);
 		color: #fff;
-		border-radius: 8px;
+		border-radius: 50%;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-size: 16px;
-		font-weight: 800;
-		margin: 0 auto 24px;
+		font-size: 18px;
+		font-weight: 900;
+		margin: 0 auto 28px;
+		box-shadow: 0 8px 16px rgba(0, 51, 102, 0.15);
+		border: 4px solid #fff;
+		outline: 1px solid var(--onee-blue);
 	}
 
 	.step-item h3 {
-		font-size: 16px;
+		font-size: 18px;
 		font-weight: 800;
-		margin-bottom: 12px;
+		margin-bottom: 16px;
 		color: var(--onee-blue);
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
 	}
 
 	.step-item p {
-		font-size: 14px;
-		color: var(--w-color-primary-20);
+		font-size: 15px;
+		color: var(--w-color-primary-30);
 		line-height: 1.6;
+		font-weight: 500;
 	}
 
 	.step-connector {
 		flex: 1;
-		max-width: 100px;
-		height: 1px;
-		background: #e2e8f0;
-		margin-top: 22px;
+		max-width: 120px;
+		height: 2px;
+		background: var(--onee-background);
+		margin-top: 28px;
+		border-top: 2px dashed var(--onee-card-border);
 	}
 
 	@media (max-width: 1024px) {
@@ -637,7 +668,7 @@ import Layout from "../layouts/Layout.astro";
 		.steps-grid {
 			flex-direction: column;
 			align-items: center;
-			gap: 40px;
+			gap: 60px;
 		}
 		.step-connector {
 			display: none;

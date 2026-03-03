@@ -10,157 +10,138 @@ import Layout from "../layouts/Layout.astro";
         <div class="container">
             <div class="section-header" style="text-align:center">
                 <h1 class="section-title">
-                    Grilles <span class="gradient-text">Tarifaires</span>
+                    Référentiel <span class="gradient-text">Tarifaire</span>
                 </h1>
                 <p class="section-subtitle">
-                    Tous les tarifs en vigueur de l'ONEE — Branche Électricité
+                    Catalogue officiel des conditions de vente de l'énergie
+                    électrique.
                 </p>
             </div>
 
             <!-- Tab Navigation -->
             <div class="tab-nav" id="tabNav">
                 <button class="tab-btn active" data-tab="bt"
-                    >Basse Tension (BT)</button
+                    >Basse Tension</button
                 >
-                <button class="tab-btn" data-tab="ht"
-                    >Haute Tension (60 kV)</button
-                >
+                <button class="tab-btn" data-tab="ht">Haute Tension</button>
                 <button class="tab-btn" data-tab="tht"
-                    >Très Haute Tension (150-225 kV)</button
+                    >Très Haute Tension</button
                 >
-                <button class="tab-btn" data-tab="fees"
-                    >Redevances & Taxes</button
-                >
+                <button class="tab-btn" data-tab="fees">Taxes & Frais</button>
             </div>
 
             <!-- BT Tab -->
             <div class="tab-panel active" id="bt">
                 <div class="bill-card">
-                    <div style="padding:32px">
+                    <div style="padding:40px">
                         <h2
-                            style="font-size:20px;font-weight:700;margin-bottom:8px"
+                            style="font-size:18px;font-weight:800;margin-bottom:12px;color:var(--onee-blue);text-transform:uppercase;letter-spacing:1px"
                         >
-                            Tarif Basse Tension — Tranches de consommation
+                            Tarification Basse Tension (BT)
                         </h2>
                         <p
-                            style="font-size:13px;color:var(--w-color-primary-30);margin-bottom:24px"
+                            style="font-size:13px;color:var(--w-color-primary-30);margin-bottom:32px;line-height:1.6;font-weight:500"
                         >
-                            Pour les consommations ≤ 150 kWh, les tranches 1 et
-                            2 s'appliquent de façon progressive.<br />
-                            Pour les consommations &gt; 150 kWh, une seule tranche
-                            s'applique à toute la consommation.
+                            La structure tarifaire BT repose sur un système de
+                            tranches. <br />
+                            <strong style="color:var(--onee-blue)"
+                                >Règle de facturation :</strong
+                            > Pour les volumes supérieurs à 150 kWh/mois, le tarif
+                            de la tranche atteinte s'applique à l'intégralité de
+                            la consommation commerciale.
                         </p>
                         <table class="bill-table">
                             <thead>
                                 <tr>
-                                    <th>Tranche</th>
-                                    <th>الشطر</th>
-                                    <th class="amount">Seuil (kWh)</th>
-                                    <th class="amount">Prix unitaire (DH HT)</th
+                                    <th>Poste / Tranche</th>
+                                    <th class="amount">Plage de volume (kWh)</th
                                     >
-                                    <th>Mode</th>
+                                    <th class="amount">Prix unit. (DH HT)</th>
+                                    <th>Méthode de Calcul</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody style="font-weight:500">
                                 <tr>
                                     <td>Tranche 1</td>
-                                    <td class="ar-text">الشطر 1</td>
                                     <td class="amount">0 — 100</td>
                                     <td
                                         class="amount"
-                                        style="color:var(--w-color-success)"
+                                        style="color:var(--onee-blue);font-weight:700"
                                         >0.76356</td
                                     >
                                     <td
-                                        ><span
-                                            class="tag"
-                                            style="font-size:10px"
+                                        ><span class="tag-label"
                                             >Progressif</span
                                         >
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Tranche 2</td>
-                                    <td class="ar-text">الشطر 2</td>
                                     <td class="amount">101 — 150</td>
                                     <td
                                         class="amount"
-                                        style="color:var(--w-color-success)"
+                                        style="color:var(--onee-blue);font-weight:700"
                                         >0.90950</td
                                     >
                                     <td
-                                        ><span
-                                            class="tag"
-                                            style="font-size:10px"
+                                        ><span class="tag-label"
                                             >Progressif</span
                                         >
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Tranche 3</td>
-                                    <td class="ar-text">الشطر 3</td>
                                     <td class="amount">151 — 210</td>
                                     <td
                                         class="amount"
-                                        style="color:var(--w-color-info)"
+                                        style="color:var(--onee-blue);font-weight:700"
                                         >0.90950</td
                                     >
                                     <td
-                                        ><span
-                                            class="tag"
-                                            style="font-size:10px;border-color:var(--onee-gold);color:var(--onee-gold)"
-                                            >Unique</span
+                                        ><span class="tag-label selective"
+                                            >Sélectif</span
                                         >
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Tranche 4</td>
-                                    <td class="ar-text">الشطر 4</td>
                                     <td class="amount">211 — 310</td>
                                     <td
                                         class="amount"
-                                        style="color:var(--w-color-warning)"
+                                        style="color:var(--onee-blue);font-weight:700"
                                         >0.98950</td
                                     >
                                     <td
-                                        ><span
-                                            class="tag"
-                                            style="font-size:10px;border-color:var(--onee-gold);color:var(--onee-gold)"
-                                            >Unique</span
+                                        ><span class="tag-label selective"
+                                            >Sélectif</span
                                         >
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Tranche 5</td>
-                                    <td class="ar-text">الشطر 5</td>
                                     <td class="amount">311 — 510</td>
                                     <td
                                         class="amount"
-                                        style="color:var(--w-color-warning)"
+                                        style="color:var(--onee-blue);font-weight:700"
                                         >1.17094</td
                                     >
                                     <td
-                                        ><span
-                                            class="tag"
-                                            style="font-size:10px;border-color:var(--onee-gold);color:var(--onee-gold)"
-                                            >Unique</span
+                                        ><span class="tag-label selective"
+                                            >Sélectif</span
                                         >
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Tranche 6</td>
-                                    <td class="ar-text">الشطر 6</td>
                                     <td class="amount">&gt; 510</td>
                                     <td
                                         class="amount"
-                                        style="color:var(--w-color-alert)"
+                                        style="color:var(--onee-blue);font-weight:700"
                                         >1.35238</td
                                     >
                                     <td
-                                        ><span
-                                            class="tag"
-                                            style="font-size:10px;border-color:var(--onee-gold);color:var(--onee-gold)"
-                                            >Unique</span
+                                        ><span class="tag-label selective"
+                                            >Sélectif</span
                                         >
                                     </td>
                                 </tr>
@@ -173,36 +154,35 @@ import Layout from "../layouts/Layout.astro";
             <!-- HT Tab -->
             <div class="tab-panel" id="ht">
                 <div class="bill-card">
-                    <div style="padding:32px">
+                    <div style="padding:40px">
                         <h2
-                            style="font-size:20px;font-weight:700;margin-bottom:8px"
+                            style="font-size:18px;font-weight:800;margin-bottom:12px;color:var(--onee-blue);text-transform:uppercase;letter-spacing:1px"
                         >
                             Clients Haute Tension (60 kV)
                         </h2>
                         <p
-                            style="font-size:13px;color:var(--w-color-primary-30);margin-bottom:24px"
+                            style="font-size:13px;color:var(--w-color-primary-30);margin-bottom:32px;font-weight:500"
                         >
-                            Les tarifs sont exprimés en dirhams TVA comprise
-                            (TVA est de 20%)
+                            Tarification industrielle basée sur la durée
+                            d'utilisation de la puissance souscrite.
                         </p>
                         <table class="bill-table">
                             <thead>
                                 <tr>
-                                    <th>Option tarifaire</th>
-                                    <th class="amount">Prime fixe (DH kW/An)</th
+                                    <th>Usage</th>
+                                    <th class="amount">Prime Fixe (DH/kW/An)</th
                                     >
-                                    <th class="amount">HP (DH/kWh)</th>
-                                    <th class="amount">HPL (DH/kWh)</th>
-                                    <th class="amount">HC (DH/kWh)</th>
+                                    <th class="amount">Pointe (DH/kWh)</th>
+                                    <th class="amount">Pleines (DH/kWh)</th>
+                                    <th class="amount">Creuses (DH/kWh)</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody style="font-weight:500">
                                 <tr>
                                     <td
                                         ><strong>TLU</strong>
-                                        <span
-                                            style="font-size:12px;color:var(--w-color-primary-30)"
-                                            >Très Longue Utilisation</span
+                                        <small style="display:block;opacity:0.6"
+                                            >Utilisation &gt; 6000h</small
                                         >
                                     </td>
                                     <td class="amount">2 379.13</td>
@@ -213,9 +193,8 @@ import Layout from "../layouts/Layout.astro";
                                 <tr>
                                     <td
                                         ><strong>MU</strong>
-                                        <span
-                                            style="font-size:12px;color:var(--w-color-primary-30)"
-                                            >Moyenne Utilisation</span
+                                        <small style="display:block;opacity:0.6"
+                                            >3500h - 6000h</small
                                         >
                                     </td>
                                     <td class="amount">952.76</td>
@@ -226,9 +205,8 @@ import Layout from "../layouts/Layout.astro";
                                 <tr>
                                     <td
                                         ><strong>CU</strong>
-                                        <span
-                                            style="font-size:12px;color:var(--w-color-primary-30)"
-                                            >Courte Utilisation</span
+                                        <small style="display:block;opacity:0.6"
+                                            >1000h - 3500h</small
                                         >
                                     </td>
                                     <td class="amount">475.46</td>
@@ -239,9 +217,8 @@ import Layout from "../layouts/Layout.astro";
                                 <tr>
                                     <td
                                         ><strong>TCU</strong>
-                                        <span
-                                            style="font-size:12px;color:var(--w-color-primary-30)"
-                                            >Très Courte Utilisation</span
+                                        <small style="display:block;opacity:0.6"
+                                            >Utilisation &lt; 1000h</small
                                         >
                                     </td>
                                     <td class="amount">421.81</td>
@@ -251,19 +228,6 @@ import Layout from "../layouts/Layout.astro";
                                 </tr>
                             </tbody>
                         </table>
-                        <div
-                            style="margin-top:16px;padding:12px;border:1px solid var(--onee-card-border);border-radius:8px"
-                        >
-                            <p
-                                style="font-size:13px;color:var(--w-color-primary-20)"
-                            >
-                                <strong style="color:var(--onee-gold)"
-                                    >Coefficients de réduction de puissance:</strong
-                                >
-                                HP = 1 &nbsp;|&nbsp; HPL = 0.6 &nbsp;|&nbsp; HC =
-                                0.4
-                            </p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -271,36 +235,35 @@ import Layout from "../layouts/Layout.astro";
             <!-- THT Tab -->
             <div class="tab-panel" id="tht">
                 <div class="bill-card">
-                    <div style="padding:32px">
+                    <div style="padding:40px">
                         <h2
-                            style="font-size:20px;font-weight:700;margin-bottom:8px"
+                            style="font-size:18px;font-weight:800;margin-bottom:12px;color:var(--onee-blue);text-transform:uppercase;letter-spacing:1px"
                         >
-                            Clients Très Haute Tension (150 et 225 kV)
+                            Clients Très Haute Tension (150 - 225 kV)
                         </h2>
                         <p
-                            style="font-size:13px;color:var(--w-color-primary-30);margin-bottom:24px"
+                            style="font-size:13px;color:var(--w-color-primary-30);margin-bottom:32px;font-weight:500"
                         >
-                            Les tarifs sont exprimés en dirhams TVA comprise
-                            (TVA est de 20%)
+                            Grille tarifaire spécifique aux raccordements de
+                            transport d'énergie.
                         </p>
                         <table class="bill-table">
                             <thead>
                                 <tr>
-                                    <th>Option tarifaire</th>
-                                    <th class="amount">Prime fixe (DH kW/An)</th
+                                    <th>Usage</th>
+                                    <th class="amount">Prime Fixe (DH/kW/An)</th
                                     >
-                                    <th class="amount">HP (DH/kWh)</th>
-                                    <th class="amount">HPL (DH/kWh)</th>
-                                    <th class="amount">HC (DH/kWh)</th>
+                                    <th class="amount">Pointe (DH/kWh)</th>
+                                    <th class="amount">Pleines (DH/kWh)</th>
+                                    <th class="amount">Creuses (DH/kWh)</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody style="font-weight:500">
                                 <tr>
                                     <td
                                         ><strong>TLU</strong>
-                                        <span
-                                            style="font-size:12px;color:var(--w-color-primary-30)"
-                                            >Très Longue Utilisation</span
+                                        <small style="display:block;opacity:0.6"
+                                            >Utilisation &gt; 6000h</small
                                         >
                                     </td>
                                     <td class="amount">2 128.60</td>
@@ -311,9 +274,8 @@ import Layout from "../layouts/Layout.astro";
                                 <tr>
                                     <td
                                         ><strong>MU</strong>
-                                        <span
-                                            style="font-size:12px;color:var(--w-color-primary-30)"
-                                            >Moyenne Utilisation</span
+                                        <small style="display:block;opacity:0.6"
+                                            >3500h - 6000h</small
                                         >
                                     </td>
                                     <td class="amount">852.17</td>
@@ -324,9 +286,8 @@ import Layout from "../layouts/Layout.astro";
                                 <tr>
                                     <td
                                         ><strong>CU</strong>
-                                        <span
-                                            style="font-size:12px;color:var(--w-color-primary-30)"
-                                            >Courte Utilisation</span
+                                        <small style="display:block;opacity:0.6"
+                                            >1000h - 3500h</small
                                         >
                                     </td>
                                     <td class="amount">426.08</td>
@@ -337,9 +298,8 @@ import Layout from "../layouts/Layout.astro";
                                 <tr>
                                     <td
                                         ><strong>TCU</strong>
-                                        <span
-                                            style="font-size:12px;color:var(--w-color-primary-30)"
-                                            >Très Courte Utilisation</span
+                                        <small style="display:block;opacity:0.6"
+                                            >Utilisation &lt; 1000h</small
                                         >
                                     </td>
                                     <td class="amount">378.00</td>
@@ -349,60 +309,61 @@ import Layout from "../layouts/Layout.astro";
                                 </tr>
                             </tbody>
                         </table>
-                        <div
-                            style="margin-top:16px;padding:12px;border:1px solid var(--onee-card-border);border-radius:8px"
-                        >
-                            <p
-                                style="font-size:13px;color:var(--w-color-primary-20)"
-                            >
-                                <strong style="color:var(--onee-gold)"
-                                    >Coefficients de réduction de puissance:</strong
-                                >
-                                HP = 1 &nbsp;|&nbsp; HPL = 0.6 &nbsp;|&nbsp; HC =
-                                0.4
-                            </p>
-                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Fees Tab -->
             <div class="tab-panel" id="fees">
-                <div class="grid grid-2">
+                <div class="grid grid-2" style="gap:24px">
                     <div class="bill-card">
                         <div style="padding:32px">
                             <h2
-                                style="font-size:20px;font-weight:700;margin-bottom:20px"
+                                style="font-size:16px;font-weight:800;margin-bottom:20px;color:var(--onee-blue);text-transform:uppercase;letter-spacing:0.5px"
                             >
-                                Redevances Fixes (BT)
+                                Droits & Taxes (TVA)
                             </h2>
                             <table class="bill-table">
-                                <thead>
+                                <tbody style="font-weight:500">
                                     <tr>
-                                        <th>Type de compteur</th>
-                                        <th class="amount">RF (DH/mois)</th>
-                                        <th class="amount">Entretien</th>
-                                        <th class="amount">Location</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>2 Fils</td>
-                                        <td class="amount">17.42</td>
-                                        <td class="amount">7.86</td>
-                                        <td class="amount">9.56</td>
+                                        <td>TVA sur Consommations (RC)</td>
+                                        <td
+                                            class="amount"
+                                            style="color:var(--onee-blue)"
+                                            >18%</td
+                                        >
                                     </tr>
                                     <tr>
-                                        <td>4 Fils 5-15A</td>
-                                        <td class="amount">33.28</td>
-                                        <td class="amount">15.00</td>
-                                        <td class="amount">18.28</td>
+                                        <td>TVA sur Prime Fixe / TPPA</td>
+                                        <td
+                                            class="amount"
+                                            style="color:var(--onee-blue)"
+                                            >20%</td
+                                        >
                                     </tr>
                                     <tr>
-                                        <td>4 Fils 20-60A</td>
-                                        <td class="amount">44.57</td>
-                                        <td class="amount">15.00</td>
-                                        <td class="amount">29.57</td>
+                                        <td>TVA sur Entretien Technique</td>
+                                        <td
+                                            class="amount"
+                                            style="color:var(--onee-blue)"
+                                            >20%</td
+                                        >
+                                    </tr>
+                                    <tr>
+                                        <td>TVA sur Location de Compteur</td>
+                                        <td
+                                            class="amount"
+                                            style="color:var(--onee-blue)"
+                                            >15%</td
+                                        >
+                                    </tr>
+                                    <tr>
+                                        <td>Droit de Timbre (Espèce)</td>
+                                        <td
+                                            class="amount"
+                                            style="color:var(--onee-blue)"
+                                            >0.25%</td
+                                        >
                                     </tr>
                                 </tbody>
                             </table>
@@ -411,47 +372,29 @@ import Layout from "../layouts/Layout.astro";
                     <div class="bill-card">
                         <div style="padding:32px">
                             <h2
-                                style="font-size:20px;font-weight:700;margin-bottom:20px"
+                                style="font-size:16px;font-weight:800;margin-bottom:20px;color:var(--onee-blue);text-transform:uppercase;letter-spacing:0.5px"
                             >
-                                Taxes & TVA
+                                Frais d'Abonnement Mensuels
                             </h2>
                             <table class="bill-table">
                                 <thead>
                                     <tr>
-                                        <th>Composante</th>
-                                        <th class="amount">Taux</th>
+                                        <th>Calibre du Compteur</th>
+                                        <th class="amount">Total Mensuel</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr
-                                        ><td>TVA sur consommation (RC)</td><td
-                                            class="amount">18%</td
-                                        >
+                                <tbody style="font-weight:500">
+                                    <tr>
+                                        <td>Monophasé 2 Fils</td>
+                                        <td class="amount">17.42 DH</td>
                                     </tr>
-                                    <tr
-                                        ><td>TVA sur TPPA</td><td class="amount"
-                                            >20%</td
-                                        >
+                                    <tr>
+                                        <td>Triphasé 4 Fils 5-15A</td>
+                                        <td class="amount">33.28 DH</td>
                                     </tr>
-                                    <tr
-                                        ><td>TVA sur entretien</td><td
-                                            class="amount">20%</td
-                                        >
-                                    </tr>
-                                    <tr
-                                        ><td>TVA sur location compteur</td><td
-                                            class="amount">15%</td
-                                        >
-                                    </tr>
-                                    <tr
-                                        ><td>Timbre fiscal (espèces)</td><td
-                                            class="amount">0.25%</td
-                                        >
-                                    </tr>
-                                    <tr
-                                        ><td>TPPA seuil d'exonération</td><td
-                                            class="amount">200 kWh/mois</td
-                                        >
+                                    <tr>
+                                        <td>Triphasé 4 Fils 20-60A</td>
+                                        <td class="amount">44.57 DH</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -466,36 +409,39 @@ import Layout from "../layouts/Layout.astro";
 <style>
     .tab-nav {
         display: flex;
-        gap: 4px;
-        margin-bottom: 28px;
-        padding: 4px;
-        background: rgba(15, 31, 51, 0.5);
-        border-radius: var(--w-lg-radius);
+        gap: 8px;
+        margin-bottom: 40px;
+        padding: 6px;
+        background: #f1f5f9;
+        border-radius: 8px;
         overflow-x: auto;
+        border: 1px solid #e2e8f0;
     }
 
     .tab-btn {
-        padding: 10px 20px;
+        padding: 10px 24px;
         border: none;
         background: transparent;
-        color: var(--w-color-primary-20);
+        color: #64748b;
         font-size: 14px;
-        font-weight: 600;
-        font-family: "Inter", sans-serif;
+        font-weight: 700;
+        font-family: inherit;
         cursor: pointer;
-        border-radius: var(--w-md-radius);
+        border-radius: 6px;
         transition: all 0.2s;
         white-space: nowrap;
     }
 
     .tab-btn:hover {
-        color: var(--w-color-primary);
+        color: var(--onee-blue);
+        background: rgba(255, 255, 255, 0.5);
     }
 
     .tab-btn.active {
-        background: var(--onee-cyan);
-        color: #fff;
-        box-shadow: 0 2px 8px rgba(10, 189, 227, 0.3);
+        background: #fff;
+        color: var(--onee-blue);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+            0 2px 4px -2px rgba(0, 0, 0, 0.1);
     }
 
     .tab-panel {
@@ -505,6 +451,23 @@ import Layout from "../layouts/Layout.astro";
 
     .tab-panel.active {
         display: block;
+    }
+
+    .tag-label {
+        font-size: 10px;
+        font-weight: 800;
+        padding: 2px 8px;
+        border-radius: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        background: #f1f5f9;
+        color: #475569;
+    }
+
+    .tag-label.selective {
+        background: #fff7ed;
+        color: #c2410c;
+        border: 1px solid #ffedd5;
     }
 </style>
 

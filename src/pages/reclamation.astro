@@ -18,14 +18,16 @@ import Layout from "../layouts/Layout.astro";
                 </p>
             </div>
 
-            <div class="grid grid-2" style="gap: 32px; align-items: start;">
+            <div class="grid grid-2" style="gap: 40px; align-items: start;">
                 <!-- Form -->
                 <div class="bill-card" style="margin:0">
-                    <div style="padding: 32px;">
+                    <div style="padding: 40px;">
                         <h2
-                            style="font-size: 16px; font-weight: 800; margin-bottom: 24px; color: var(--onee-blue); text-transform: uppercase; letter-spacing: 1px;"
+                            style="font-size: 14px; font-weight: 800; margin-bottom: 32px; color: var(--onee-blue); text-transform: uppercase; letter-spacing: 1.5px; opacity: 0.8;"
                         >
-                            Informations Requises
+                            <span style="color:var(--onee-blue);opacity:0.5"
+                                >01.</span
+                            > Informations Requises
                         </h2>
 
                         <div class="form-group">
@@ -100,56 +102,51 @@ import Layout from "../layouts/Layout.astro";
                             />
                         </div>
 
-                        <div class="form-group">
-                            <label>N° de Contrat / Police</label>
-                            <input
-                                type="text"
-                                id="contractId"
-                                class="form-input"
-                                placeholder="Ex: 123456789"
-                            />
+                        <div class="grid grid-2" style="gap:16px">
+                            <div class="form-group">
+                                <label>N° de Contrat</label>
+                                <input
+                                    type="text"
+                                    id="contractId"
+                                    class="form-input"
+                                    placeholder="Ex: 123456789"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label>Objet Principal</label>
+                                <select id="reason" class="form-select">
+                                    <option value="overcharge"
+                                        >Montant excessif</option
+                                    >
+                                    <option value="tranche"
+                                        >Calcul tranches</option
+                                    >
+                                    <option value="tppa">Taxe TPPA</option>
+                                    <option value="other">Autre demande</option>
+                                </select>
+                            </div>
                         </div>
 
                         <div class="form-group">
-                            <label>Objet de la réclamation</label>
-                            <select id="reason" class="form-select">
-                                <option value="overcharge"
-                                    >Montant estimé trop élevé par rapport au
-                                    réel</option
-                                >
-                                <option value="tranche"
-                                    >Erreur suspectée dans le calcul des
-                                    tranches</option
-                                >
-                                <option value="tppa"
-                                    >Application incorrecte de la taxe TPPA</option
-                                >
-                                <option value="other"
-                                    >Autre demande d'information</option
-                                >
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Détails supplémentaires</label>
+                            <label>Détails & Arguments</label>
                             <textarea
                                 id="extraDetails"
                                 class="form-input"
-                                style="height: 100px; resize: none;"
-                                placeholder="Précisez votre demande..."
+                                style="height: 120px; resize: none;"
+                                placeholder="Décrivez les faits avec précision..."
                             ></textarea>
                         </div>
 
                         <div
-                            style="margin-top: 24px; padding: 16px; background: #F9FAFB; border-radius: 6px; border-left: 3px solid var(--onee-blue);"
+                            style="margin-top: 32px; padding: 20px; background: var(--onee-background); border-radius: 8px; border: 1px solid var(--onee-card-border);"
                         >
                             <p
-                                style="font-size: 12px; color: var(--w-color-primary-30); font-weight: 500;"
+                                style="font-size: 12px; color: var(--w-color-primary-30); font-weight: 600; line-height: 1.6;"
                             >
-                                <strong>Rappel Légal :</strong> Ce document s'appuie
-                                sur la <strong>Loi 55.19</strong> (simplification
-                                administrative) et la <strong>Loi 31.13</strong>
-                                (droit d'accès à l'information).
+                                <strong style="color:var(--onee-blue)"
+                                    >Rappel Légal :</strong
+                                > Ce document est conforme à la Loi 55.19 (Simplification
+                                administrative) et Loi 31.13 (Droit à l'information).
                             </p>
                         </div>
                     </div>
@@ -157,36 +154,34 @@ import Layout from "../layouts/Layout.astro";
 
                 <!-- Preview Area -->
                 <div
-                    class="bill-card animate-fade-in"
+                    class="animate-fade-in"
                     style="margin:0; position: sticky; top: 20px;"
                 >
-                    <div style="padding: 32px;">
-                        <div
-                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;"
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding: 0 8px;"
+                    >
+                        <h2
+                            style="font-size: 13px; font-weight: 800; text-transform: uppercase; color: var(--onee-blue); letter-spacing: 1px;"
                         >
-                            <h2
-                                style="font-size: 14px; font-weight: 800; text-transform: uppercase; color: var(--w-color-primary-30);"
+                            Aperçu de l'Audit
+                        </h2>
+                        <div class="no-print" style="display:flex; gap:12px">
+                            <button
+                                class="btn btn-primary"
+                                onclick="window.print()"
+                                style="padding: 10px 24px; font-size: 13px;"
                             >
-                                Aperçu du document
-                            </h2>
-                            <div class="no-print">
-                                <button
-                                    class="btn btn-primary"
-                                    onclick="window.print()"
-                                    style="padding: 8px 16px; font-size: 13px;"
-                                >
-                                    Exporter PDF
-                                </button>
-                            </div>
+                                Imprimer / PDF
+                            </button>
                         </div>
+                    </div>
 
-                        <div
-                            id="documentPreview"
-                            class="glass-card"
-                            style="padding: 40px; font-family: 'Inter', -apple-system, blinkmacsystemfont, sans-serif; color: #1E293B; background: #fff; line-height: 1.6; min-height: 500px; font-size: 14px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid #E2E8F0;"
-                        >
-                            <!-- Content injected here -->
-                        </div>
+                    <div
+                        id="documentPreview"
+                        class="bill-card"
+                        style="padding: 60px; min-height: 700px; background: #fff; box-shadow: 0 20px 50px rgba(0,0,0,0.08); border-radius: 4px;"
+                    >
+                        <!-- Content injected here -->
                     </div>
                 </div>
             </div>
@@ -223,10 +218,10 @@ import Layout from "../layouts/Layout.astro";
 
         const name =
             (document.getElementById("userName") as HTMLInputElement).value ||
-            "[Votre Nom]";
+            "[Votre Nom / Raison Sociale]";
         const contract =
             (document.getElementById("contractId") as HTMLInputElement).value ||
-            "[N° Contrat]";
+            "[N° de Police]";
         const reasonSelect = document.getElementById(
             "reason"
         ) as unknown as HTMLSelectElement;
@@ -235,59 +230,76 @@ import Layout from "../layouts/Layout.astro";
         const extra = (
             document.getElementById("extraDetails") as HTMLTextAreaElement
         ).value;
-        const date = new Date().toLocaleDateString("fr-FR");
+        const date = new Date().toLocaleDateString("fr-FR", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+        });
 
         const estDetails = estimation
             ? `
-            <div style="background: #F8FAFC; padding: 15px; border-radius: 6px; margin: 15px 0; border: 1px solid #E2E8F0; font-size: 13px;">
-                <strong>Détails de l'estimation de référence :</strong><br>
-                ${estimation.label}<br>
-                Montant simulé : ${estimation.total.toFixed(2)} DH TTC
+            <div style="background: #F8FAFC; padding: 24px; border-radius: 8px; margin: 24px 0; border: 1px solid #E2E8F0; font-size: 13px; line-height: 1.8;">
+                <div style="font-weight: 800; color: #003366; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; font-size: 11px;">Données de Référence :</div>
+                <strong>Estimation :</strong> ${estimation.label}<br>
+                <strong>Date :</strong> ${new Date(
+                    estimation.date
+                ).toLocaleDateString()}<br>
+                <strong>Montant Audit :</strong> ${estimation.total.toFixed(
+                    2
+                )} DH HT
             </div>
         `
             : "";
 
         const preview = document.getElementById("documentPreview")!;
         preview.innerHTML = `
-            <div style="display: flex; justify-content: space-between; margin-bottom: 50px;">
-                <div style="font-size: 12px; color: #475569;">
-                    <strong>EXPÉDITEUR :</strong><br>
-                    ${name}<br>
-                    Contrat N° : ${contract}
+            <div style="display: flex; justify-content: space-between; margin-bottom: 60px; border-bottom: 1px solid #E2E8F0; padding-bottom: 32px;">
+                <div style="font-size: 13px; color: #1E293B; line-height: 1.6;">
+                    <div style="font-weight: 800; color: #003366; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-size: 11px;">EXPÉDITEUR</div>
+                    <strong style="font-size: 15px;">${name}</strong><br>
+                    Contrat N° : ${contract}<br>
+                    Secteur : Basse Tension / Tarif Général
                 </div>
-                <div style="text-align: right; font-size: 12px; color: #475569;">
-                    Fait le : ${date}
+                <div style="text-align: right; font-size: 13px; color: #64748B;">
+                    Fait à Casablanca, le<br>
+                    <strong style="color: #1E293B;">${date}</strong>
                 </div>
             </div>
 
-            <div style="margin-bottom: 40px; margin-left: auto; width: fit-content; max-width: 60%; text-align: left; font-size: 13px;">
-                <strong>À l'attention de Monsieur le Directeur Général</strong><br>
+            <div style="margin-bottom: 64px; margin-left: auto; width: fit-content; max-width: 60%; text-align: left; font-size: 14px; background: #F1F5F9; padding: 24px; border-radius: 8px; border: 1px solid #E2E8F0;">
+                <div style="font-weight: 800; color: #003366; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-size: 11px;">DESTINATAIRE</div>
+                <strong>À Monsieur le Directeur Général</strong><br>
                 ${providerName}<br>
-                Royaume du Maroc
+                <span style="font-size: 12px; opacity: 0.8;">Service Clients & Réclamations</span>
             </div>
 
-            <div style="margin-bottom: 30px; border-bottom: 1px solid #E2E8F0; padding-bottom: 12px;">
-                <strong>OBJET : ${reasonText.toUpperCase()}</strong>
+            <div style="margin-bottom: 40px; padding: 16px; border-left: 4px solid #003366; background: #F8FAFC;">
+                <strong style="font-size: 12px; color: #64748B; text-transform: uppercase; letter-spacing: 1px;">Objet :</strong><br>
+                <strong style="font-size: 16px; color: #003366;">DEMANDE DE VÉRIFICATION DE FACTURATION — ${reasonText.toUpperCase()}</strong>
             </div>
 
-            <p style="margin-bottom: 15px;">Monsieur le Directeur,</p>
+            <div style="font-size: 15px; color: #1E293B; line-height: 1.8;">
+                <p style="margin-bottom: 24px;">Monsieur le Directeur,</p>
 
-            <p style="margin-bottom: 15px;">Par la présente, je tiens à porter à votre connaissance une réclamation concernant ma consommation d'électricité. Après avoir effectué une simulation basée sur les tarifs officiels en vigueur (Arrêtés ministériels fixant les tarifs de vente de l'énergie électrique), j'ai constaté une divergence que je souhaiterais clarifier.</p>
+                <p style="margin-bottom: 20px;">Par la présente, je sollicite votre intervention concernant les modalités de facturation appliquées à mon contrat cité en référence. À la suite d'un audit interne basé sur les grilles tarifaires officielles en vigueur au Royaume du Maroc, une divergence technique a été identifiée.</p>
 
-            ${estDetails}
+                ${estDetails}
 
-            <p style="margin-bottom: 15px;">${
-                extra ||
-                "Je vous prie de bien vouloir procéder à une vérification de mon compteur ou de m'apporter des précisions sur le mode de calcul appliqué à ma dernière facture."
-            }</p>
+                <p style="margin-bottom: 20px;">${
+                    extra ||
+                    "Les éléments en ma possession suggèrent une anomalie dans l'application des tranches tarifaires ou des redevances fixes. Je vous demande par conséquent de bien vouloir procéder à une revue exhaustive des index facturés et de me fournir une décomposition détaillée justifiant les montants prélevés."
+                }</p>
 
-            <p style="margin-bottom: 20px;">Cette demande s'inscrit dans le cadre de mes droits garantis par la n° 55.19 relative à la simplification des procédures administratives et la n° 31.13 relative au droit d'accès à l'information.</p>
+                <p style="margin-bottom: 24px;">Cette démarche s'inscrit dans le cadre de mes droits fondamentaux garantis par la <strong>Loi n° 55.19</strong> relative à la simplification des procédures administratives et la <strong>Loi n° 31.13</strong> relative au droit d'accès à l'information.</p>
 
-            <p style="margin-bottom: 40px;">Dans l'attente d'une réponse de votre part sous les délais réglementaires, je vous prie d'agréer, Monsieur le Directeur, l'expression de mes salutations distinguées.</p>
+                <p style="margin-bottom: 60px;">Dans l'attente d'une réponse de vos services sous les délais légaux prescrits, je vous prie d'agréer, Monsieur le Directeur, l'expression de ma considération distinguée.</p>
+            </div>
 
-            <div style="margin-top: 50px; text-align: right; padding-right: 50px;">
-                <p><strong>Signature :</strong></p>
-                <div style="margin-top: 40px; border-top: 1px dashed #94A3B8; width: 150px; margin-left: auto;"></div>
+            <div style="display: flex; justify-content: flex-end; margin-top: 40px;">
+                <div style="text-align: center; width: 250px;">
+                    <p style="font-size: 12px; color: #64748B; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 40px;">Signature du Client</p>
+                    <div style="border-top: 1px solid #E2E8F0; width: 100%;"></div>
+                </div>
             </div>
         `;
     }
@@ -348,8 +360,9 @@ import Layout from "../layouts/Layout.astro";
         #documentPreview {
             box-shadow: none !important;
             border: none !important;
-            padding: 20mm !important;
-            width: 210mm !important;
+            padding: 15mm !important;
+            width: 100% !important;
+            min-height: auto !important;
             background: #fff !important;
             color: #000 !important;
             font-size: 11pt !important;
@@ -360,7 +373,7 @@ import Layout from "../layouts/Layout.astro";
         }
 
         @page {
-            margin: 0;
+            margin: 1cm;
             size: A4;
         }
     }

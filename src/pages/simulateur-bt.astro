@@ -10,8 +10,8 @@ import Layout from "../layouts/Layout.astro";
                     Simulateur <span class="gradient-text">Basse Tension</span>
                 </h1>
                 <p class="section-subtitle">
-                    Estimez votre facture d'électricité pour les clients
-                    résidentiels et commerciaux
+                    Outil de calcul pour abonnements résidentiels,
+                    professionnels et agricoles.
                 </p>
             </div>
 
@@ -42,28 +42,29 @@ import Layout from "../layouts/Layout.astro";
                     >
                         <div style="padding:32px">
                             <h2
-                                style="font-size:20px;font-weight:700;margin-bottom:24px"
+                                style="font-size:16px;font-weight:800;margin-bottom:24px;color:var(--onee-blue);text-transform:uppercase;letter-spacing:1px"
                             >
-                                <span style="color:var(--onee-cyan)">01.</span> Informations
-                                d'abonnement
+                                <span style="color:var(--onee-blue);opacity:0.5"
+                                    >01.</span
+                                > Paramètres d'abonnement
                             </h2>
 
                             <div class="form-group">
                                 <label for="selectTarif">
-                                    Tarif / التعريفة
+                                    Usage Tarifaire
                                     <span class="form-hint"
-                                        >L'usage tarifaire pour lequel vous avez
-                                        souscrit</span
+                                        >Sélectionnez la catégorie de votre
+                                        contrat</span
                                     >
                                 </label>
                                 <select class="form-select" id="selectTarif">
-                                    <option value=""
-                                        >— Choisir le tarif —</option
-                                    >
+                                    <option value="">— Sélectionner —</option>
                                     <option value="domestique"
-                                        >Domestique ou éclairage privé</option
+                                        >Domestique (Éclairage privé)</option
                                     >
-                                    <option value="patente">Patenté</option>
+                                    <option value="patente"
+                                        >Professionnel (Patenté)</option
+                                    >
                                     <option value="force_motrice_industrielle"
                                         >Force Motrice Industrielle</option
                                     >
@@ -74,34 +75,34 @@ import Layout from "../layouts/Layout.astro";
                             </div>
 
                             <div
-                                class="tariff-info glass-card"
+                                class="tariff-info"
                                 id="tariffInfo"
-                                style="display:none;padding:16px;margin-bottom:20px"
+                                style="display:none;padding:16px;margin-bottom:24px;background:#F8FAFC;border-radius:6px;border-left:3px solid var(--onee-blue)"
                             >
                                 <p
                                     id="tariffDesc"
-                                    style="font-size:13px;color:var(--w-color-primary-20);line-height:1.6"
+                                    style="font-size:13px;color:var(--w-color-primary-20);line-height:1.6;font-weight:500"
                                 >
                                 </p>
                             </div>
 
                             <div class="form-group">
                                 <label for="selectCompteur">
-                                    Type de compteur / نوع العداد
+                                    Type de Branchement
                                     <span class="form-hint"
-                                        >Le type de compteur mis à votre
-                                        disposition</span
+                                        >Type de compteur installé</span
                                     >
                                 </label>
                                 <select class="form-select" id="selectCompteur">
-                                    <option value="">— Choisir le type —</option
+                                    <option value="">— Sélectionner —</option>
+                                    <option value="2fils"
+                                        >Monophasé (2 Fils)</option
                                     >
-                                    <option value="2fils">2 Fils</option>
                                     <option value="4fils_5_15"
-                                        >4 Fils 5-15 Ampères</option
+                                        >Triphasé (4 Fils 5-15A)</option
                                     >
                                     <option value="4fils_20_60"
-                                        >4 Fils 20-60 Ampères ou 10-60 Ampères</option
+                                        >Triphasé (4 Fils 20-60A)</option
                                     >
                                 </select>
                             </div>
@@ -109,10 +110,10 @@ import Layout from "../layouts/Layout.astro";
                             <div class="form-group">
                                 <label>Transformateur de Courant (TC)</label>
                                 <div
-                                    style="display:flex;gap:16px;align-items:center;"
+                                    style="display:flex;gap:24px;align-items:center;margin-top:8px;"
                                 >
                                     <label
-                                        style="display:flex;align-items:center;gap:6px;cursor:pointer;font-weight:400"
+                                        style="display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:600;font-size:14px;color:var(--onee-blue)"
                                     >
                                         <input
                                             type="radio"
@@ -120,16 +121,18 @@ import Layout from "../layouts/Layout.astro";
                                             value="non"
                                             checked
                                             id="tcNon"
+                                            style="width:16px;height:16px"
                                         /> Non
                                     </label>
                                     <label
-                                        style="display:flex;align-items:center;gap:6px;cursor:pointer;font-weight:400"
+                                        style="display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:600;font-size:14px;color:var(--onee-blue)"
                                     >
                                         <input
                                             type="radio"
                                             name="tc_radio"
                                             value="oui"
                                             id="tcOui"
+                                            style="width:16px;height:16px"
                                         /> Oui
                                     </label>
                                     <input
@@ -138,33 +141,24 @@ import Layout from "../layouts/Layout.astro";
                                         id="tcRatio"
                                         value="1"
                                         min="1"
-                                        style="width:80px;display:none"
+                                        style="width:100px;display:none;margin-left:auto"
+                                        placeholder="Ratio"
                                     />
                                 </div>
                             </div>
 
                             <div
-                                style="display:flex;gap:12px;justify-content:flex-end;margin-top:32px"
+                                style="display:flex;gap:16px;justify-content:flex-end;margin-top:40px"
                             >
-                                <a href="/" class="btn btn-secondary">Retour</a>
+                                <a href="/" class="btn btn-secondary">Annuler</a
+                                >
                                 <button
                                     class="btn btn-primary"
                                     id="toStep2"
                                     disabled
+                                    style="padding: 10px 24px"
                                 >
                                     Suivant
-                                    <svg
-                                        width="16"
-                                        height="16"
-                                        viewBox="0 0 16 16"
-                                        fill="none"
-                                        ><path
-                                            d="M3.5 8H12.5M12.5 8L8.5 4M12.5 8L8.5 12"
-                                            stroke="currentColor"
-                                            stroke-width="2"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"></path>
-                                    </svg>
                                 </button>
                             </div>
                         </div>
@@ -179,17 +173,19 @@ import Layout from "../layouts/Layout.astro";
                     >
                         <div style="padding:32px">
                             <h2
-                                style="font-size:20px;font-weight:700;margin-bottom:24px"
+                                style="font-size:16px;font-weight:800;margin-bottom:24px;color:var(--onee-blue);text-transform:uppercase;letter-spacing:1px"
                             >
-                                <span style="color:var(--onee-cyan)">02.</span> Consommation
+                                <span style="color:var(--onee-blue);opacity:0.5"
+                                    >02.</span
+                                > Saisie des données
                             </h2>
 
-                            <div class="grid grid-2">
+                            <div class="grid grid-2" style="gap:24px">
                                 <div class="form-group">
                                     <label for="consumption">
-                                        Consommation (kWh)
+                                        Consommation Totale (kWh)
                                         <span class="form-hint"
-                                            >La consommation totale du mois</span
+                                            >Volume consommé sur la période</span
                                         >
                                     </label>
                                     <input
@@ -202,9 +198,9 @@ import Layout from "../layouts/Layout.astro";
                                 </div>
                                 <div class="form-group">
                                     <label for="days">
-                                        Nombre de jours
+                                        Période (Jours)
                                         <span class="form-hint"
-                                            >Durée de la période de facturation</span
+                                            >Durée de facturation</span
                                         >
                                     </label>
                                     <input
@@ -214,35 +210,34 @@ import Layout from "../layouts/Layout.astro";
                                         min="1"
                                         max="365"
                                         value="30"
-                                        placeholder="30"
                                     />
                                 </div>
                             </div>
 
-                            <div class="quick-select" style="margin-top:12px">
+                            <div class="quick-select" style="margin-top:16px">
                                 <span
-                                    style="font-size:13px;color:var(--w-color-primary-30);margin-right:8px"
-                                    >Exemples rapides:</span
+                                    style="font-size:12px;font-weight:700;color:var(--w-color-primary-30);text-transform:uppercase;letter-spacing:0.5px;margin-right:12px"
+                                    >Saisie rapide :</span
                                 >
                                 <button class="quick-btn" data-kwh="80"
-                                    >80 kWh</button
+                                    >80</button
                                 >
                                 <button class="quick-btn" data-kwh="150"
-                                    >150 kWh</button
+                                    >150</button
                                 >
                                 <button class="quick-btn" data-kwh="250"
-                                    >250 kWh</button
+                                    >250</button
                                 >
                                 <button class="quick-btn" data-kwh="400"
-                                    >400 kWh</button
+                                    >400</button
                                 >
                                 <button class="quick-btn" data-kwh="600"
-                                    >600 kWh</button
+                                    >600</button
                                 >
                             </div>
 
                             <div
-                                style="display:flex;gap:12px;justify-content:flex-end;margin-top:32px"
+                                style="display:flex;gap:16px;justify-content:flex-end;margin-top:40px"
                             >
                                 <button
                                     class="btn btn-secondary"
@@ -252,20 +247,9 @@ import Layout from "../layouts/Layout.astro";
                                     class="btn btn-primary"
                                     id="calculateBtn"
                                     disabled
+                                    style="padding: 10px 24px"
                                 >
-                                    Calculer la facture
-                                    <svg
-                                        width="16"
-                                        height="16"
-                                        viewBox="0 0 16 16"
-                                        fill="none"
-                                        ><path
-                                            d="M3.5 8H12.5M12.5 8L8.5 4M12.5 8L8.5 12"
-                                            stroke="currentColor"
-                                            stroke-width="2"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"></path>
-                                    </svg>
+                                    Générer l'estimation
                                 </button>
                             </div>
                         </div>
@@ -276,59 +260,68 @@ import Layout from "../layouts/Layout.astro";
                 <div class="wizard-panel" id="step3">
                     <div
                         class="bill-card"
-                        style="max-width:800px;margin:0 auto"
+                        style="max-width:850px;margin:0 auto"
                     >
-                        <div style="padding:32px">
+                        <div style="padding:40px">
                             <!-- Header -->
                             <div
-                                style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px"
+                                style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;border-bottom:2px solid #F1F5F9;padding-bottom:24px"
                             >
                                 <div>
-                                    <h2 style="font-size:20px;font-weight:700">
-                                        Facture d'électricité simulée
+                                    <h2
+                                        style="font-size:22px;font-weight:800;color:var(--onee-blue)"
+                                    >
+                                        Rapport d'Estimation
                                     </h2>
                                     <p
-                                        style="font-size:13px;color:var(--w-color-primary-30);margin-top:4px"
+                                        style="font-size:13px;color:var(--w-color-primary-30);margin-top:6px;font-weight:600"
                                         id="resultMeta"
                                     >
                                     </p>
                                 </div>
-                                <div style="text-align:right;direction:rtl">
-                                    <p
-                                        style="font-size:18px;font-weight:700;font-family:'Inter',sans-serif"
+                                <div style="text-align:right">
+                                    <div
+                                        style="font-size:12px;font-weight:800;color:var(--onee-blue);opacity:0.5;text-transform:uppercase;letter-spacing:1px"
                                     >
-                                        فاتورة الكهرباء
-                                    </p>
+                                        Document interne
+                                    </div>
                                 </div>
                             </div>
 
                             <!-- Total Amount Highlight -->
                             <div
-                                class="result-total glass-card"
-                                style="text-align:center;padding:24px;margin-bottom:28px"
+                                class="result-total"
+                                style="text-align:center;padding:32px;margin-bottom:40px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:12px"
                             >
                                 <p
-                                    style="font-size:13px;color:var(--w-color-primary-30);margin-bottom:4px"
+                                    style="font-size:13px;font-weight:700;color:var(--w-color-primary-30);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px"
                                 >
-                                    Total à régler (DH TTC) / الواجب أداؤه
+                                    Net à payer estimé (TTC)
                                 </p>
-                                <div class="result-amount">
-                                    <span class="gradient-text" id="totalAmount"
-                                        >0.00</span
+                                <div
+                                    class="result-amount"
+                                    style="font-size:48px;font-weight:900;color:var(--onee-blue)"
+                                >
+                                    <span id="totalAmount">0.00</span>
+                                    <span style="font-size:20px;margin-left:4px"
+                                        >DH</span
                                     >
-                                    <span class="currency"> DH</span>
                                 </div>
                                 <div
-                                    style="display:flex;justify-content:center;gap:24px;margin-top:12px;font-size:13px"
+                                    style="display:flex;justify-content:center;gap:32px;margin-top:20px;font-size:14px;font-weight:600;color:var(--w-color-primary-30)"
                                 >
                                     <span
-                                        >En espèce: <strong id="totalEspece"
-                                            >0.00</strong
+                                        >Espèce : <span
+                                            id="totalEspece"
+                                            style="color:var(--onee-blue)"
+                                            >0.00</span
                                         > DH</span
                                     >
                                     <span
-                                        >Par chèque: <strong id="totalCheque"
-                                            >0.00</strong
+                                        >Chèque : <span
+                                            id="totalCheque"
+                                            style="color:var(--onee-blue)"
+                                            >0.00</span
                                         > DH</span
                                     >
                                 </div>
@@ -336,27 +329,20 @@ import Layout from "../layouts/Layout.astro";
 
                             <!-- Consumption Breakdown -->
                             <h3
-                                style="font-size:15px;font-weight:600;margin-bottom:12px;display:flex;justify-content:space-between"
+                                style="font-size:14px;font-weight:800;margin-bottom:16px;color:var(--onee-blue);text-transform:uppercase;letter-spacing:0.5px"
                             >
-                                <span>Redevances Consommations</span>
-                                <span
-                                    style="direction:rtl;color:var(--w-color-primary-20)"
-                                    >مستحقات الاستهلاكات</span
-                                >
+                                Décomposition du calcul
                             </h3>
                             <table
                                 class="bill-table"
-                                style="margin-bottom:24px"
+                                style="margin-bottom:32px"
                             >
                                 <thead>
                                     <tr>
-                                        <th>Tranche</th>
-                                        <th class="amount">Quantité (kWh)</th>
-                                        <th class="amount"
-                                            >Prix unitaire (DH)</th
-                                        >
-                                        <th class="amount">Montant HT (DH)</th>
-                                        <th class="ar-text">الشطر</th>
+                                        <th>Tranche de consommation</th>
+                                        <th class="amount">Volume (kWh)</th>
+                                        <th class="amount">Prix unit.</th>
+                                        <th class="amount">Total HT</th>
                                     </tr>
                                 </thead>
                                 <tbody id="trancheRows"></tbody>
@@ -364,14 +350,11 @@ import Layout from "../layouts/Layout.astro";
 
                             <!-- Bill Details -->
                             <table class="bill-table">
-                                <tbody>
+                                <tbody style="font-weight:500">
                                     <tr>
-                                        <td>Redevances Consommations (RC)</td>
+                                        <td>Maturité Consommations (RC)</td>
                                         <td class="amount" id="rcAmount"
                                             >0.00</td
-                                        >
-                                        <td class="ar-text"
-                                            >مستحقات الاستهلاكات</td
                                         >
                                     </tr>
                                     <tr>
@@ -379,141 +362,156 @@ import Layout from "../layouts/Layout.astro";
                                         <td class="amount" id="rfAmount"
                                             >0.00</td
                                         >
-                                        <td class="ar-text">مستحقات ثابتة</td>
                                     </tr>
-                                    <tr class="subtotal-row">
-                                        <td><strong>Total HT</strong></td>
-                                        <td class="amount"
-                                            ><strong id="totalHTAmount"
-                                                >0.00</strong
-                                            >
-                                        </td>
-                                        <td class="ar-text">(المبلغ (د ض</td>
+                                    <tr
+                                        style="background:#F8FAFC;font-weight:800;color:var(--onee-blue)"
+                                    >
+                                        <td>Sous-total Hors Taxes</td>
+                                        <td class="amount" id="totalHTAmount"
+                                            >0.00</td
+                                        >
                                     </tr>
                                     <tr>
-                                        <td>TPPA</td>
+                                        <td>Taxe TPPA</td>
                                         <td class="amount" id="tppaAmount"
                                             >0.00</td
                                         >
-                                        <td class="ar-text"
-                                            >مكس إنعاش الفضاء السمعي البصري</td
-                                        >
                                     </tr>
                                     <tr>
-                                        <td>Total TVA</td>
+                                        <td>Total TVA Applicable</td>
                                         <td class="amount" id="tvaAmount"
                                             >0.00</td
                                         >
-                                        <td class="ar-text">مجموع ض. ق. م</td>
                                     </tr>
                                     <tr>
-                                        <td>Timbre fiscal</td>
+                                        <td>Timbre Fiscal</td>
                                         <td class="amount" id="timbreAmount"
                                             >0.00</td
                                         >
-                                        <td class="ar-text"
-                                            >واجب الدمغة الجبائية</td
-                                        >
                                     </tr>
-                                    <tr class="subtotal-row">
-                                        <td><strong>Total taxes</strong></td>
-                                        <td class="amount"
-                                            ><strong id="totalTaxesAmount"
-                                                >0.00</strong
-                                            >
-                                        </td>
-                                        <td class="ar-text">مجموع الرسوم</td>
+                                    <tr
+                                        style="background:#F8FAFC;font-weight:800;color:var(--onee-blue)"
+                                    >
+                                        <td>Cumul des Taxes & Droits</td>
+                                        <td class="amount" id="totalTaxesAmount"
+                                            >0.00</td
+                                        >
                                     </tr>
                                 </tbody>
                                 <tfoot>
-                                    <tr class="total-row">
-                                        <td><strong>Total TTC</strong></td>
-                                        <td class="amount"
-                                            ><strong id="totalTTCAmount"
-                                                >0.00</strong
-                                            >
-                                        </td>
-                                        <td class="ar-text"
-                                            ><strong>الواجب أداؤه</strong>
-                                        </td>
+                                    <tr
+                                        style="background:var(--onee-blue);color:#fff"
+                                    >
+                                        <td style="font-weight:900;padding:16px"
+                                            >TOTAL GÉNÉRAL TTC</td
+                                        >
+                                        <td
+                                            class="amount"
+                                            style="font-weight:900;padding:16px;font-size:18px"
+                                            id="totalTTCAmount">0.00</td
+                                        >
                                     </tr>
                                 </tfoot>
                             </table>
 
                             <!-- TVA Detail (collapsible) -->
-                            <details style="margin-top:20px">
+                            <details
+                                style="margin-top:24px;border:1px solid #E2E8F0;border-radius:8px"
+                            >
                                 <summary
-                                    style="font-size:14px;font-weight:600;cursor:pointer;color:var(--onee-cyan);padding:8px 0"
+                                    style="font-size:13px;font-weight:800;cursor:pointer;color:var(--onee-blue);padding:12px 16px;background:#F8FAFC;text-transform:uppercase"
                                 >
-                                    Détail TVA
+                                    Détail de la T.V.A
                                 </summary>
-                                <table
-                                    class="bill-table"
-                                    style="margin-top:8px"
-                                >
-                                    <tbody>
-                                        <tr>
-                                            <td>TVA sur RC (18%)</td>
-                                            <td class="amount" id="tvaRCDetail"
-                                                >0.00</td
-                                            >
-                                        </tr>
-                                        <tr>
-                                            <td>TVA sur TPPA (20%)</td>
-                                            <td
-                                                class="amount"
-                                                id="tvaTPPADetail">0.00</td
-                                            >
-                                        </tr>
-                                        <tr>
-                                            <td>TVA sur Entretien (20%)</td>
-                                            <td
-                                                class="amount"
-                                                id="tvaEntretienDetail">0.00</td
-                                            >
-                                        </tr>
-                                        <tr>
-                                            <td>TVA sur Location (15%)</td>
-                                            <td
-                                                class="amount"
-                                                id="tvaLocationDetail">0.00</td
-                                            >
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div style="padding:16px">
+                                    <table
+                                        class="bill-table"
+                                        style="margin:0;border:none"
+                                    >
+                                        <tbody style="font-size:13px">
+                                            <tr>
+                                                <td style="border:none"
+                                                    >TVA sur Consommations (18%)</td
+                                                >
+                                                <td
+                                                    class="amount"
+                                                    id="tvaRCDetail"
+                                                    style="border:none">0.00</td
+                                                >
+                                            </tr>
+                                            <tr>
+                                                <td style="border:none"
+                                                    >TVA sur TPPA (20%)</td
+                                                >
+                                                <td
+                                                    class="amount"
+                                                    id="tvaTPPADetail"
+                                                    style="border:none">0.00</td
+                                                >
+                                            </tr>
+                                            <tr>
+                                                <td style="border:none"
+                                                    >TVA sur Entretien (20%)</td
+                                                >
+                                                <td
+                                                    class="amount"
+                                                    id="tvaEntretienDetail"
+                                                    style="border:none">0.00</td
+                                                >
+                                            </tr>
+                                            <tr>
+                                                <td style="border:none"
+                                                    >TVA sur Location (15%)</td
+                                                >
+                                                <td
+                                                    class="amount"
+                                                    id="tvaLocationDetail"
+                                                    style="border:none">0.00</td
+                                                >
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </details>
 
                             <!-- Disclaimer -->
                             <div
-                                style="margin-top:24px;padding:14px;background:rgba(10,189,227,0.06);border:1px solid rgba(10,189,227,0.15);border-radius:8px;text-align:center"
+                                style="margin-top:40px;padding:20px;background:#FEFCE8;border:1px solid #FEF08A;border-radius:8px;text-align:center"
                             >
                                 <p
-                                    style="font-size:13px;color:var(--w-color-primary-20)"
+                                    style="font-size:12px;color:#854D0E;font-weight:600;line-height:1.6"
                                 >
-                                    Cette simulation est donnée à titre
-                                    indicatif et n'a aucune valeur contractuelle
+                                    IMPORTANT : Cette simulation est fournie
+                                    uniquement à titre informatif et s'appuie
+                                    sur les grilles tarifaires standard. Le
+                                    montant réel figurant sur votre facture
+                                    officielle peut varier selon des paramètres
+                                    spécifiques à votre contrat.
                                 </p>
                             </div>
 
                             <div
-                                style="display:flex;gap:12px;justify-content:center;margin-top:28px;flex-wrap:wrap"
+                                style="display:flex;gap:16px;justify-content:center;margin-top:40px;flex-wrap:wrap"
                                 class="no-print"
                             >
                                 <button
                                     class="btn btn-secondary"
-                                    id="backToStep2">Modifier</button
+                                    id="backToStep2">Réajuster</button
                                 >
                                 <button
-                                    class="btn btn-success"
+                                    class="btn btn-primary"
                                     id="saveBtn"
-                                    style="background: var(--w-color-success); border: none;"
+                                    style="padding: 10px 24px"
                                 >
-                                    Sauvegarder
+                                    Enregistrer
                                 </button>
                                 <button
                                     class="btn btn-primary"
-                                    onclick="window.print()">Imprimer</button
+                                    onclick="window.print()"
+                                    style="padding: 10px 24px; background: #1E293B; border-color: #1E293B"
                                 >
+                                    Imprimer
+                                </button>
                                 <button class="btn btn-secondary" id="newCalc"
                                     >Nouveau calcul</button
                                 >
@@ -535,7 +533,7 @@ import Layout from "../layouts/Layout.astro";
     }
     .wizard-panel.active {
         display: block;
-        animation: fadeInUp 0.5s ease forwards;
+        animation: fadeInUp 0.4s ease forwards;
     }
 
     .quick-select {
@@ -546,22 +544,21 @@ import Layout from "../layouts/Layout.astro";
     }
 
     .quick-btn {
-        padding: 6px 14px;
-        border: 1px solid var(--onee-card-border);
-        border-radius: 100px;
-        background: transparent;
-        color: var(--w-color-primary-20);
+        padding: 6px 16px;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        background: #fff;
+        color: var(--onee-blue);
         font-size: 13px;
-        font-family: "Inter", sans-serif;
+        font-weight: 700;
         cursor: pointer;
         transition: all 0.2s;
     }
 
     .quick-btn:hover,
     .quick-btn.active {
-        border-color: var(--onee-cyan);
-        color: var(--onee-cyan);
-        background: rgba(10, 189, 227, 0.1);
+        border-color: var(--onee-blue);
+        background: #f1f5f9;
     }
 
     details summary {
@@ -570,24 +567,10 @@ import Layout from "../layouts/Layout.astro";
     details summary::-webkit-details-marker {
         display: none;
     }
-    details summary::before {
-        content: "▶ ";
-        font-size: 10px;
-        margin-right: 6px;
-        transition: transform 0.2s;
-        display: inline-block;
-    }
-    details[open] summary::before {
-        transform: rotate(90deg);
-    }
 
-    .result-total {
-        background: linear-gradient(
-            135deg,
-            rgba(10, 189, 227, 0.08),
-            rgba(212, 168, 67, 0.06)
-        );
-        border: 1px solid rgba(10, 189, 227, 0.15);
+    /* Custom Radio Styling */
+    input[type="radio"] {
+        accent-color: var(--onee-blue);
     }
 </style>
 
@@ -601,14 +584,12 @@ import Layout from "../layouts/Layout.astro";
         {
             tranche: 1,
             nameFr: "Tranche 1",
-            nameAr: "الشطر 1",
             maxKwh: 100,
             unitPrice: 0.76356,
         },
         {
             tranche: 2,
             nameFr: "Tranche 2",
-            nameAr: "الشطر 2",
             maxKwh: 150,
             unitPrice: 0.9095,
         },
@@ -618,7 +599,6 @@ import Layout from "../layouts/Layout.astro";
         {
             tranche: 3,
             nameFr: "Tranche 3",
-            nameAr: "الشطر 3",
             minKwh: 151,
             maxKwh: 210,
             unitPrice: 0.9095,
@@ -626,7 +606,6 @@ import Layout from "../layouts/Layout.astro";
         {
             tranche: 4,
             nameFr: "Tranche 4",
-            nameAr: "الشطر 4",
             minKwh: 211,
             maxKwh: 310,
             unitPrice: 0.9895,
@@ -634,7 +613,6 @@ import Layout from "../layouts/Layout.astro";
         {
             tranche: 5,
             nameFr: "Tranche 5",
-            nameAr: "الشطر 5",
             minKwh: 311,
             maxKwh: 510,
             unitPrice: 1.17094,
@@ -642,7 +620,6 @@ import Layout from "../layouts/Layout.astro";
         {
             tranche: 6,
             nameFr: "Tranche 6",
-            nameAr: "الشطر 6",
             minKwh: 511,
             maxKwh: Infinity,
             unitPrice: 1.35238,
@@ -660,13 +637,13 @@ import Layout from "../layouts/Layout.astro";
 
     const TARIFF_DESCRIPTIONS: Record<string, string> = {
         domestique:
-            "Ce tarif vous concerne si vous êtes un client particulier n'exerçant aucune activité soumise à la taxe professionnelle.",
+            "Destiné aux clients particuliers pour un usage strictement résidentiel sans activité commerciale.",
         patente:
-            "Ce tarif vous concerne si vous êtes un client exerçant une activité soumise à l'impôt de la patente (commerce, fabrication, professions libérales, hôtellerie, etc...)",
+            "Applicable aux clients exerçant une activité soumise à la taxe professionnelle (commerces, professions libérales).",
         force_motrice_industrielle:
-            "Ce tarif vous concerne si vous êtes un client disposant de circuits permettant d'alimenter des appareils de force motrice tels que les moteurs, les fours…",
+            "Destiné à l'alimentation des équipements industriels et moteurs hors usage domestique.",
         force_motrice_agricole:
-            "Ce tarif vous concerne si vous êtes un client disposant des appareils destinés à usage agricole tels que les appareils de pompage.",
+            "Tarif préférentiel réservé aux installations de pompage et équipements agricoles.",
     };
 
     function round2(n: number): number {
@@ -721,15 +698,6 @@ import Layout from "../layouts/Layout.astro";
             if (sn < step) s.classList.add("completed");
             if (sn === step) s.classList.add("active");
         });
-        // Connectors
-        document
-            .querySelectorAll<HTMLElement>(".wizard-step-connector")
-            .forEach((c, i) => {
-                c.style.background =
-                    i + 1 < step
-                        ? "var(--w-color-success)"
-                        : "var(--onee-card-border)";
-            });
     }
 
     // Validate step 1
@@ -775,7 +743,7 @@ import Layout from "../layouts/Layout.astro";
     // Validate step 2
     function validateStep2(): void {
         calculateBtn.disabled = !(
-            consumption.value && parseInt(consumption.value) > 0
+            consumption.value && parseInt(consumption.value) >= 0
         );
     }
     consumption.addEventListener("input", validateStep2);
@@ -805,7 +773,6 @@ import Layout from "../layouts/Layout.astro";
         // Calculate tranches
         const tranches: Array<{
             nameFr: string;
-            nameAr: string;
             unitPrice: number;
             quantity: number;
             amount: number;
@@ -931,7 +898,6 @@ import Layout from "../layouts/Layout.astro";
                 <td class="amount">${t.quantity}</td>
                 <td class="amount">${t.unitPrice.toFixed(5)}</td>
                 <td class="amount">${fmt(t.amount)}</td>
-                <td class="ar-text">${t.nameAr}</td>
             </tr>
         `
             )
@@ -994,9 +960,9 @@ import Layout from "../layouts/Layout.astro";
             };
             history.unshift(entry);
             localStorage.setItem("estimation_history", JSON.stringify(history));
-            alert("Estimation sauvegardée avec succès !");
             saveBtn.setAttribute("disabled", "true");
-            saveBtn.textContent = "Sauvegardé";
+            saveBtn.textContent = "Enregistré";
+            saveBtn.style.opacity = "0.5";
         };
 
         goToStep(3);
