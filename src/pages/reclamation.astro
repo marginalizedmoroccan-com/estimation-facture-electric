@@ -23,14 +23,14 @@ import Layout from "../layouts/Layout.astro";
                 <div class="bill-card" style="margin:0">
                     <div style="padding: 32px;">
                         <h2
-                            style="font-size: 18px; font-weight: 700; margin-bottom: 24px;"
+                            style="font-size: 16px; font-weight: 800; margin-bottom: 24px; color: var(--onee-blue); text-transform: uppercase; letter-spacing: 1px;"
                         >
-                            Vos Informations
+                            Informations Requises
                         </h2>
 
                         <div class="form-group">
                             <label>Prestataire de service</label>
-                            <select id="provider" class="form-input">
+                            <select id="provider" class="form-select">
                                 <optgroup
                                     label="Sociétés Régionales Multi-services (SRM)"
                                 >
@@ -112,7 +112,7 @@ import Layout from "../layouts/Layout.astro";
 
                         <div class="form-group">
                             <label>Objet de la réclamation</label>
-                            <select id="reason" class="form-input">
+                            <select id="reason" class="form-select">
                                 <option value="overcharge"
                                     >Montant estimé trop élevé par rapport au
                                     réel</option
@@ -141,15 +141,15 @@ import Layout from "../layouts/Layout.astro";
                         </div>
 
                         <div
-                            style="margin-top: 24px; padding: 16px; background: rgba(212,168,67,0.1); border-radius: 8px; border-left: 3px solid var(--onee-gold);"
+                            style="margin-top: 24px; padding: 16px; background: #F9FAFB; border-radius: 6px; border-left: 3px solid var(--onee-blue);"
                         >
                             <p
-                                style="font-size: 12px; color: var(--onee-gold);"
+                                style="font-size: 12px; color: var(--w-color-primary-30); font-weight: 500;"
                             >
-                                💡 <strong>Base Légale :</strong> Ce document invoque
-                                la <strong>Loi 55.19</strong> sur la simplification
-                                des procédures et la <strong>Loi 31.13</strong> sur
-                                le droit d'accès à l'information.
+                                <strong>Rappel Légal :</strong> Ce document s'appuie
+                                sur la <strong>Loi 55.19</strong> (simplification
+                                administrative) et la <strong>Loi 31.13</strong>
+                                (droit d'accès à l'information).
                             </p>
                         </div>
                     </div>
@@ -162,24 +162,28 @@ import Layout from "../layouts/Layout.astro";
                 >
                     <div style="padding: 32px;">
                         <div
-                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;"
+                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;"
                         >
-                            <h2 style="font-size: 16px; font-weight: 700;">
+                            <h2
+                                style="font-size: 14px; font-weight: 800; text-transform: uppercase; color: var(--w-color-primary-30);"
+                            >
                                 Aperçu du document
                             </h2>
                             <div class="no-print">
                                 <button
-                                    class="btn btn-primary btn-sm"
+                                    class="btn btn-primary"
                                     onclick="window.print()"
-                                    >Exporter PDF</button
+                                    style="padding: 8px 16px; font-size: 13px;"
                                 >
+                                    Exporter PDF
+                                </button>
                             </div>
                         </div>
 
                         <div
                             id="documentPreview"
                             class="glass-card"
-                            style="padding: 32px; font-family: 'Times New Roman', serif; color: #333; background: #fff; line-height: 1.5; min-height: 500px; font-size: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);"
+                            style="padding: 40px; font-family: 'Inter', -apple-system, blinkmacsystemfont, sans-serif; color: #1E293B; background: #fff; line-height: 1.6; min-height: 500px; font-size: 14px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid #E2E8F0;"
                         >
                             <!-- Content injected here -->
                         </div>
@@ -235,9 +239,9 @@ import Layout from "../layouts/Layout.astro";
 
         const estDetails = estimation
             ? `
-            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; border: 1px solid #dee2e6;">
+            <div style="background: #F8FAFC; padding: 15px; border-radius: 6px; margin: 15px 0; border: 1px solid #E2E8F0; font-size: 13px;">
                 <strong>Détails de l'estimation de référence :</strong><br>
-                Config : ${estimation.label}<br>
+                ${estimation.label}<br>
                 Montant simulé : ${estimation.total.toFixed(2)} DH TTC
             </div>
         `
@@ -246,44 +250,44 @@ import Layout from "../layouts/Layout.astro";
         const preview = document.getElementById("documentPreview")!;
         preview.innerHTML = `
             <div style="display: flex; justify-content: space-between; margin-bottom: 50px;">
-                <div style="font-size: 13px;">
+                <div style="font-size: 12px; color: #475569;">
                     <strong>EXPÉDITEUR :</strong><br>
                     ${name}<br>
                     Contrat N° : ${contract}
                 </div>
-                <div style="text-align: right; font-size: 13px;">
+                <div style="text-align: right; font-size: 12px; color: #475569;">
                     Fait le : ${date}
                 </div>
             </div>
 
-            <div style="margin-bottom: 40px; margin-left: auto; width: fit-content; max-width: 60%; text-align: left;">
+            <div style="margin-bottom: 40px; margin-left: auto; width: fit-content; max-width: 60%; text-align: left; font-size: 13px;">
                 <strong>À l'attention de Monsieur le Directeur Général</strong><br>
                 ${providerName}<br>
                 Royaume du Maroc
             </div>
 
-            <div style="margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+            <div style="margin-bottom: 30px; border-bottom: 1px solid #E2E8F0; padding-bottom: 12px;">
                 <strong>OBJET : ${reasonText.toUpperCase()}</strong>
             </div>
 
-            <p>Monsieur le Directeur,</p>
+            <p style="margin-bottom: 15px;">Monsieur le Directeur,</p>
 
-            <p style="text-indent: 30px; margin-bottom: 15px;">Par la présente, je tiens à porter à votre connaissance une réclamation concernant ma consommation d'électricité. Après avoir effectué une simulation basée sur les tarifs officiels en vigueur (Arrêtés ministériels fixant les tarifs de vente de l'énergie électrique), j'ai constaté une divergence que je souhaiterais clarifier.</p>
+            <p style="margin-bottom: 15px;">Par la présente, je tiens à porter à votre connaissance une réclamation concernant ma consommation d'électricité. Après avoir effectué une simulation basée sur les tarifs officiels en vigueur (Arrêtés ministériels fixant les tarifs de vente de l'énergie électrique), j'ai constaté une divergence que je souhaiterais clarifier.</p>
 
             ${estDetails}
 
-            <p style="text-indent: 30px; margin-bottom: 15px;">${
+            <p style="margin-bottom: 15px;">${
                 extra ||
                 "Je vous prie de bien vouloir procéder à une vérification de mon compteur ou de m'apporter des précisions sur le mode de calcul appliqué à ma dernière facture."
             }</p>
 
-            <p style="margin-bottom: 20px;">Cette demande s'inscrit dans le cadre de mes droits garantis par la <strong>Loi n° 55.19</strong> relative à la simplification des procédures administratives et la <strong>Loi n° 31.13</strong> relative au droit d'accès à l'information.</p>
+            <p style="margin-bottom: 20px;">Cette demande s'inscrit dans le cadre de mes droits garantis par la n° 55.19 relative à la simplification des procédures administratives et la n° 31.13 relative au droit d'accès à l'information.</p>
 
             <p style="margin-bottom: 40px;">Dans l'attente d'une réponse de votre part sous les délais réglementaires, je vous prie d'agréer, Monsieur le Directeur, l'expression de mes salutations distinguées.</p>
 
             <div style="margin-top: 50px; text-align: right; padding-right: 50px;">
                 <p><strong>Signature :</strong></p>
-                <div style="margin-top: 40px; border-top: 1px dashed #ccc; width: 150px; margin-left: auto;"></div>
+                <div style="margin-top: 40px; border-top: 1px dashed #94A3B8; width: 150px; margin-left: auto;"></div>
             </div>
         `;
     }
@@ -305,42 +309,25 @@ import Layout from "../layouts/Layout.astro";
 
 <style is:global>
     @media print {
-        /* Hide all layout and UI elements */
         header,
         footer,
         .section-header,
         .bill-card:not(:has(#documentPreview)),
         .no-print,
-        nav,
-        .nav-logo,
-        .nav-links {
+        nav {
             display: none !important;
             visibility: hidden !important;
             height: 0 !important;
             margin: 0 !important;
             padding: 0 !important;
-            overflow: hidden !important;
         }
 
-        /* Ensure main container doesn't have extra spacing */
         html,
         body {
             background: #fff !important;
             color: #000 !important;
             margin: 0 !important;
             padding: 0 !important;
-            height: auto !important;
-        }
-
-        main {
-            padding: 0 !important;
-            margin: 0 !important;
-            display: block !important;
-        }
-
-        .section {
-            padding: 0 !important;
-            margin: 0 !important;
         }
 
         .container {
@@ -350,42 +337,30 @@ import Layout from "../layouts/Layout.astro";
             margin: 0 !important;
         }
 
-        /* Reset grid/flex layouts for print */
-        .grid {
-            display: block !important;
-        }
-
-        /* Target the specific preview card */
         .bill-card:has(#documentPreview) {
             background: transparent !important;
             border: none !important;
             padding: 0 !important;
             margin: 0 !important;
             box-shadow: none !important;
-            display: block !important;
-            width: 100% !important;
         }
 
         #documentPreview {
             box-shadow: none !important;
             border: none !important;
-            padding: 0 !important;
-            min-height: auto !important;
-            width: 100% !important;
+            padding: 20mm !important;
+            width: 210mm !important;
             background: #fff !important;
             color: #000 !important;
             font-size: 11pt !important;
-            display: block !important;
-            visibility: visible !important;
         }
 
-        /* Specific fix for elements inside preview */
         #documentPreview * {
             visibility: visible !important;
         }
 
         @page {
-            margin: 15mm;
+            margin: 0;
             size: A4;
         }
     }

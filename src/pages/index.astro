@@ -11,29 +11,29 @@ import Layout from "../layouts/Layout.astro";
 					class="hero-badge"
 					style="animation: fadeInUp 0.5s ease forwards;"
 				>
-					<span>⚡ Le simulateur intelligent</span>
+					<span>Simulateur Professionnel</span>
 				</div>
 				<h1
 					class="hero-title"
 					style="animation: fadeInUp 0.6s ease forwards; animation-delay: 0.1s;"
 				>
-					Estimez votre <span class="gradient-text">facture</span>
-					<br /> d'électricité en un clic.
+					Gérez vos estimations <br />
+					<span class="gradient-text">énergétiques</span> avec précision.
 				</h1>
 				<p
 					class="hero-subtitle"
 					style="animation: fadeInUp 0.7s ease forwards; animation-delay: 0.2s;"
 				>
-					L'outil le plus précis pour calculer vos consommations Basse
-					Tension et Tarif Général, basé sur les grilles tarifaires
-					officielles.
+					Calculez vos consommations Basse Tension et Tarif Général en
+					conformité avec les dernières grilles tarifaires officielles
+					du Royaume.
 				</p>
 				<div
 					class="hero-actions"
 					style="animation: fadeInUp 0.8s ease forwards; animation-delay: 0.3s;"
 				>
 					<a href="#simulateurs" class="btn btn-primary btn-lg">
-						Commencer l'estimation
+						Accéder aux simulateurs
 						<svg
 							width="16"
 							height="16"
@@ -48,32 +48,33 @@ import Layout from "../layouts/Layout.astro";
 						</svg>
 					</a>
 					<a href="/tarifs" class="btn btn-secondary btn-lg"
-						>Voir les tarifs</a
+						>Grilles tarifaires</a
 					>
 				</div>
 			</div>
 			<div class="hero-visual animate-fade-in delay-3">
 				<div class="hero-card glass-card">
 					<div class="hero-card-header">
-						<span class="hero-card-dot" style="background:#EE5253"
+						<span class="hero-card-dot" style="background:#E2E8F0"
 						></span>
-						<span class="hero-card-dot" style="background:#FF9F43"
+						<span class="hero-card-dot" style="background:#CBD5E1"
 						></span>
-						<span class="hero-card-dot" style="background:#10AC84"
+						<span class="hero-card-dot" style="background:#94A3B8"
 						></span>
 					</div>
 					<div class="hero-card-body">
 						<div class="hero-stat">
 							<span class="hero-stat-label">Consommation</span>
-							<span class="hero-stat-value gradient-text"
-								>250 kWh</span
+							<span
+								class="hero-stat-value"
+								style="color: var(--onee-blue)">250 kWh</span
 							>
 						</div>
 						<div class="hero-stat">
-							<span class="hero-stat-label">Montant estimé</span>
+							<span class="hero-stat-label">Total Estimé</span>
 							<span
 								class="hero-stat-value"
-								style="color: var(--onee-gold)">312.45 DH</span
+								style="color: var(--onee-blue)">312.45 DH</span
 							>
 						</div>
 						<div class="hero-bar-chart">
@@ -92,9 +93,6 @@ import Layout from "../layouts/Layout.astro";
 							<div class="hero-bar" style="height: 45%">
 								<span>T5</span>
 							</div>
-							<div class="hero-bar" style="height: 30%">
-								<span>T6</span>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -107,20 +105,20 @@ import Layout from "../layouts/Layout.astro";
 		<div class="container">
 			<div class="stats-grid">
 				<div class="stat-item animate-fade-in-up delay-1">
-					<div class="stat-number gradient-text">6</div>
+					<div class="stat-number">6</div>
 					<div class="stat-label">Tranches tarifaires</div>
 				</div>
 				<div class="stat-item animate-fade-in-up delay-2">
-					<div class="stat-number gradient-text">4</div>
-					<div class="stat-label">Types de clients</div>
+					<div class="stat-number">4</div>
+					<div class="stat-label">Types d'abonnements</div>
 				</div>
 				<div class="stat-item animate-fade-in-up delay-3">
-					<div class="stat-number gradient-text">3</div>
-					<div class="stat-label">Simulateurs</div>
+					<div class="stat-number">3</div>
+					<div class="stat-label">Moteurs de calcul</div>
 				</div>
 				<div class="stat-item animate-fade-in-up delay-4">
-					<div class="stat-number gradient-text">100%</div>
-					<div class="stat-label">Gratuit</div>
+					<div class="stat-number">100%</div>
+					<div class="stat-label">Accès libre</div>
 				</div>
 			</div>
 		</div>
@@ -131,12 +129,10 @@ import Layout from "../layouts/Layout.astro";
 		<div class="container">
 			<div class="section-header">
 				<h2 class="section-title">
-					Choisissez votre <span class="gradient-text"
-						>simulateur</span>
+					Solutions de <span class="gradient-text">Simulation</span>
 				</h2>
 				<p class="section-subtitle">
-					Sélectionnez le type de client correspondant à votre
-					abonnement
+					Outils adaptés selon votre segment de consommation
 				</p>
 			</div>
 
@@ -148,11 +144,11 @@ import Layout from "../layouts/Layout.astro";
 				>
 					<div
 						class="sim-card-icon"
-						style="background: linear-gradient(135deg, #0ABDE3, #0A5FA8);"
+						style="background: #F1F5F9; color: var(--onee-blue);"
 					>
 						<svg
-							width="32"
-							height="32"
+							width="28"
+							height="28"
 							viewBox="0 0 24 24"
 							fill="none"
 							stroke="currentColor"
@@ -165,18 +161,17 @@ import Layout from "../layouts/Layout.astro";
 					</div>
 					<h3 class="sim-card-title">Basse Tension (BT)</h3>
 					<p class="sim-card-desc">
-						Clients résidentiels et commerciaux. Tarifs domestique,
-						patenté et force motrice.
+						Calculs pour abonnements résidentiels et professionnels.
+						Domestique, Patenté et Force Motrice.
 					</p>
 					<div class="sim-card-tags">
-						<span class="tag">Domestique</span>
-						<span class="tag">Patenté</span>
-						<span class="tag">Force Motrice</span>
+						<span class="tag">Résidentiel</span>
+						<span class="tag">Commercial</span>
 					</div>
 					<div class="sim-card-arrow">
 						<svg
-							width="20"
-							height="20"
+							width="18"
+							height="18"
 							viewBox="0 0 20 20"
 							fill="none"
 							><path
@@ -195,11 +190,11 @@ import Layout from "../layouts/Layout.astro";
 				>
 					<div
 						class="sim-card-icon"
-						style="background: linear-gradient(135deg, #D4A843, #C49530);"
+						style="background: #F1F5F9; color: var(--onee-blue);"
 					>
 						<svg
-							width="32"
-							height="32"
+							width="28"
+							height="28"
 							viewBox="0 0 24 24"
 							fill="none"
 							stroke="currentColor"
@@ -211,20 +206,19 @@ import Layout from "../layouts/Layout.astro";
 							></line>
 						</svg>
 					</div>
-					<h3 class="sim-card-title">Tarif Général (HT/THT)</h3>
+					<h3 class="sim-card-title">Haut/Très Haute Tension</h3>
 					<p class="sim-card-desc">
-						Grands comptes haute et très haute tension. Options TLU,
-						MU, CU, TCU.
+						Simulateur industriel pour abonnements HT/THT. Prise en
+						charge des options TLU, MU, CU et TCU.
 					</p>
 					<div class="sim-card-tags">
-						<span class="tag">60 kV</span>
-						<span class="tag">150-225 kV</span>
-						<span class="tag">Super Pointe</span>
+						<span class="tag">Industriel</span>
+						<span class="tag">ANRE 2025</span>
 					</div>
 					<div class="sim-card-arrow">
 						<svg
-							width="20"
-							height="20"
+							width="18"
+							height="18"
 							viewBox="0 0 20 20"
 							fill="none"
 							><path
@@ -243,11 +237,11 @@ import Layout from "../layouts/Layout.astro";
 				>
 					<div
 						class="sim-card-icon"
-						style="background: linear-gradient(135deg, #10AC84, #0E8A6A);"
+						style="background: #F1F5F9; color: var(--onee-blue);"
 					>
 						<svg
-							width="32"
-							height="32"
+							width="28"
+							height="28"
 							viewBox="0 0 24 24"
 							fill="none"
 							stroke="currentColor"
@@ -259,20 +253,19 @@ import Layout from "../layouts/Layout.astro";
 							></line><line x1="16" y1="17" x2="8" y2="17"></line>
 						</svg>
 					</div>
-					<h3 class="sim-card-title">Grilles Tarifaires</h3>
+					<h3 class="sim-card-title">Référentiel Tarifaire</h3>
 					<p class="sim-card-desc">
-						Consultez tous les tarifs en vigueur, prix unitaires et
-						redevances fixes.
+						Accédez à l'ensemble des grilles de prix unitaires,
+						taxes et redevances fixes en vigueur.
 					</p>
 					<div class="sim-card-tags">
-						<span class="tag">Tarifs BT</span>
-						<span class="tag">Tarifs HT</span>
-						<span class="tag">Redevances</span>
+						<span class="tag">Documentation</span>
+						<span class="tag">Officiel</span>
 					</div>
 					<div class="sim-card-arrow">
 						<svg
-							width="20"
-							height="20"
+							width="18"
+							height="18"
 							viewBox="0 0 20 20"
 							fill="none"
 							><path
@@ -292,35 +285,37 @@ import Layout from "../layouts/Layout.astro";
 		<div class="container">
 			<div class="section-header">
 				<h2 class="section-title">
-					Comment ça <span class="gradient-text">fonctionne</span>
+					Méthodologie de <span class="gradient-text">Calcul</span>
 				</h2>
-				<p class="section-subtitle">Un processus simple en 3 étapes</p>
+				<p class="section-subtitle">
+					Une approche structurée pour une précision maximale
+				</p>
 			</div>
 			<div class="steps-grid">
 				<div class="step-item animate-fade-in-up delay-1">
-					<div class="step-number">1</div>
-					<h3>Sélectionnez</h3>
+					<div class="step-number">01</div>
+					<h3>Configuration</h3>
 					<p>
-						Choisissez votre type de tarif et de compteur parmi les
-						options disponibles
+						Définissez votre profil de consommation et les
+						paramètres techniques
 					</p>
 				</div>
 				<div class="step-connector"></div>
 				<div class="step-item animate-fade-in-up delay-2">
-					<div class="step-number">2</div>
-					<h3>Saisissez</h3>
+					<div class="step-number">02</div>
+					<h3>Saisie</h3>
 					<p>
-						Entrez votre consommation en kWh et la période de
-						facturation
+						Indiquez vos relevés d'index ou votre consommation
+						globale mensuelle
 					</p>
 				</div>
 				<div class="step-connector"></div>
 				<div class="step-item animate-fade-in-up delay-3">
-					<div class="step-number">3</div>
-					<h3>Obtenez</h3>
+					<div class="step-number">03</div>
+					<h3>Analyse</h3>
 					<p>
-						Visualisez le détail complet de votre facture estimée
-						instantanément
+						Obtenez une décomposition détaillée de chaque composante
+						de votre facture
 					</p>
 				</div>
 			</div>
@@ -330,24 +325,9 @@ import Layout from "../layouts/Layout.astro";
 
 <style>
 	.hero {
-		padding: 80px 0 40px;
+		padding: 100px 0 60px;
 		position: relative;
 		overflow: hidden;
-	}
-
-	.hero::before {
-		content: "";
-		position: absolute;
-		top: -50%;
-		left: -20%;
-		width: 60%;
-		height: 200%;
-		background: radial-gradient(
-			ellipse,
-			rgba(10, 189, 227, 0.08) 0%,
-			transparent 70%
-		);
-		pointer-events: none;
 	}
 
 	.hero .container {
@@ -359,35 +339,37 @@ import Layout from "../layouts/Layout.astro";
 
 	.hero-badge {
 		display: inline-flex;
-		padding: 6px 16px;
-		background: rgba(10, 189, 227, 0.1);
-		border: 1px solid rgba(10, 189, 227, 0.3);
-		border-radius: 100px;
-		font-size: 13px;
-		font-weight: 600;
-		color: var(--onee-cyan);
-		margin-bottom: 20px;
+		padding: 6px 14px;
+		background: #f1f5f9;
+		border-radius: 6px;
+		font-size: 12px;
+		font-weight: 800;
+		color: var(--onee-blue);
+		margin-bottom: 24px;
+		text-transform: uppercase;
+		letter-spacing: 1px;
 	}
 
 	.hero-title {
-		font-size: 52px;
-		font-weight: 900;
-		line-height: 1.1;
-		margin-bottom: 20px;
+		font-size: 48px;
+		font-weight: 800;
+		line-height: 1.15;
+		margin-bottom: 24px;
+		color: var(--onee-blue);
 		letter-spacing: -1px;
 	}
 
 	.hero-subtitle {
-		font-size: 17px;
+		font-size: 16px;
 		color: var(--w-color-primary-20);
 		line-height: 1.7;
-		margin-bottom: 32px;
+		margin-bottom: 40px;
 		max-width: 500px;
 	}
 
 	.hero-actions {
 		display: flex;
-		gap: 14px;
+		gap: 16px;
 		flex-wrap: wrap;
 	}
 
@@ -397,16 +379,19 @@ import Layout from "../layouts/Layout.astro";
 	}
 
 	.hero-card {
-		width: 340px;
+		width: 360px;
 		padding: 0;
 		overflow: hidden;
+		background: #fff;
+		border: 1px solid #e2e8f0;
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 	}
 
 	.hero-card-header {
 		display: flex;
 		gap: 6px;
-		padding: 12px 16px;
-		border-bottom: 1px solid var(--onee-card-border);
+		padding: 14px 20px;
+		border-bottom: 1px solid #f1f5f9;
 	}
 
 	.hero-card-dot {
@@ -416,191 +401,206 @@ import Layout from "../layouts/Layout.astro";
 	}
 
 	.hero-card-body {
-		padding: 20px;
+		padding: 24px;
 	}
 
 	.hero-stat {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		margin-bottom: 16px;
+		margin-bottom: 20px;
 	}
 
 	.hero-stat-label {
 		font-size: 13px;
-		color: var(--w-color-primary-30);
+		font-weight: 600;
+		color: #64748b;
 	}
 
 	.hero-stat-value {
-		font-size: 20px;
+		font-size: 18px;
 		font-weight: 800;
 	}
 
 	.hero-bar-chart {
 		display: flex;
 		align-items: flex-end;
-		gap: 8px;
+		gap: 10px;
 		height: 100px;
-		padding-top: 16px;
-		border-top: 1px solid var(--onee-card-border);
+		padding-top: 20px;
+		border-top: 1px solid #f1f5f9;
 	}
 
 	.hero-bar {
 		flex: 1;
-		background: linear-gradient(
-			180deg,
-			rgba(10, 189, 227, 0.3),
-			rgba(10, 189, 227, 0.1)
-		);
+		background: #f1f5f9;
 		border-radius: 4px 4px 0 0;
 		display: flex;
 		align-items: flex-end;
 		justify-content: center;
-		padding-bottom: 6px;
+		padding-bottom: 8px;
 		transition: all 0.3s;
 	}
 
 	.hero-bar.active {
-		background: linear-gradient(
-			180deg,
-			var(--onee-cyan),
-			rgba(10, 189, 227, 0.4)
-		);
+		background: #e2e8f0;
 	}
 
 	.hero-bar span {
 		font-size: 10px;
-		font-weight: 600;
-		color: var(--w-color-primary-20);
+		font-weight: 700;
+		color: #94a3b8;
 	}
 
-	.hero-bar.active span {
-		color: #fff;
-	}
-
-	/* Stats */
 	.stats-section {
-		padding: 40px 0;
+		padding: 60px 0;
+		background: #f8fafc;
 	}
 
 	.stats-grid {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
-		gap: 24px;
+		gap: 32px;
 	}
 
 	.stat-item {
 		text-align: center;
-		padding: 24px;
-		border: 1px solid var(--onee-card-border);
-		border-radius: var(--w-lg-radius);
-		background: rgba(15, 31, 51, 0.4);
+		padding: 32px 24px;
+		border-radius: 12px;
+		background: #fff;
+		border: 1px solid #e2e8f0;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 	}
 
 	.stat-number {
-		font-size: 36px;
+		font-size: 32px;
 		font-weight: 900;
+		color: var(--onee-blue);
+		margin-bottom: 4px;
 	}
 
 	.stat-label {
-		font-size: 14px;
-		color: var(--w-color-primary-20);
-		margin-top: 4px;
+		font-size: 13px;
+		font-weight: 700;
+		color: #64748b;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
 	}
 
-	/* Cards Grid */
 	.cards-grid {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
-		gap: 24px;
+		gap: 32px;
 	}
 
 	.sim-card {
-		padding: 28px;
+		padding: 32px;
 		text-decoration: none;
 		color: inherit;
 		display: flex;
 		flex-direction: column;
-		position: relative;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		border: 1px solid #e2e8f0;
+		background: #fff;
+	}
+
+	.sim-card:hover {
+		transform: translateY(-8px);
+		border-color: var(--onee-blue);
+		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
 	}
 
 	.sim-card-icon {
-		width: 56px;
-		height: 56px;
-		border-radius: 14px;
+		width: 52px;
+		height: 52px;
+		border-radius: 10px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		margin-bottom: 20px;
+		margin-bottom: 24px;
 	}
 
 	.sim-card-title {
-		font-size: 20px;
-		font-weight: 700;
-		margin-bottom: 10px;
+		font-size: 18px;
+		font-weight: 800;
+		margin-bottom: 12px;
+		color: var(--onee-blue);
 	}
 
 	.sim-card-desc {
 		font-size: 14px;
 		color: var(--w-color-primary-20);
 		line-height: 1.6;
-		margin-bottom: 16px;
+		margin-bottom: 20px;
 		flex: 1;
 	}
 
 	.sim-card-tags {
 		display: flex;
-		gap: 6px;
+		gap: 8px;
 		flex-wrap: wrap;
-		margin-bottom: 16px;
+		margin-bottom: 24px;
 	}
 
 	.tag {
-		padding: 4px 10px;
-		background: rgba(10, 189, 227, 0.1);
-		border: 1px solid rgba(10, 189, 227, 0.2);
-		border-radius: 100px;
+		padding: 4px 12px;
+		background: #f1f5f9;
+		border-radius: 4px;
 		font-size: 11px;
-		font-weight: 600;
-		color: var(--onee-cyan);
+		font-weight: 700;
+		color: #475569;
+		text-transform: uppercase;
 	}
 
 	.sim-card-arrow {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 36px;
-		height: 36px;
-		border-radius: 50%;
-		background: rgba(10, 189, 227, 0.1);
-		color: var(--onee-cyan);
+		width: 32px;
+		height: 32px;
+		border-radius: 6px;
+		background: #f1f5f9;
+		color: var(--onee-blue);
 		transition: all 0.3s;
 	}
 
 	.sim-card:hover .sim-card-arrow {
-		background: var(--onee-cyan);
+		background: var(--onee-blue);
 		color: #fff;
-		transform: translateX(4px);
 	}
 
-	/* Steps */
 	.steps-grid {
 		display: flex;
 		align-items: flex-start;
 		justify-content: center;
-		gap: 0;
+		margin-top: 40px;
 	}
 
 	.step-item {
 		text-align: center;
-		padding: 30px;
-		max-width: 280px;
+		padding: 0 40px;
+		max-width: 300px;
+	}
+
+	.step-number {
+		width: 44px;
+		height: 44px;
+		background: var(--onee-blue);
+		color: #fff;
+		border-radius: 8px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 16px;
+		font-weight: 800;
+		margin: 0 auto 24px;
 	}
 
 	.step-item h3 {
-		font-size: 18px;
-		font-weight: 700;
-		margin-bottom: 8px;
+		font-size: 16px;
+		font-weight: 800;
+		margin-bottom: 12px;
+		color: var(--onee-blue);
 	}
 
 	.step-item p {
@@ -609,33 +609,12 @@ import Layout from "../layouts/Layout.astro";
 		line-height: 1.6;
 	}
 
-	.step-number {
-		width: 48px;
-		height: 48px;
-		border-radius: 50%;
-		background: linear-gradient(
-			135deg,
-			var(--onee-cyan),
-			var(--onee-blue-light)
-		);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 20px;
-		font-weight: 800;
-		margin: 0 auto 16px;
-	}
-
 	.step-connector {
-		width: 60px;
-		height: 2px;
-		background: var(--onee-card-border);
-		margin-top: 52px;
-	}
-
-	.section-header {
-		text-align: center;
-		margin-bottom: 48px;
+		flex: 1;
+		max-width: 100px;
+		height: 1px;
+		background: #e2e8f0;
+		margin-top: 22px;
 	}
 
 	@media (max-width: 1024px) {
@@ -644,7 +623,7 @@ import Layout from "../layouts/Layout.astro";
 			text-align: center;
 		}
 		.hero-subtitle {
-			margin: 0 auto 32px;
+			margin: 0 auto 40px;
 		}
 		.hero-actions {
 			justify-content: center;
@@ -653,7 +632,15 @@ import Layout from "../layouts/Layout.astro";
 			justify-content: center;
 		}
 		.hero-title {
-			font-size: 38px;
+			font-size: 36px;
+		}
+		.steps-grid {
+			flex-direction: column;
+			align-items: center;
+			gap: 40px;
+		}
+		.step-connector {
+			display: none;
 		}
 	}
 
@@ -663,23 +650,6 @@ import Layout from "../layouts/Layout.astro";
 		}
 		.stats-grid {
 			grid-template-columns: repeat(2, 1fr);
-		}
-		.steps-grid {
-			flex-direction: column;
-			align-items: center;
-		}
-		.step-connector {
-			width: 2px;
-			height: 30px;
-		}
-	}
-
-	@media (max-width: 600px) {
-		.hero-title {
-			font-size: 30px;
-		}
-		.hero-card {
-			width: 100%;
 		}
 	}
 </style>
