@@ -219,7 +219,7 @@ body {
     border-radius: var(--w-md-radius);
     color: var(--w-color-primary);
     font-size: 14px;
-    font-family: 'Inter', sans-serif;
+    font-family: inherit;
     transition: all 0.2s;
     outline: none;
 
@@ -258,7 +258,7 @@ body {
     border-radius: var(--w-md-radius);
     font-size: 14px;
     font-weight: 700;
-    font-family: 'Inter', sans-serif;
+    font-family: inherit;
     cursor: pointer;
     transition: all 0.2s;
     text-decoration: none;
