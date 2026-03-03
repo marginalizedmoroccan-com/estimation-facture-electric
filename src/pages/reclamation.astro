@@ -29,6 +29,37 @@ import Layout from "../layouts/Layout.astro";
                         </h2>
 
                         <div class="form-group">
+                            <label>Prestataire de service</label>
+                            <select id="provider" class="form-input">
+                                <option value="ONEE"
+                                    >ONEE (Branche Électricité)</option
+                                >
+                                <option value="Lydec">Lydec (Casablanca)</option
+                                >
+                                <option value="Redal">Redal (Rabat-Salé)</option
+                                >
+                                <option value="Amendis"
+                                    >Amendis (Tanger-Tétouan)</option
+                                >
+                                <option value="other">Autre...</option>
+                            </select>
+                        </div>
+
+                        <div
+                            class="form-group"
+                            id="customProviderGroup"
+                            style="display: none;"
+                        >
+                            <label>Nom du prestataire personnalisé</label>
+                            <input
+                                type="text"
+                                id="customProvider"
+                                class="form-input"
+                                placeholder="Nom de la régie ou société"
+                            />
+                        </div>
+
+                        <div class="form-group">
                             <label>Nom complet / Raison Sociale</label>
                             <input
                                 type="text"
@@ -137,6 +168,24 @@ import Layout from "../layouts/Layout.astro";
     const estimation = history.find((h: any) => h.id.toString() === estId);
 
     function updatePreview() {
+        const providerSelect = document.getElementById(
+            "provider"
+        ) as unknown as HTMLSelectElement;
+        const customProviderInput = document.getElementById(
+            "customProvider"
+        ) as HTMLInputElement;
+        const customProviderGroup = document.getElementById(
+            "customProviderGroup"
+        )!;
+
+        let providerName = providerSelect.value;
+        if (providerName === "other") {
+            customProviderGroup.style.display = "block";
+            providerName = customProviderInput.value || "[Nom du prestataire]";
+        } else {
+            customProviderGroup.style.display = "none";
+        }
+
         const name =
             (document.getElementById("userName") as HTMLInputElement).value ||
             "[Votre Nom]";
@@ -165,48 +214,57 @@ import Layout from "../layouts/Layout.astro";
 
         const preview = document.getElementById("documentPreview")!;
         preview.innerHTML = `
-            <div style="display: flex; justify-content: space-between; margin-bottom: 40px;">
-                <div>
-                    <strong>${name}</strong><br>
-                    Police N° : ${contract}
+            <div style="display: flex; justify-content: space-between; margin-bottom: 50px;">
+                <div style="font-size: 13px;">
+                    <strong>EXPÉDITEUR :</strong><br>
+                    ${name}<br>
+                    Contrat N° : ${contract}
                 </div>
-                <div style="text-align: right;">
+                <div style="text-align: right; font-size: 13px;">
                     Fait le : ${date}
                 </div>
             </div>
 
-            <div style="margin-bottom: 30px;">
-                <strong>À l'attention de Monsieur le Directeur Régional</strong><br>
-                Services d'Électricité (ONEE - Branche Électricité)<br>
-                Maroc
+            <div style="margin-bottom: 40px; margin-left: auto; width: fit-content; max-width: 60%; text-align: left;">
+                <strong>À l'attention de Monsieur le Directeur</strong><br>
+                Département Clientèle - ${providerName}<br>
+                Royaume du Maroc
             </div>
 
-            <div style="margin-bottom: 20px;">
-                <strong>Objet : ${reasonText}</strong>
+            <div style="margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                <strong>OBJET : ${reasonText.toUpperCase()}</strong>
             </div>
 
             <p>Monsieur le Directeur,</p>
 
-            <p>Par la présente, je tiens à porter à votre connaissance une réclamation concernant ma consommation d'électricité. Après avoir effectué une simulation basée sur les tarifs officiels en vigueur (Arrêtés ministériels fixant les tarifs de vente de l'énergie électrique), j'ai constaté une divergence que je souhaiterais clarifier.</p>
+            <p style="text-indent: 30px; margin-bottom: 15px;">Par la présente, je tiens à porter à votre connaissance une réclamation concernant ma consommation d'électricité. Après avoir effectué une simulation basée sur les tarifs officiels en vigueur (Arrêtés ministériels fixant les tarifs de vente de l'énergie électrique), j'ai constaté une divergence que je souhaiterais clarifier.</p>
 
             ${estDetails}
 
-            <p>${
+            <p style="text-indent: 30px; margin-bottom: 15px;">${
                 extra ||
                 "Je vous prie de bien vouloir procéder à une vérification de mon compteur ou de m'apporter des précisions sur le mode de calcul appliqué à ma dernière facture."
             }</p>
 
-            <p>Cette demande s'inscrit dans le cadre de mes droits garantis par la <strong>Loi n° 55.19</strong> relative à la simplification des procédures administratives et la <strong>Loi n° 31.13</strong> relative au droit d'accès à l'information.</p>
+            <p style="margin-bottom: 20px;">Cette demande s'inscrit dans le cadre de mes droits garantis par la <strong>Loi n° 55.19</strong> relative à la simplification des procédures administratives et la <strong>Loi n° 31.13</strong> relative au droit d'accès à l'information.</p>
 
-            <p>Dans l'attente d'une réponse de votre part sous les délais réglementaires, je vous prie d'agréer, Monsieur le Directeur, l'expression de mes salutations distinguées.</p>
+            <p style="margin-bottom: 40px;">Dans l'attente d'une réponse de votre part sous les délais réglementaires, je vous prie d'agréer, Monsieur le Directeur, l'expression de mes salutations distinguées.</p>
 
-            <div style="margin-top: 50px; text-align: right;">
-                <p>Signature : _________________</p>
+            <div style="margin-top: 50px; text-align: right; padding-right: 50px;">
+                <p><strong>Signature :</strong></p>
+                <div style="margin-top: 40px; border-top: 1px dashed #ccc; width: 150px; margin-left: auto;"></div>
             </div>
         `;
     }
 
-    ["userName", "contractId", "reason", "extraDetails"].forEach((id) => {
+    [
+        "provider",
+        "customProvider",
+        "userName",
+        "contractId",
+        "reason",
+        "extraDetails",
+    ].forEach((id) => {
         document.getElementById(id)?.addEventListener("input", updatePreview);
     });
 
@@ -216,23 +274,57 @@ import Layout from "../layouts/Layout.astro";
 
 <style>
     @media print {
-        body * {
-            visibility: hidden;
+        @page {
+            margin: 20mm;
+            size: A4;
         }
-        #documentPreview,
-        #documentPreview * {
-            visibility: visible;
+        body {
+            background: #fff !important;
+            color: #000 !important;
         }
-        #documentPreview {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100% !important;
-            box-shadow: none !important;
-            padding: 0 !important;
-        }
+        header,
+        footer,
+        .section-header,
+        .bill-card:not(:has(#documentPreview)),
         .no-print {
             display: none !important;
+        }
+        .container {
+            max-width: 100% !important;
+            width: 100% !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        section {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        #documentPreview {
+            box-shadow: none !important;
+            border: none !important;
+            padding: 0 !important;
+            min-height: auto !important;
+            width: 100% !important;
+            visibility: visible !important;
+            background: #fff !important;
+            color: #000 !important;
+            position: relative !important;
+            font-size: 11pt !important;
+            display: block !important;
+        }
+        .bill-card:has(#documentPreview) {
+            background: transparent !important;
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            box-shadow: none !important;
+            visibility: visible !important;
+            display: block !important;
+            position: relative !important;
+        }
+        * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
         }
     }
 </style>
