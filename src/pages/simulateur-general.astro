@@ -936,27 +936,43 @@ import Layout from "../layouts/Layout.astro";
             btn.disabled = true;
             btn.textContent = "Génération...";
 
-        // Use CDN version
-        const script = document.createElement('script');
-        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-        document.head.appendChild(script);
+            // Use CDN version
+            const script = document.createElement("script");
+            script.src =
+                "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
+            document.head.appendChild(script);
 
-        script.onload = () => {
-            // @ts-ignore
-            const html2pdf = window.html2pdf;
-            
-            const opt = {
-                margin: 10,
-                filename: `expertise-ht-tht-${new Date().getTime()}.pdf`,
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true, logging: false },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            script.onload = () => {
+                // @ts-ignore
+                const html2pdf = window.html2pdf;
+
+                const opt = {
+                    margin: 10,
+                    filename: `expertise-ht-tht-${new Date().getTime()}.pdf`,
+                    image: { type: "jpeg", quality: 1 },
+                    html2canvas: {
+                        scale: 2,
+                        useCORS: true,
+                        letterRendering: true,
+                        windowWidth: 850,
+                        logging: false,
+                    },
+                    pagebreak: { mode: "avoid-all" },
+                    jsPDF: {
+                        unit: "mm",
+                        format: "a4",
+                        orientation: "portrait",
+                    },
+                };
+
+                html2pdf()
+                    .set(opt)
+                    .from(element)
+                    .save()
+                    .finally(() => {
+                        btn.disabled = false;
+                        btn.textContent = originalText;
+                    });
             };
-
-            html2pdf().set(opt).from(element).save().finally(() => {
-                btn.disabled = false;
-                btn.textContent = originalText;
-            });
-        };
-    });
+        });
 </script>
