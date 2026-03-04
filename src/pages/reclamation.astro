@@ -18,18 +18,20 @@ import Layout from "../layouts/Layout.astro";
                 </p>
             </div>
 
-            <div class="grid grid-2" style="gap: 40px; align-items: start;">
-                <!-- Form -->
-                <div class="bill-card" style="margin:0">
-                    <div style="padding: 40px;">
-                        <h2
-                            style="font-size: 14px; font-weight: 800; margin-bottom: 32px; color: var(--onee-blue); text-transform: uppercase; letter-spacing: 1.5px; opacity: 0.8;"
+            <div class="reclamation-layout">
+                <!-- Form Sheet -->
+                <div class="form-panel" id="formPanel">
+                    <div class="form-panel-handle"></div>
+                    <div class="form-panel-header">
+                        <div>
+                            <span class="step-indicator">01.</span> Éditer les Informations
+                        </div>
+                        <button class="close-btn" id="closeFormBtn"
+                            >&times;</button
                         >
-                            <span style="color:var(--onee-blue);opacity:0.5"
-                                >01.</span
-                            > Informations Requises
-                        </h2>
+                    </div>
 
+                    <div class="form-panel-content page-card">
                         <div class="form-group">
                             <label>Prestataire de service</label>
                             <select id="provider" class="form-select">
@@ -165,10 +167,7 @@ import Layout from "../layouts/Layout.astro";
                 </div>
 
                 <!-- Preview Area -->
-                <div
-                    class="animate-fade-in"
-                    style="margin:0; position: sticky; top: 20px;"
-                >
+                <div class="preview-panel animate-fade-in">
                     <div
                         style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding: 0 8px;"
                     >
@@ -191,7 +190,7 @@ import Layout from "../layouts/Layout.astro";
                     <div
                         id="documentPreview"
                         class="bill-card"
-                        style="padding: 60px; min-height: 700px; background: #fff; box-shadow: 0 20px 50px rgba(0,0,0,0.08); border-radius: 4px; font-family: Arial, Helvetica, sans-serif; font-size: 12pt; line-height: 1.5;"
+                        style="color: #0F172A; padding: 60px; min-height: 700px; background: #fff; box-shadow: 0 20px 50px rgba(0,0,0,0.08); border-radius: 4px; font-family: Arial, Helvetica, sans-serif; font-size: 12pt; line-height: 1.5;"
                     >
                         <!-- Content injected here -->
                     </div>
@@ -201,6 +200,111 @@ import Layout from "../layouts/Layout.astro";
     </section>
 </Layout>
 
+<style>
+    .reclamation-layout {
+        display: grid;
+        grid-template-columns: 450px 1fr;
+        gap: 40px;
+        align-items: start;
+    }
+    .form-panel {
+        background: var(--onee-card-bg);
+        border: 1px solid var(--onee-card-border);
+        border-radius: var(--w-md-radius);
+        margin: 0;
+    }
+    .form-panel-handle {
+        display: none;
+    }
+    .form-panel-header {
+        display: none;
+    }
+    .preview-panel {
+        position: sticky;
+        top: 20px;
+    }
+
+    /* Mobile Bottom Sheet */
+    @media (max-width: 1024px) {
+        .reclamation-layout {
+            display: block;
+        }
+        .preview-panel {
+            position: relative;
+            top: 0;
+            padding-bottom: 120px; /* Space for the collapsed sheet */
+        }
+        .form-panel {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            border-radius: 24px 24px 0 0;
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15);
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            transform: translateY(
+                calc(100% - 80px)
+            ); /* show only the handle/header */
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-bottom: none;
+        }
+        @media (prefers-color-scheme: dark) {
+            .form-panel {
+                box-shadow: 0 -10px 50px rgba(0, 0, 0, 0.6);
+            }
+        }
+        .form-panel.open {
+            transform: translateY(0);
+        }
+        .form-panel-handle {
+            display: block;
+            width: 48px;
+            height: 5px;
+            background: var(--w-color-primary-40);
+            border-radius: 999px;
+            margin: 16px auto;
+            cursor: pointer;
+        }
+        .form-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 24px 16px;
+            font-weight: 800;
+            color: var(--onee-blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 13px;
+            cursor: pointer;
+            border-bottom: 1px solid var(--onee-card-border);
+        }
+        .form-panel-content {
+            overflow-y: auto;
+        }
+        .step-indicator {
+            color: var(--onee-blue);
+            opacity: 0.5;
+            margin-right: 8px;
+        }
+        .close-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--w-color-primary-30);
+            cursor: pointer;
+            line-height: 1;
+            padding: 0 8px;
+        }
+        .form-panel.open .close-btn {
+            display: block;
+        }
+    }
+</style>
+
 <script>
     const urlParams = new URLSearchParams(window.location.search);
     const estId = urlParams.get("id");
@@ -209,7 +313,7 @@ import Layout from "../layouts/Layout.astro";
     );
     const estimation = history.find((h: any) => h.id.toString() === estId);
 
-    function updatePreview() {
+    function updatePreviewRec() {
         const providerSelect = document.getElementById(
             "provider"
         ) as unknown as HTMLSelectElement;
@@ -317,6 +421,31 @@ import Layout from "../layouts/Layout.astro";
                 </div>
             </div>
         `;
+        const formPanel = document.getElementById("formPanel");
+        const formHeader = document.querySelector(".form-panel-header");
+        const formHandle = document.querySelector(".form-panel-handle");
+        const closeBtn = document.getElementById("closeFormBtn");
+
+        [formHeader, formHandle].forEach((el) => {
+            el?.addEventListener("click", (e) => {
+                if (window.innerWidth <= 1024 && e.target !== closeBtn) {
+                    formPanel?.classList.toggle("open");
+                }
+            });
+        });
+
+        closeBtn?.addEventListener("click", () => {
+            formPanel?.classList.remove("open");
+        });
+
+        // Toggle open on input focus in mobile
+        document.querySelectorAll(".form-input, .form-select").forEach((el) => {
+            el.addEventListener("focus", () => {
+                if (window.innerWidth <= 1024) {
+                    formPanel?.classList.add("open");
+                }
+            });
+        });
     }
 
     [
@@ -328,63 +457,185 @@ import Layout from "../layouts/Layout.astro";
         "reason",
         "extraDetails",
     ].forEach((id) => {
-        document.getElementById(id)?.addEventListener("input", updatePreview);
+        document
+            .getElementById(id)
+            ?.addEventListener("input", updatePreviewRec);
     });
 
     // Initial
-    updatePreview();
+    updatePreviewRec();
 
     // Export PDF
     document
         .getElementById("exportPDF")
         ?.addEventListener("click", async () => {
-            const element = document.getElementById("documentPreview")!;
             const btn = document.getElementById(
                 "exportPDF"
             ) as HTMLButtonElement;
             const originalText = btn.textContent;
-
             btn.disabled = true;
             btn.textContent = "Génération...";
 
-            // Use CDN version
+            // Load jsPDF from CDN
             const script = document.createElement("script");
             script.src =
-                "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
+                "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
             document.head.appendChild(script);
 
             script.onload = () => {
                 // @ts-ignore
-                const html2pdf = window.html2pdf;
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
 
-                const opt = {
-                    margin: [20, 15, 20, 15],
-                    filename: `reclamation-electricite-${new Date().getTime()}.pdf`,
-                    image: { type: "jpeg", quality: 1 },
-                    html2canvas: {
-                        scale: 2,
-                        useCORS: true,
-                        letterRendering: true,
-                        windowWidth: 800,
-                        logging: false,
-                    },
-                    jsPDF: {
-                        unit: "mm",
-                        format: "a4",
-                        orientation: "portrait",
-                    },
-                };
+                // Get dynamic values
+                const name =
+                    (document.getElementById("userName") as HTMLInputElement)
+                        .value || "NOM ET PRÉNOM";
+                const city =
+                    (document.getElementById("city") as HTMLInputElement)
+                        .value || "Casablanca";
+                const contract =
+                    (document.getElementById("contractId") as HTMLInputElement)
+                        .value || "12345678";
 
-                html2pdf()
-                    .set(opt)
-                    .from(element)
-                    .save()
-                    .finally(() => {
-                        btn.disabled = false;
-                        btn.textContent = originalText;
-                    });
+                const providerSelect = document.getElementById(
+                    "provider"
+                ) as unknown as HTMLSelectElement;
+                let providerName = providerSelect.value;
+                if (providerName === "other") {
+                    providerName =
+                        (
+                            document.getElementById(
+                                "customProvider"
+                            ) as HTMLInputElement
+                        ).value || "LE DIRECTEUR DE L'AGENCE";
+                }
+
+                const reasonSelect = document.getElementById(
+                    "reason"
+                ) as unknown as HTMLSelectElement;
+                const reasonText =
+                    reasonSelect.options[
+                        reasonSelect.selectedIndex
+                    ].text.toUpperCase();
+
+                const extra = (
+                    document.getElementById(
+                        "extraDetails"
+                    ) as HTMLTextAreaElement
+                ).value;
+                const date = new Date().toLocaleDateString("fr-FR");
+
+                // Layout settings
+                let y = 30;
+                const xMargin = 20;
+
+                doc.setFont("helvetica");
+
+                // Header Left (Expéditeur)
+                doc.setFontSize(10);
+                doc.setFont("helvetica", "bold");
+                doc.setTextColor(0, 51, 102);
+                doc.text("EXPÉDITEUR", xMargin, y);
+                y += 6;
+                doc.setTextColor(30, 41, 59);
+                doc.setFontSize(12);
+                doc.text(name, xMargin, y);
+                y += 6;
+                doc.setFont("helvetica", "normal");
+                doc.setFontSize(11);
+                doc.text(`Contrat N° : ${contract}`, xMargin, y);
+                y += 6;
+                doc.text("Secteur : Basse Tension / Tarif Général", xMargin, y);
+
+                // Header Right (Date)
+                doc.setFontSize(11);
+                doc.text(`Fait à ${city}, le ${date}`, 140, y - 12);
+
+                y += 20;
+                doc.setDrawColor(226, 232, 240);
+                doc.line(xMargin, y, 190, y);
+                y += 20;
+
+                // Destinataire
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(10);
+                doc.setTextColor(0, 51, 102);
+                doc.text("DESTINATAIRE", 110, y);
+                y += 6;
+                doc.setTextColor(30, 41, 59);
+                doc.setFontSize(11);
+                doc.text("À Monsieur le Directeur Général", 110, y);
+                y += 6;
+                doc.setFont("helvetica", "normal");
+                doc.text(providerName, 110, y);
+                y += 6;
+                doc.setFontSize(10);
+                doc.setTextColor(100, 116, 139);
+                doc.text("Service Clients & Réclamations", 110, y);
+
+                y += 30;
+
+                // Objet
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(10);
+                doc.setTextColor(100, 116, 139);
+                doc.text("Objet :", xMargin, y);
+                y += 8;
+                doc.setFontSize(12);
+                doc.setTextColor(0, 51, 102);
+                doc.text(
+                    `DEMANDE DE VÉRIFICATION DE FACTURATION — ${reasonText}`,
+                    xMargin,
+                    y
+                );
+
+                y += 25;
+
+                // Body text
+                doc.setFont("helvetica", "normal");
+                doc.setFontSize(11);
+                doc.setTextColor(30, 41, 59);
+
+                let bodyText = `Monsieur le Directeur,\n\nPar la présente, je sollicite votre intervention concernant les modalités de facturation appliquées à mon contrat cité en référence. À la suite d'un audit interne basé sur les grilles tarifaires officielles en vigueur au Royaume du Maroc, une divergence technique a été identifiée.`;
+
+                if (estimation) {
+                    bodyText += `\n\nDonnées de Référence de l'Estimation :\n- Date : ${new Date(
+                        estimation.date
+                    ).toLocaleDateString()}\n- Montant Audit : ${estimation.total.toFixed(
+                        2
+                    )} DH HT`;
+                }
+
+                if (extra) {
+                    bodyText += `\n\n${extra}`;
+                } else {
+                    bodyText += `\n\nLes éléments en ma possession suggèrent une anomalie dans l'application des tranches tarifaires ou des redevances fixes. Je vous demande par conséquent de bien vouloir procéder à une revue exhaustive des index facturés et de me fournir une décomposition détaillée justifiant les montants prélevés.`;
+                }
+
+                bodyText += `\n\nCette démarche s'inscrit dans le cadre de mes droits fondamentaux garantis par la Loi n° 55.19 relative à la simplification des procédures administratives et la Loi n° 31.13 relative au droit d'accès à l'information.\n\nDans l'attente d'une réponse de vos services sous les délais légaux prescrits, je vous prie d'agréer, Monsieur le Directeur, l'expression de ma considération distinguée.`;
+
+                // Split and print text
+                const lines = doc.splitTextToSize(bodyText, 170);
+                doc.text(lines, xMargin, y);
+
+                // Signature area
+                y += lines.length * 6 + 30;
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(11);
+                doc.setTextColor(100, 116, 139);
+                doc.text("Signature du Client", 140, y);
+                y += 15;
+                doc.line(130, y, 180, y);
+
+                // Save
+                doc.save(`reclamation-electricite-${new Date().getTime()}.pdf`);
+
+                btn.disabled = false;
+                btn.textContent = originalText;
             };
         });
+    export {};
 </script>
 
 <style is:global>

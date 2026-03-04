@@ -77,7 +77,7 @@ import Layout from "../layouts/Layout.astro";
                             <div
                                 class="tariff-info"
                                 id="tariffInfo"
-                                style="display:none;padding:16px;margin-bottom:24px;background:#F8FAFC;border-radius:6px;border-left:3px solid var(--onee-blue)"
+                                style="display:none;padding:16px;margin-bottom:24px;background:var(--onee-card-bg);border-radius:6px;border:1px solid var(--onee-card-border);border-left:3px solid var(--onee-blue)"
                             >
                                 <p
                                     id="tariffDesc"
@@ -286,7 +286,7 @@ import Layout from "../layouts/Layout.astro";
                             <!-- Total Amount Highlight -->
                             <div
                                 class="result-total"
-                                style="text-align:center;padding:32px;margin-bottom:40px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:12px"
+                                style="text-align:center;padding:32px;margin-bottom:40px;background:var(--onee-card-bg);border:1px solid var(--onee-card-border);border-radius:12px"
                             >
                                 <p
                                     style="font-size:13px;font-weight:700;color:var(--w-color-primary-30);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px"
@@ -409,10 +409,10 @@ import Layout from "../layouts/Layout.astro";
 
                             <!-- TVA Detail (collapsible) -->
                             <details
-                                style="margin-top:24px;border:1px solid #E2E8F0;border-radius:8px"
+                                style="margin-top:24px;border:1px solid var(--onee-card-border);border-radius:8px"
                             >
                                 <summary
-                                    style="font-size:13px;font-weight:800;cursor:pointer;color:var(--onee-blue);padding:12px 16px;background:#F8FAFC;text-transform:uppercase"
+                                    style="font-size:13px;font-weight:800;cursor:pointer;color:var(--onee-blue);padding:12px 16px;background:var(--onee-card-bg);text-transform:uppercase"
                                 >
                                     Détail de la T.V.A
                                 </summary>
@@ -639,13 +639,13 @@ import Layout from "../layouts/Layout.astro";
             "Tarif préférentiel réservé aux installations de pompage et équipements agricoles.",
     };
 
-    function round2(n: number): number {
+    function round2Bt(n: number): number {
         return Math.round((n + Number.EPSILON) * 100) / 100;
     }
     function floor2(n: number): number {
         return Math.floor(n * 100) / 100;
     }
-    function fmt(n: number): string {
+    function fmtBt(n: number): string {
         return n.toFixed(2);
     }
 
@@ -680,7 +680,7 @@ import Layout from "../layouts/Layout.astro";
     const daysInput = document.getElementById("days") as HTMLInputElement;
 
     // Step management
-    function goToStep(step: number): void {
+    function goToStepBt(step: number): void {
         document
             .querySelectorAll(".wizard-panel")
             .forEach((p) => p.classList.remove("active"));
@@ -694,12 +694,12 @@ import Layout from "../layouts/Layout.astro";
     }
 
     // Validate step 1
-    function validateStep1(): void {
+    function validateStep1Bt(): void {
         toStep2.disabled = !(selectTarif.value && selectCompteur.value);
     }
 
     selectTarif.addEventListener("change", () => {
-        validateStep1();
+        validateStep1Bt();
         if (selectTarif.value && TARIFF_DESCRIPTIONS[selectTarif.value]) {
             tariffDesc.textContent = TARIFF_DESCRIPTIONS[selectTarif.value];
             tariffInfo.style.display = "block";
@@ -707,7 +707,7 @@ import Layout from "../layouts/Layout.astro";
             tariffInfo.style.display = "none";
         }
     });
-    selectCompteur.addEventListener("change", validateStep1);
+    selectCompteur.addEventListener("change", validateStep1Bt);
 
     // TC toggle
     document
@@ -720,26 +720,26 @@ import Layout from "../layouts/Layout.astro";
         });
 
     // Navigation
-    toStep2.addEventListener("click", () => goToStep(2));
-    backToStep1.addEventListener("click", () => goToStep(1));
-    backToStep2.addEventListener("click", () => goToStep(2));
+    toStep2.addEventListener("click", () => goToStepBt(2));
+    backToStep1.addEventListener("click", () => goToStepBt(1));
+    backToStep2.addEventListener("click", () => goToStepBt(2));
     newCalc.addEventListener("click", () => {
         selectTarif.value = "";
         selectCompteur.value = "";
         consumption.value = "";
         daysInput.value = "30";
         tariffInfo.style.display = "none";
-        validateStep1();
-        goToStep(1);
+        validateStep1Bt();
+        goToStepBt(1);
     });
 
     // Validate step 2
-    function validateStep2(): void {
+    function validateStep2Bt(): void {
         calculateBtn.disabled = !(
             consumption.value && parseInt(consumption.value) >= 0
         );
     }
-    consumption.addEventListener("input", validateStep2);
+    consumption.addEventListener("input", validateStep2Bt);
 
     // Quick buttons
     document
@@ -751,7 +751,7 @@ import Layout from "../layouts/Layout.astro";
                     .querySelectorAll(".quick-btn")
                     .forEach((b) => b.classList.remove("active"));
                 btn.classList.add("active");
-                validateStep2();
+                validateStep2Bt();
             });
         });
 
@@ -778,18 +778,18 @@ import Layout from "../layouts/Layout.astro";
                     tranches.push({
                         ...BT_TRANCHES_LOW[0],
                         quantity: cons,
-                        amount: round2(cons * BT_TRANCHES_LOW[0].unitPrice),
+                        amount: round2Bt(cons * BT_TRANCHES_LOW[0].unitPrice),
                     });
                 } else {
                     tranches.push({
                         ...BT_TRANCHES_LOW[0],
                         quantity: 100,
-                        amount: round2(100 * BT_TRANCHES_LOW[0].unitPrice),
+                        amount: round2Bt(100 * BT_TRANCHES_LOW[0].unitPrice),
                     });
                     tranches.push({
                         ...BT_TRANCHES_LOW[1],
                         quantity: cons - 100,
-                        amount: round2(
+                        amount: round2Bt(
                             (cons - 100) * BT_TRANCHES_LOW[1].unitPrice
                         ),
                     });
@@ -802,7 +802,7 @@ import Layout from "../layouts/Layout.astro";
                 tranches.push({
                     ...t,
                     quantity: cons,
-                    amount: round2(cons * t.unitPrice),
+                    amount: round2Bt(cons * t.unitPrice),
                 });
             }
         } else {
@@ -813,18 +813,18 @@ import Layout from "../layouts/Layout.astro";
                     tranches.push({
                         ...BT_TRANCHES_LOW[0],
                         quantity: Math.round(cons),
-                        amount: round2(cons * BT_TRANCHES_LOW[0].unitPrice),
+                        amount: round2Bt(cons * BT_TRANCHES_LOW[0].unitPrice),
                     });
                 } else {
                     tranches.push({
                         ...BT_TRANCHES_LOW[0],
                         quantity: tr1,
-                        amount: round2(tr1 * BT_TRANCHES_LOW[0].unitPrice),
+                        amount: round2Bt(tr1 * BT_TRANCHES_LOW[0].unitPrice),
                     });
                     tranches.push({
                         ...BT_TRANCHES_LOW[1],
                         quantity: Math.round(cons - tr1),
-                        amount: round2(
+                        amount: round2Bt(
                             (cons - tr1) * BT_TRANCHES_LOW[1].unitPrice
                         ),
                     });
@@ -841,24 +841,24 @@ import Layout from "../layouts/Layout.astro";
                 tranches.push({
                     ...t,
                     quantity: cons,
-                    amount: round2(cons * t.unitPrice),
+                    amount: round2Bt(cons * t.unitPrice),
                 });
             }
         }
 
-        const rc = round2(tranches.reduce((s: number, t) => s + t.amount, 0));
+        const rc = round2Bt(tranches.reduce((s: number, t) => s + t.amount, 0));
         const rf = fees.rf;
-        const totalHT = round2(rc + rf);
+        const totalHT = round2Bt(rc + rf);
 
         // TPPA
         let seuilExoneration = isNormal ? 200 : Math.ceil((200 * days) / 30);
         let plafondTPPA = isNormal
-            ? round2(100 / 1.2)
-            : round2(((100 / 1.2) * days) / 30);
+            ? round2Bt(100 / 1.2)
+            : round2Bt(((100 / 1.2) * days) / 30);
         let tppa = 0;
         if (cons > seuilExoneration) {
             const ratio = isNormal ? 1 : days / 30;
-            tppa = round2(
+            tppa = round2Bt(
                 100 * ratio * 0.08333 +
                     100 * ratio * 0.125 +
                     (cons - seuilExoneration) * 0.18667
@@ -871,15 +871,15 @@ import Layout from "../layouts/Layout.astro";
         const tvaTPPA = floor2(tppa * 0.2);
         const tvaEntretien = floor2(fees.entretien * 0.2);
         const tvaLocation = floor2(fees.location * 0.15);
-        const tva = round2(tvaRC + tvaTPPA + tvaEntretien + tvaLocation);
+        const tva = round2Bt(tvaRC + tvaTPPA + tvaEntretien + tvaLocation);
 
         // Timbre fiscal
-        const timbre = round2((totalHT + tppa + tva) * 0.0025);
+        const timbre = round2Bt((totalHT + tppa + tva) * 0.0025);
 
         // Totals
-        const totalTaxes = round2(tppa + tva + timbre);
-        const totalEspece = round2(totalHT + totalTaxes);
-        const totalCheque = round2(totalEspece - timbre);
+        const totalTaxes = round2Bt(tppa + tva + timbre);
+        const totalEspece = round2Bt(totalHT + totalTaxes);
+        const totalCheque = round2Bt(totalEspece - timbre);
 
         // Render results
         const trancheRows = document.getElementById("trancheRows")!;
@@ -890,33 +890,33 @@ import Layout from "../layouts/Layout.astro";
                 <td>${t.nameFr}</td>
                 <td class="amount">${t.quantity}</td>
                 <td class="amount">${t.unitPrice.toFixed(5)}</td>
-                <td class="amount">${fmt(t.amount)}</td>
+                <td class="amount">${fmtBt(t.amount)}</td>
             </tr>
         `
             )
             .join("");
 
-        document.getElementById("rcAmount")!.textContent = fmt(rc);
-        document.getElementById("rfAmount")!.textContent = fmt(rf);
-        document.getElementById("totalHTAmount")!.textContent = fmt(totalHT);
-        document.getElementById("tppaAmount")!.textContent = fmt(tppa);
-        document.getElementById("tvaAmount")!.textContent = fmt(tva);
-        document.getElementById("timbreAmount")!.textContent = fmt(timbre);
+        document.getElementById("rcAmount")!.textContent = fmtBt(rc);
+        document.getElementById("rfAmount")!.textContent = fmtBt(rf);
+        document.getElementById("totalHTAmount")!.textContent = fmtBt(totalHT);
+        document.getElementById("tppaAmount")!.textContent = fmtBt(tppa);
+        document.getElementById("tvaAmount")!.textContent = fmtBt(tva);
+        document.getElementById("timbreAmount")!.textContent = fmtBt(timbre);
         document.getElementById("totalTaxesAmount")!.textContent =
-            fmt(totalTaxes);
+            fmtBt(totalTaxes);
         document.getElementById("totalTTCAmount")!.textContent =
-            fmt(totalEspece);
-        document.getElementById("totalAmount")!.textContent = fmt(totalEspece);
-        document.getElementById("totalEspece")!.textContent = fmt(totalEspece);
-        document.getElementById("totalCheque")!.textContent = fmt(totalCheque);
+            fmtBt(totalEspece);
+        document.getElementById("totalAmount")!.textContent = fmtBt(totalEspece);
+        document.getElementById("totalEspece")!.textContent = fmtBt(totalEspece);
+        document.getElementById("totalCheque")!.textContent = fmtBt(totalCheque);
 
         // TVA details
-        document.getElementById("tvaRCDetail")!.textContent = fmt(tvaRC);
-        document.getElementById("tvaTPPADetail")!.textContent = fmt(tvaTPPA);
+        document.getElementById("tvaRCDetail")!.textContent = fmtBt(tvaRC);
+        document.getElementById("tvaTPPADetail")!.textContent = fmtBt(tvaTPPA);
         document.getElementById("tvaEntretienDetail")!.textContent =
-            fmt(tvaEntretien);
+            fmtBt(tvaEntretien);
         document.getElementById("tvaLocationDetail")!.textContent =
-            fmt(tvaLocation);
+            fmtBt(tvaLocation);
 
         // Meta
         const tarifLabel = selectTarif.options[selectTarif.selectedIndex].text;
@@ -958,7 +958,7 @@ import Layout from "../layouts/Layout.astro";
             saveBtn.style.opacity = "0.5";
         };
 
-        goToStep(3);
+        goToStepBt(3);
     });
     // Export PDF
     document
@@ -983,33 +983,153 @@ import Layout from "../layouts/Layout.astro";
                 // @ts-ignore
                 const html2pdf = window.html2pdf;
 
+                // Extract data
+                const rcAmount = document.getElementById("rcAmount")!.textContent;
+                const rfAmount = document.getElementById("rfAmount")!.textContent;
+                const htAmount = document.getElementById("totalHTAmount")!.textContent;
+                const tppaAmount = document.getElementById("tppaAmount")!.textContent;
+                const tvaAmount = document.getElementById("tvaAmount")!.textContent;
+                const timbreAmount = document.getElementById("timbreAmount")!.textContent;
+                const totalTtc = document.getElementById("totalTTCAmount")!.textContent;
+                const metaStr = document.getElementById("resultMeta")!.textContent;
+                const trancheRowsHtml = document.getElementById("trancheRows")!.innerHTML;
+
+                // Create a temporary container
+                const container = document.createElement("div");
+                container.style.position = "fixed";
+                container.style.left = "0";
+                container.style.top = "0";
+                container.style.width = "210mm";
+                container.style.zIndex = "-9999"; // Push behind everything
+                container.style.background = "white";
+                container.style.visibility = "visible"; // Ensure it's not hidden
+                
+                container.innerHTML = `
+                <div style="padding: 15mm; font-family: Arial, sans-serif; color: #333; line-height: 1.4; background: white;">
+                    <!-- EN-TETE / HEADER -->
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; border-bottom: 2px solid #003366; padding-bottom: 10px;">
+                        <div style="width: 65%;">
+                            <h1 style="margin: 0; color: #003366; font-size: 22px; font-weight: bold;">OFFICE NATIONAL DE L'ÉLECTRICITÉ</h1>
+                            <p style="margin: 2px 0; font-size: 14px; font-weight: bold;">Branche Électricité</p>
+                            <p style="margin: 10px 0 0; font-size: 10px; color: #666;">Document d'estimation - Simulation indépendante non contractuelle</p>
+                        </div>
+                        <div style="width: 30%; text-align: right;">
+                            <div style="background: #f1f5f9; padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                                <h2 style="margin: 0; font-size: 12px; color: #003366; text-transform: uppercase;">Montant Estimé</h2>
+                                <p style="margin: 5px 0 0; font-size: 20px; font-weight: 900; color: #d32f2f;">${totalTtc} DH</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- INFOS CLIENT / CONTRACT -->
+                    <div style="display: flex; gap: 20px; margin-bottom: 30px;">
+                        <div style="flex: 1.5; border: 1px solid #cbd5e1; padding: 12px; border-radius: 4px;">
+                            <div style="font-size: 9px; font-weight: bold; color: #64748b; margin-bottom: 5px; text-transform: uppercase;">Détails de l'Installation</div>
+                            <div style="font-size: 12px; color: #1e293b; font-weight: bold;">${metaStr}</div>
+                        </div>
+                        <div style="flex: 1; border: 1px solid #cbd5e1; padding: 12px; border-radius: 4px;">
+                            <div style="font-size: 9px; font-weight: bold; color: #64748b; margin-bottom: 5px; text-transform: uppercase;">Période de Simulation</div>
+                            <div style="font-size: 12px; color: #1e293b;">Date: ${new Date().toLocaleDateString('fr-FR')}</div>
+                            <div style="font-size: 12px; color: #1e293b;">Durée: 30 Jours</div>
+                        </div>
+                    </div>
+
+                    <!-- TABLEAU DETAIL -->
+                    <div style="margin-bottom: 30px;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 11px;">
+                            <thead>
+                                <tr style="background: #003366; color: white;">
+                                    <th style="padding: 10px; text-align: left; border: 1px solid #003366;">RUBRIQUES / TRANCHES</th>
+                                    <th style="padding: 10px; text-align: right; border: 1px solid #003366;">QUANTITÉ (kWh)</th>
+                                    <th style="padding: 10px; text-align: right; border: 1px solid #003366;">P.U (DH)</th>
+                                    <th style="padding: 10px; text-align: right; border: 1px solid #003366;">MONTANT H.T</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${trancheRowsHtml.replace(/<tr/g, '<tr style="border-bottom: 1px solid #eee;"').replace(/<td/g, '<td style="padding: 8px 10px;"')}
+                                <tr style="background: #f8fafc; font-weight: bold;">
+                                    <td colspan="3" style="padding: 10px; text-align: right; border: 1px solid #eee;">TOTAL CONSOMMATION HT</td>
+                                    <td style="padding: 10px; text-align: right; border: 1px solid #eee;">${rcAmount}</td>
+                                </tr>
+                                <tr style="background: #f8fafc;">
+                                    <td colspan="3" style="padding: 10px; text-align: right; border: 1px solid #eee;">REDEVANCES FIXES HT</td>
+                                    <td style="padding: 10px; text-align: right; border: 1px solid #eee;">${rfAmount}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- SYNTHESE & TAXES -->
+                    <div style="display: flex; justify-content: flex-end;">
+                        <div style="width: 60%;">
+                            <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+                                <tr>
+                                    <td style="padding: 6px; color: #475569;">Sous-Total Hors Taxes</td>
+                                    <td style="padding: 6px; text-align: right; font-weight: bold;">${htAmount} DH</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 6px; color: #475569;">Taxe TPPA</td>
+                                    <td style="padding: 6px; text-align: right;">${tppaAmount} DH</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 6px; color: #475569;">Taxe Valeur Ajoutée (TVA)</td>
+                                    <td style="padding: 6px; text-align: right;">${tvaAmount} DH</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #eee;">
+                                    <td style="padding: 6px; color: #475569;">Droit de Timbre</td>
+                                    <td style="padding: 6px; text-align: right;">${timbreAmount} DH</td>
+                                </tr>
+                                <tr style="background: #003366; color: white;">
+                                    <td style="padding: 12px; font-weight: bold; font-size: 15px;">TOTAL NET À PAYER (TTC)</td>
+                                    <td style="padding: 12px; text-align: right; font-weight: 900; font-size: 18px;">${totalTtc} DH</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- FOOTER INFO -->
+                    <div style="margin-top: 60px; border-top: 1px dashed #cbd5e1; padding-top: 15px; font-size: 9px; color: #64748b; text-align: center;">
+                        <p>Document d'estimation généré par Simulation Électrique Maroc - ${new Date().toLocaleDateString('fr-FR')}</p>
+                        <p>Note : Ce document n'est pas une facture d'électricité officielle. Il est fourni à titre indicatif pour aider à la compréhension de la structure tarifaire.</p>
+                    </div>
+                </div>
+                `;
+
+                document.body.appendChild(container);
+
                 const opt = {
-                    margin: 10,
+                    margin: 0,
                     filename: `estimation-facture-bt-${new Date().getTime()}.pdf`,
-                    image: { type: "jpeg", quality: 1 },
+                    image: { type: "jpeg", quality: 0.98 },
                     html2canvas: {
                         scale: 2,
                         useCORS: true,
-                        letterRendering: true,
-                        windowWidth: 850,
-                        logging: false,
+                        backgroundColor: '#ffffff',
+                        logging: false
                     },
-                    pagebreak: { mode: "avoid-all" },
                     jsPDF: {
                         unit: "mm",
                         format: "a4",
-                        orientation: "portrait",
+                        orientation: "portrait"
                     },
                 };
 
-                html2pdf()
-                    .set(opt)
-                    .from(element)
-                    .save()
-                    .finally(() => {
-                        btn.disabled = false;
-                        btn.textContent = originalText;
-                    });
+                // Use a proper delay to ensure the DOM has rendered the container
+                setTimeout(() => {
+                    html2pdf()
+                        .set(opt)
+                        .from(container)
+                        .save()
+                        .then(() => {
+                            document.body.removeChild(container);
+                        })
+                        .finally(() => {
+                            btn.disabled = false;
+                            btn.textContent = originalText;
+                        });
+                }, 1000); // 1 second delay for rendering safety
             };
-        });
+            });
+
+    export {};
 </script>
