@@ -149,6 +149,27 @@ import Layout from "../layouts/Layout.astro";
                                 style="height: 120px; resize: none;"
                                 placeholder="Décrivez les faits avec précision..."
                             ></textarea>
+                            <div
+                                class="no-print"
+                                style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap"
+                            >
+                                <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    id="saveEmailTemplate"
+                                    style="padding: 8px 12px; font-size: 12px;"
+                                >
+                                    Sauvegarder modèle email
+                                </button>
+                                <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    id="loadEmailTemplate"
+                                    style="padding: 8px 12px; font-size: 12px;"
+                                >
+                                    Charger modèle email
+                                </button>
+                            </div>
                         </div>
 
                         <div
@@ -306,6 +327,8 @@ import Layout from "../layouts/Layout.astro";
 </style>
 
 <script>
+    const RECLAMATION_EMAIL_TEMPLATE_KEY = "reclamation_email_template";
+
     const urlParams = new URLSearchParams(window.location.search);
     const estId = urlParams.get("id");
     const history = JSON.parse(
@@ -465,6 +488,43 @@ import Layout from "../layouts/Layout.astro";
     // Initial
     updatePreviewRec();
 
+    const extraDetailsInput = document.getElementById(
+        "extraDetails"
+    ) as HTMLTextAreaElement;
+    const saveTemplateBtn = document.getElementById(
+        "saveEmailTemplate"
+    ) as HTMLButtonElement;
+    const loadTemplateBtn = document.getElementById(
+        "loadEmailTemplate"
+    ) as HTMLButtonElement;
+
+    saveTemplateBtn?.addEventListener("click", () => {
+        const template = extraDetailsInput?.value?.trim() || "";
+        if (!template) {
+            alert("Ajoutez d'abord un contenu à sauvegarder comme modèle.");
+            return;
+        }
+        localStorage.setItem(RECLAMATION_EMAIL_TEMPLATE_KEY, template);
+        saveTemplateBtn.textContent = "Modèle sauvegardé";
+        saveTemplateBtn.disabled = true;
+        setTimeout(() => {
+            saveTemplateBtn.textContent = "Sauvegarder modèle email";
+            saveTemplateBtn.disabled = false;
+        }, 1500);
+    });
+
+    loadTemplateBtn?.addEventListener("click", () => {
+        const savedTemplate = localStorage.getItem(
+            RECLAMATION_EMAIL_TEMPLATE_KEY
+        );
+        if (!savedTemplate) {
+            alert("Aucun modèle email sauvegardé.");
+            return;
+        }
+        extraDetailsInput.value = savedTemplate;
+        extraDetailsInput.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+
     // Export PDF
     document
         .getElementById("exportPDF")
@@ -476,15 +536,51 @@ import Layout from "../layouts/Layout.astro";
             btn.disabled = true;
             btn.textContent = "Génération...";
 
-            // Load jsPDF from CDN
-            const script = document.createElement("script");
-            script.src =
-                "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
-            document.head.appendChild(script);
+            try {
+                const loadJsPdf = async () => {
+                    // @ts-ignore
+                    if (window.jspdf?.jsPDF) {
+                        // @ts-ignore
+                        return window.jspdf.jsPDF;
+                    }
 
-            script.onload = () => {
-                // @ts-ignore
-                const { jsPDF } = window.jspdf;
+                    await new Promise<void>((resolve, reject) => {
+                        const existing = document.querySelector(
+                            'script[data-jspdf="1"]'
+                        ) as HTMLScriptElement | null;
+
+                        if (existing) {
+                            existing.addEventListener("load", () => resolve(), {
+                                once: true,
+                            });
+                            existing.addEventListener(
+                                "error",
+                                () => reject(new Error("Chargement jsPDF impossible")),
+                                { once: true }
+                            );
+                            return;
+                        }
+
+                        const script = document.createElement("script");
+                        script.src =
+                            "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
+                        script.dataset.jspdf = "1";
+                        script.onload = () => resolve();
+                        script.onerror = () =>
+                            reject(new Error("Chargement jsPDF impossible"));
+                        document.head.appendChild(script);
+                    });
+
+                    // @ts-ignore
+                    if (!window.jspdf?.jsPDF) {
+                        throw new Error("jsPDF indisponible");
+                    }
+
+                    // @ts-ignore
+                    return window.jspdf.jsPDF;
+                };
+
+                const jsPDF = await loadJsPdf();
                 const doc = new jsPDF();
 
                 // Get dynamic values
@@ -633,7 +729,14 @@ import Layout from "../layouts/Layout.astro";
 
                 btn.disabled = false;
                 btn.textContent = originalText;
-            };
+            } catch (error) {
+                console.error(error);
+                alert(
+                    "La génération du PDF de réclamation a échoué. Veuillez réessayer."
+                );
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }
         });
     export {};
 </script>
